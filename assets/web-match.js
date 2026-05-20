@@ -161,6 +161,19 @@ function formatMatchTime(value) {
   return date.toLocaleString(undefined, { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
 }
 
+function formatEventDay(value) {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return market.startsAt || t('market.pending');
+  return date.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+}
+
+function marketStatusText() {
+  if (market.status === 'Live') return t('market.live');
+  if (market.status === 'active') return t('market.active');
+  if (market.status === 'upcoming') return t('market.notStarted');
+  return market.status || t('market.pending');
+}
+
 function matchExplainText() {
   const lang = window.InfoMarketI18n?.getLang?.() || 'en';
   const home = entity(market.home.name);
@@ -215,7 +228,8 @@ function renderOdds() {
       `;
     }).join('');
 
-  const visibleScores = scoresExpanded ? market.scores : market.scores.slice(0, 4);
+  const compactScoreCount = window.matchMedia && window.matchMedia('(max-width: 760px)').matches && isFootball ? 3 : 4;
+  const visibleScores = scoresExpanded ? market.scores : market.scores.slice(0, compactScoreCount);
   scoreGrid.innerHTML = market.scores.length
     ? visibleScores.map((score) => `
       <div class="score-market">
@@ -428,7 +442,9 @@ function initMarket() {
   setText('awayName', entity(market.away.name));
   setText('homeRecord', market.home.record || '');
   setText('awayRecord', market.away.record || '');
-  setText('scoreLine', market.score ? `${market.score.home} : ${market.score.away}` : '- : -');
+  setHtml('scoreLine', market.score
+    ? `<b>${market.score.home} : ${market.score.away}</b>`
+    : `<em>${formatEventDay(market.rawStartsAt || market.startsAt)}</em><b>${marketStatusText()}</b>`);
   setText('volume', market.volume);
   setText('bestPrice', `${localizedPick(market.detail.bestPick)} @${formatPrice(market.detail.bestPrice)}`);
   setText('timeLeft', market.detail.timeLeft);
