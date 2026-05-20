@@ -340,8 +340,8 @@ function createOrderModal() {
         <div class="row"><span>${t('order.amount')}</span><strong data-order-amount></strong></div>
         <div class="row"><span>${t('order.potentialReturn')}</span><strong data-order-return></strong></div>
         <div class="row"><span>${t('order.tradeRule')}</span><strong data-order-rule></strong></div>
-        <div class="row"><span>Alpha Insurance</span><strong data-order-insurance></strong></div>
-        <div class="row"><span>INF Credits</span><strong data-order-credits></strong></div>
+        <div class="row"><span>${t('order.insurance')}</span><strong data-order-insurance></strong></div>
+        <div class="row"><span>${t('order.infCredits')}</span><strong data-order-credits></strong></div>
         <button class="submit" type="button" data-confirm-order>${t('order.confirmPlace')}</button>
         <div class="order-note" style="margin-top:12px;">${t('order.note')}</div>
       </div>

@@ -21,7 +21,7 @@
     'auth.emailTab': 'Email', 'auth.walletTab': 'Wallet', 'auth.emailAccount': 'Email account', 'auth.walletAccount': 'Wallet account',
     'auth.emailNote': 'Email sign-in creates your internal trading account. Wallets can be linked for USDT deposits and withdrawals.',
     'auth.walletNote': 'Connect a wallet for deposits, withdrawals, and INF token claims.',
-    'auth.devNote': 'Development sign-in is simulated. Production requires email verification, wallet signatures, balance accounting, and withdrawal security checks.',
+    'auth.devNote': 'Preview access uses a test account. Production sign-in will require email verification or wallet signature before deposits, withdrawals, and trading.',
     'auth.gateTitle': 'Sign in required', 'auth.gateBody': 'Please sign in to continue.',
     'auth.adminGateTitle': 'Admin access required', 'auth.adminGateBody': 'Please sign in with an operator account.',
     'auth.gateLogin': 'Log in / Sign up', 'auth.backMarkets': 'Back to markets', 'auth.logout': 'Log out',
@@ -37,6 +37,15 @@
     'market.matchResult': 'Match result',
     'market.correctScore': 'Correct score',
     'market.correctScoreSub': 'First 3 scores shown on mobile; expand for all 25 fixed score lines',
+    'market.all': 'All',
+    'market.result': 'Result',
+    'market.volume': 'Volume',
+    'market.bestPrice': 'Best price',
+    'market.timeLeft': 'Time left',
+    'market.activity': 'Market activity',
+    'market.activitySub': 'Recent trades and quote changes',
+    'market.activityEmpty': 'Trades, quote updates, and settlement events appear here.',
+    'market.liveQuotes': 'Live pool quotes',
     'market.direction': 'Direction',
     'market.outcome': 'Outcome',
     'market.fixedQuotes': 'Fixed pool quotes',
@@ -89,7 +98,7 @@
       'auth.emailAccount': '邮箱账户', 'auth.walletAccount': '钱包账户',
       'auth.emailNote': '邮箱登录会创建你的内部交易账户。钱包可用于 USDT 充值与提现。',
       'auth.walletNote': '连接钱包用于充值、提现和 INF Token 领取。',
-      'auth.devNote': '当前为开发登录。正式环境会加入邮箱验证、钱包签名、余额记账和提现安全校验。',
+      'auth.devNote': '当前为预览测试账户。正式环境会在充值、提现和交易前完成邮箱验证或钱包签名。',
       'auth.gateTitle': '请先登录', 'auth.gateBody': '请登录后继续。', 'auth.adminGateTitle': '需要管理员权限', 'auth.adminGateBody': '请使用运营账户登录。',
       'auth.gateLogin': '登录 / 注册', 'auth.backMarkets': '返回市场', 'auth.logout': '退出登录',
       'auth.termsPrefix': '我已阅读并同意', 'auth.terms': '用户协议', 'auth.privacy': '隐私政策', 'auth.termsAnd': '和', 'auth.termsRequired': '请先同意用户协议和隐私政策。',
@@ -100,6 +109,15 @@
       'market.matchResult': '胜平负',
       'market.correctScore': '比分',
       'market.correctScoreSub': '手机端先展示 3 个比分，展开后查看全部 25 个固定比分赔率',
+      'market.all': '全部',
+      'market.result': '赛果',
+      'market.volume': '交易量',
+      'market.bestPrice': '最佳价',
+      'market.timeLeft': '剩余时间',
+      'market.activity': '市场动态',
+      'market.activitySub': '近期成交与报价变化',
+      'market.activityEmpty': '成交、报价更新和结算事件会显示在这里。',
+      'market.liveQuotes': '实时资金池报价',
       'market.direction': '方向交易', 'market.outcome': '市场结果', 'market.fixedQuotes': '固定赔率报价', 'market.upDownQuotes': '上涨 / 下跌固定赔率',
       'market.empty': '当前暂无可交易市场。', 'market.closes': '截止',
       'common.backDashboard': '返回账户', 'common.openAssets': '打开资产页', 'common.confirm': '确认',
@@ -144,7 +162,7 @@
       'auth.gateTitle': 'ログインが必要です', 'auth.gateBody': '続行するにはログインしてください。', 'auth.adminGateTitle': '管理者権限が必要です', 'auth.adminGateBody': '運用アカウントでログインしてください。',
       'search.home': 'マーケット、チーム、スコア、資産を検索', 'home.notice': '制限対象地域では取引できません。注文前に規約をご確認ください。', 'lang.label': '言語',
       'market.yes': 'はい', 'market.no': 'いいえ', 'market.up': '上昇', 'market.down': '下落', 'market.home': 'ホーム勝利', 'market.draw': '引き分け', 'market.away': 'アウェイ勝利', 'market.live': 'ライブ', 'market.active': '取引可', 'market.notStarted': '開始前', 'market.moreScores': '他のスコア',
-      'market.matchResult': '試合結果', 'market.correctScore': '正確スコア', 'market.correctScoreSub': 'モバイルでは最初に3件を表示し、展開すると25件すべてを確認できます', 'market.direction': '方向取引', 'market.outcome': '市場結果', 'market.fixedQuotes': '固定オッズ', 'market.upDownQuotes': '上昇 / 下落の固定オッズ'
+      'market.matchResult': '試合結果', 'market.correctScore': '正確スコア', 'market.correctScoreSub': 'モバイルでは最初に3件を表示し、展開すると25件すべてを確認できます', 'market.all': 'すべて', 'market.result': '結果', 'market.volume': '取引量', 'market.bestPrice': 'ベスト価格', 'market.timeLeft': '残り時間', 'market.activity': '市場アクティビティ', 'market.activitySub': '直近の約定と価格更新', 'market.activityEmpty': '約定、価格更新、精算イベントがここに表示されます。', 'market.liveQuotes': 'ライブプール価格', 'market.direction': '方向取引', 'market.outcome': '市場結果', 'market.fixedQuotes': '固定オッズ', 'market.upDownQuotes': '上昇 / 下落の固定オッズ'
     },
     ko: { ...en,
       'nav.markets': '마켓', 'nav.dashboard': '계정', 'nav.assets': '자산', 'nav.positions': '포지션', 'nav.rewards': '리워드', 'nav.vault': '금고', 'nav.insurance': '보험', 'nav.project': '프로젝트',
@@ -153,7 +171,7 @@
       'auth.gateTitle': '로그인이 필요합니다', 'auth.gateBody': '계속하려면 로그인하세요.', 'auth.adminGateTitle': '관리자 권한 필요', 'auth.adminGateBody': '운영 계정으로 로그인하세요.',
       'search.home': '마켓, 팀, 스코어 또는 자산 검색', 'home.notice': '제한 지역에서는 거래할 수 없습니다. 주문 전 약관을 확인하세요.', 'lang.label': '언어',
       'market.yes': '예', 'market.no': '아니요', 'market.up': '상승', 'market.down': '하락', 'market.home': '홈 승', 'market.draw': '무승부', 'market.away': '원정 승', 'market.live': '라이브', 'market.active': '거래 가능', 'market.notStarted': '시작 전', 'market.moreScores': '더 많은 스코어',
-      'market.matchResult': '경기 결과', 'market.correctScore': '정확한 스코어', 'market.correctScoreSub': '모바일에서는 3개를 먼저 표시하고, 펼치면 25개 고정 스코어 배당을 모두 볼 수 있습니다', 'market.direction': '방향 거래', 'market.outcome': '마켓 결과', 'market.fixedQuotes': '고정 배당 호가', 'market.upDownQuotes': '상승 / 하락 고정 배당'
+      'market.matchResult': '경기 결과', 'market.correctScore': '정확한 스코어', 'market.correctScoreSub': '모바일에서는 3개를 먼저 표시하고, 펼치면 25개 고정 스코어 배당을 모두 볼 수 있습니다', 'market.all': '전체', 'market.result': '결과', 'market.volume': '거래량', 'market.bestPrice': '최우선 가격', 'market.timeLeft': '남은 시간', 'market.activity': '시장 활동', 'market.activitySub': '최근 체결 및 호가 변경', 'market.activityEmpty': '체결, 호가 업데이트, 정산 이벤트가 여기에 표시됩니다.', 'market.liveQuotes': '실시간 풀 호가', 'market.direction': '방향 거래', 'market.outcome': '마켓 결과', 'market.fixedQuotes': '고정 배당 호가', 'market.upDownQuotes': '상승 / 하락 고정 배당'
     },
     vi: { ...en,
       'nav.markets': 'Thị trường', 'nav.dashboard': 'Tài khoản', 'nav.assets': 'Tài sản', 'nav.positions': 'Vị thế', 'nav.rewards': 'Thưởng', 'nav.vault': 'Kho lợi suất', 'nav.insurance': 'Bảo hiểm', 'nav.project': 'Dự án',
@@ -162,7 +180,7 @@
       'auth.gateTitle': 'Cần đăng nhập', 'auth.gateBody': 'Vui lòng đăng nhập để tiếp tục.', 'auth.adminGateTitle': 'Cần quyền quản trị', 'auth.adminGateBody': 'Vui lòng đăng nhập bằng tài khoản vận hành.',
       'search.home': 'Tìm thị trường, đội bóng, tỷ số hoặc tài sản', 'home.notice': 'Giao dịch không khả dụng tại khu vực bị hạn chế. Vui lòng đọc điều khoản trước khi đặt lệnh.', 'lang.label': 'Ngôn ngữ',
       'market.yes': 'Có', 'market.no': 'Không', 'market.up': 'Tăng', 'market.down': 'Giảm', 'market.home': 'Chủ nhà thắng', 'market.draw': 'Hòa', 'market.away': 'Khách thắng', 'market.live': 'Trực tiếp', 'market.active': 'Có thể giao dịch', 'market.notStarted': 'Chưa bắt đầu', 'market.moreScores': 'Thêm tỷ số',
-      'market.matchResult': 'Kết quả trận đấu', 'market.correctScore': 'Tỷ số chính xác', 'market.correctScoreSub': 'Trên di động hiển thị trước 3 tỷ số; mở rộng để xem đủ 25 tỷ số cố định', 'market.direction': 'Giao dịch hướng', 'market.outcome': 'Kết quả thị trường', 'market.fixedQuotes': 'Tỷ lệ cố định', 'market.upDownQuotes': 'Tỷ lệ cố định Tăng / Giảm'
+      'market.matchResult': 'Kết quả trận đấu', 'market.correctScore': 'Tỷ số chính xác', 'market.correctScoreSub': 'Trên di động hiển thị trước 3 tỷ số; mở rộng để xem đủ 25 tỷ số cố định', 'market.all': 'Tất cả', 'market.result': 'Kết quả', 'market.volume': 'Khối lượng', 'market.bestPrice': 'Giá tốt nhất', 'market.timeLeft': 'Thời gian còn lại', 'market.activity': 'Hoạt động thị trường', 'market.activitySub': 'Giao dịch và cập nhật báo giá gần đây', 'market.activityEmpty': 'Giao dịch, cập nhật báo giá và sự kiện quyết toán sẽ hiển thị tại đây.', 'market.liveQuotes': 'Báo giá pool trực tiếp', 'market.direction': 'Giao dịch hướng', 'market.outcome': 'Kết quả thị trường', 'market.fixedQuotes': 'Tỷ lệ cố định', 'market.upDownQuotes': 'Tỷ lệ cố định Tăng / Giảm'
     },
     id: { ...en,
       'nav.markets': 'Pasar', 'nav.dashboard': 'Akun', 'nav.assets': 'Aset', 'nav.positions': 'Posisi', 'nav.rewards': 'Reward', 'nav.vault': 'Vault', 'nav.insurance': 'Asuransi', 'nav.project': 'Proyek',
@@ -171,7 +189,7 @@
       'auth.gateTitle': 'Masuk diperlukan', 'auth.gateBody': 'Silakan masuk untuk melanjutkan.', 'auth.adminGateTitle': 'Akses admin diperlukan', 'auth.adminGateBody': 'Silakan masuk dengan akun operator.',
       'search.home': 'Cari pasar, tim, skor, atau aset', 'home.notice': 'Trading tidak tersedia di wilayah terbatas. Harap tinjau ketentuan sebelum memasang order.', 'lang.label': 'Bahasa',
       'market.yes': 'Ya', 'market.no': 'Tidak', 'market.up': 'Naik', 'market.down': 'Turun', 'market.home': 'Tuan rumah menang', 'market.draw': 'Seri', 'market.away': 'Tamu menang', 'market.live': 'Live', 'market.active': 'Dapat diperdagangkan', 'market.notStarted': 'Belum mulai', 'market.moreScores': 'Skor lainnya',
-      'market.matchResult': 'Hasil pertandingan', 'market.correctScore': 'Skor tepat', 'market.correctScoreSub': 'Di mobile tampil 3 skor lebih dulu; buka untuk melihat 25 odds skor tetap', 'market.direction': 'Trading arah', 'market.outcome': 'Hasil pasar', 'market.fixedQuotes': 'Odds tetap', 'market.upDownQuotes': 'Odds tetap Naik / Turun'
+      'market.matchResult': 'Hasil pertandingan', 'market.correctScore': 'Skor tepat', 'market.correctScoreSub': 'Di mobile tampil 3 skor lebih dulu; buka untuk melihat 25 odds skor tetap', 'market.all': 'Semua', 'market.result': 'Hasil', 'market.volume': 'Volume', 'market.bestPrice': 'Harga terbaik', 'market.timeLeft': 'Sisa waktu', 'market.activity': 'Aktivitas pasar', 'market.activitySub': 'Trading dan pembaruan quote terbaru', 'market.activityEmpty': 'Trading, pembaruan quote, dan event settlement akan tampil di sini.', 'market.liveQuotes': 'Quote pool live', 'market.direction': 'Trading arah', 'market.outcome': 'Hasil pasar', 'market.fixedQuotes': 'Odds tetap', 'market.upDownQuotes': 'Odds tetap Naik / Turun'
     }
   };
 
@@ -203,6 +221,10 @@
     en: {
       'order.place': 'Place order',
       'order.buy': 'Buy',
+      'order.balance': 'Available balance',
+      'order.oneTap': 'Quick order',
+      'order.insurance': 'Alpha Insurance',
+      'order.infCredits': 'INF Credits',
       'order.placeAnother': 'Place another order',
       'order.regionCheck': 'Region check required',
       'order.latestPosition': 'Latest position',
@@ -227,6 +249,10 @@
     'zh-CN': {
       'order.place': '下单',
       'order.buy': '买入',
+      'order.balance': '可用余额',
+      'order.oneTap': '快捷下单',
+      'order.insurance': 'Alpha 保险',
+      'order.infCredits': 'INF Credits',
       'order.placeAnother': '继续下单',
       'order.regionCheck': '需要完成地区检查',
       'order.latestPosition': '最新持仓',
@@ -251,6 +277,10 @@
     ja: {
       'order.place': '注文する',
       'order.buy': '購入',
+      'order.balance': '利用可能残高',
+      'order.oneTap': 'クイック注文',
+      'order.insurance': 'Alpha 保険',
+      'order.infCredits': 'INF Credits',
       'order.placeAnother': '続けて注文',
       'order.regionCheck': '地域確認が必要です',
       'order.latestPosition': '最新ポジション',
@@ -275,6 +305,10 @@
     ko: {
       'order.place': '주문하기',
       'order.buy': '매수',
+      'order.balance': '사용 가능 잔액',
+      'order.oneTap': '빠른 주문',
+      'order.insurance': 'Alpha 보험',
+      'order.infCredits': 'INF Credits',
       'order.placeAnother': '추가 주문',
       'order.regionCheck': '지역 확인 필요',
       'order.latestPosition': '최근 포지션',
@@ -299,6 +333,10 @@
     vi: {
       'order.place': 'Đặt lệnh',
       'order.buy': 'Mua',
+      'order.balance': 'Số dư khả dụng',
+      'order.oneTap': 'Đặt nhanh',
+      'order.insurance': 'Alpha Insurance',
+      'order.infCredits': 'INF Credits',
       'order.placeAnother': 'Đặt lệnh khác',
       'order.regionCheck': 'Cần kiểm tra khu vực',
       'order.latestPosition': 'Vị thế mới nhất',
@@ -323,6 +361,10 @@
     id: {
       'order.place': 'Pasang order',
       'order.buy': 'Beli',
+      'order.balance': 'Saldo tersedia',
+      'order.oneTap': 'Order cepat',
+      'order.insurance': 'Alpha Insurance',
+      'order.infCredits': 'INF Credits',
       'order.placeAnother': 'Pasang order lagi',
       'order.regionCheck': 'Pemeriksaan wilayah diperlukan',
       'order.latestPosition': 'Posisi terbaru',
@@ -472,6 +514,30 @@
       'Open market': '可交易市场', 'no sell before settlement': '结算前不可卖出', 'Fixed odds score market; no sell before settlement': '固定赔率比分市场，结算前不可卖出',
       'Order reward': '订单奖励', 'INFO Vault boost': 'INFO 金库加成', 'Alpha Insurance boost': 'Alpha 保险加成', 'Referral rebate': '邀请返佣',
       'Daily': '每日', 'Campaign': '活动', 'Done': '已完成'
+      ,
+      'Back to login': '返回登录',
+      'These terms describe account access, prediction trading, internal ledger balances, vault plans, insurance cover, and withdrawal review.': '本协议说明账户访问、预测交易、内部账本余额、金库计划、保险保障和提现审核规则。',
+      '1. Eligibility': '1. 用户资格',
+      'Users must satisfy applicable age, account security, sanctions, and platform safety requirements before trading or using vault and insurance products.': '用户在交易或使用金库、保险产品前，需满足适用年龄、账户安全、制裁限制和平台安全要求。',
+      '2. Prediction Trading': '2. 预测交易',
+      'Markets are event-based prediction contracts. Football match-result and correct-score markets use YES / NO outcomes. Correct-score positions use fixed odds and cannot be sold before settlement.': '市场是基于事件结果的预测合约。足球胜平负和比分市场使用 YES / NO 结果。比分持仓采用固定赔率，结算前不能卖出。',
+      '3. Internal Ledger': '3. 内部账本',
+      "Trading, settlement, rewards, vault accounting, and insurance nodes are maintained in the platform's internal ledger. On-chain operations are limited to supported deposits, withdrawals, and token claims.": '交易、结算、奖励、金库记账和保险节点均记录在平台内部账本中。链上仅处理支持的充值、提现和代币领取。',
+      '4. Risk and Compliance': '4. 风险与合规',
+      'The platform may reject orders, review withdrawals, or suspend accounts to protect user balances, platform solvency, and account security.': '为保护用户余额、平台偿付能力和账户安全，平台可拒绝订单、审核提现或暂停账户。',
+      '5. No Investment Advice': '5. 非投资建议',
+      'Market information, odds, and rewards are provided for trading functionality only and are not financial, legal, tax, or investment advice.': '市场信息、赔率和奖励仅用于交易功能展示，不构成金融、法律、税务或投资建议。',
+      'This policy explains how infomarket.ai handles account data, wallet data, trading records, and internal ledger events.': '本政策说明 infomarket.ai 如何处理账户数据、钱包数据、交易记录和内部账本事件。',
+      '1. Data We Collect': '1. 我们收集的数据',
+      'We may collect account identifiers, email addresses, wallet addresses, device information, trading activity, ledger events, risk signals, and support records.': '我们可能收集账户标识、邮箱地址、钱包地址、设备信息、交易活动、账本事件、风险信号和客服记录。',
+      '2. How Data Is Used': '2. 数据用途',
+      'Data is used to operate accounts, process orders and withdrawals, provide rewards, manage vault and insurance products, prevent fraud, meet compliance obligations, and improve product reliability.': '数据用于运营账户、处理订单和提现、发放奖励、管理金库和保险产品、防范欺诈、满足合规义务并提升产品可靠性。',
+      '3. Wallet and Chain Data': '3. 钱包与链上数据',
+      'Wallet addresses and supported on-chain transactions may be visible on public blockchains. Internal ledger balances remain platform records and are subject to audit and risk review.': '钱包地址和支持的链上交易可能在公共区块链上可见。内部账本余额属于平台记录，并接受审计和风险复核。',
+      '4. Retention and Security': '4. 留存与安全',
+      'The platform uses retention controls, encryption, access controls, audit logging, and incident response procedures to protect user records.': '平台通过留存控制、加密、访问控制、审计日志和事件响应流程保护用户记录。',
+      '5. User Rights': '5. 用户权利',
+      'Users may request access, correction, deletion, or restriction where applicable law grants those rights, subject to compliance and fraud-prevention requirements.': '在适用法律允许的范围内，用户可申请访问、更正、删除或限制处理相关数据，但需满足合规和反欺诈要求。'
     },
     ja: {}, ko: {}, vi: {}, id: {}
   };

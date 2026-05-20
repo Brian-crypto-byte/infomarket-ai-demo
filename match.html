@@ -702,46 +702,46 @@
         <div class="match-explain" id="matchExplain"></div>
       </section>
       <section class="market-trade-zone">
-        <div class="tabs" data-tabs><button class="tab active" data-tab="all">All</button><button class="tab" data-tab="result">Result</button><button class="tab" data-tab="score">Correct score</button></div>
+        <div class="tabs" data-tabs><button class="tab active" data-tab="all" data-i18n="market.all">All</button><button class="tab" data-tab="result" data-i18n="market.result">Result</button><button class="tab" data-tab="score" data-i18n="market.correctScore">Correct score</button></div>
         <section class="panel" data-section="result"><div class="panel-head"><h2>Match result</h2><span class="sub">Fixed pool quotes</span></div><div class="odds-grid" data-odds-grid></div></section>
         <section class="panel" data-section="score"><div class="panel-head"><h2>Correct score</h2><span class="sub">Show 4 first; expand for all 25 scores from 0-0 to 4-4</span></div><div class="score-grid" data-score-grid></div></section>
       </section>
       <section class="market-analytics">
         <div class="metrics">
-          <div class="metric"><span>Volume</span><strong id="volume">318,420 USDT</strong></div>
-          <div class="metric"><span>Best price</span><strong><span id="bestPrice">Home @1.700</span> <b class="green">+2.4%</b></strong></div>
-          <div class="metric"><span>Time left</span><strong id="timeLeft">04:03</strong></div>
+          <div class="metric"><span data-i18n="market.volume">Volume</span><strong id="volume">318,420 USDT</strong></div>
+          <div class="metric"><span data-i18n="market.bestPrice">Best price</span><strong><span id="bestPrice">Home @1.700</span> <b class="green">+2.4%</b></strong></div>
+          <div class="metric"><span data-i18n="market.timeLeft">Time left</span><strong id="timeLeft">04:03</strong></div>
         </div>
         <section class="chart"><div class="chart-label">@4.750</div><div class="chart-label second">@1.700</div><svg viewBox="0 0 900 230" preserveAspectRatio="none" aria-hidden="true"><path d="M0 178 C70 172,110 178,170 174 S280 170,340 162 S430 152,500 116 S565 84,640 90 S730 70,790 92 S850 108,900 94" fill="none" stroke="#cf7049" stroke-width="3"/><path d="M0 178 C70 172,110 178,170 174 S280 170,340 162 S430 152,500 116 S565 84,640 90 S730 70,790 92 S850 108,900 94 L900 230 L0 230 Z" fill="rgba(207,112,73,.08)"/></svg></section>
-        <section class="panel" data-section="activity"><div class="panel-head"><h2>Market activity</h2><span class="sub">4.4K USDT volume</span></div><div class="orderbook"><span>Trades, quote updates, and settlement events will appear here.</span><strong>Live pool quotes</strong></div></section>
+        <section class="panel" data-section="activity"><div class="panel-head"><h2 data-i18n="market.activity">Market activity</h2><span class="sub" data-i18n="market.activitySub">Recent trades and quote changes</span></div><div class="orderbook"><span data-i18n="market.activityEmpty">Trades, quote updates, and settlement events appear here.</span><strong data-i18n="market.liveQuotes">Live pool quotes</strong></div></section>
       </section>
     </main>
 
     <aside class="trade">
-      <div class="trade-top"><div class="buy-sell"><span>Buy</span><span class="muted">Sell</span></div><strong>1-Tap</strong></div>
+      <div class="trade-top"><div class="buy-sell"><span>Buy</span><span class="muted">Sell</span></div><strong data-i18n="order.oneTap">Quick order</strong></div>
       <div class="trade-body">
         <div class="choice-row"><button class="choice up" id="upBtn">YES @1.700</button><button class="choice down" id="downBtn">NO</button></div>
         <div class="selected-label" id="selectedLabel">Home YES</div>
         <div class="trade-rule" id="tradeRule">YES / NO market</div>
-        <div class="balance">Balance 12,480 USDT</div>
+        <div class="balance"><span data-i18n="order.balance">Available balance</span> 12,480 USDT</div>
         <div class="amount"><input id="amount" value="500" inputmode="decimal" /><span>USDT</span></div>
         <div class="quick"><button data-amount="5">$5</button><button data-amount="25">$25</button><button data-amount="100">$100</button></div>
         <div class="row"><span data-i18n="order.potentialReturn">Potential return</span><strong id="returnValue">850.00</strong></div>
-        <div class="row"><span>INF Credits</span><strong id="infCredits">+62.5</strong></div>
-        <div class="row"><span>Alpha Insurance</span><strong id="insuranceCover">40% cover</strong></div>
+        <div class="row"><span data-i18n="order.infCredits">INF Credits</span><strong id="infCredits">+62.5</strong></div>
+        <div class="row"><span data-i18n="order.insurance">Alpha Insurance</span><strong id="insuranceCover">40% cover</strong></div>
         <button class="submit" data-i18n="order.place">Place order</button>
         <button class="restricted" data-i18n="order.regionCheck">Region check required</button>
         <div class="position-mini" data-position-mini></div>
       </div>
     </aside>
   </div>
-  <script src="assets/i18n.js?v=footballmobile2"></script>
+  <script src="assets/i18n.js?v=pmaudit1"></script>
   <script src="assets/web-data.js"></script>
   <script src="assets/brand-ui.js?v=marketlogos1"></script>
   <script src="assets/market-normalizer.js"></script>
   <script src="assets/api-client.js?v=odds-engine-2"></script>
   <script src="assets/web-store.js"></script>
-  <script src="assets/web-match.js?v=footballmobile4"></script>
+  <script src="assets/web-match.js?v=pmaudit1"></script>
   <script src="assets/web-shell.js"></script>
 </body>
 </html>
