@@ -211,6 +211,8 @@ function syncMarketLayout() {
   const main = document.querySelector('main');
   const tradeZone = document.querySelector('.market-trade-zone');
   const analytics = document.querySelector('.market-analytics');
+  analytics?.classList.toggle('hidden', isFootball);
+  analytics?.setAttribute('aria-hidden', isFootball ? 'true' : 'false');
   if (tradeCard && main && tradeZone && analytics) {
     if (nonFootball && tradeCard.parentElement !== main) {
       main.insertBefore(tradeCard, tradeZone);
