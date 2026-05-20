@@ -14,6 +14,8 @@ let selectedMode = isCrypto ? 'UP' : 'YES';
 let selectedOptionId = null;
 let scoreLocked = false;
 let scoresExpanded = false;
+let accountBalance = null;
+let tradeState = { key: 'loading' };
 
 function formatPrice(value) {
   return Number(value).toFixed(2);
@@ -66,6 +68,7 @@ function setHtml(id, value) {
 
 function syncReturn() {
   returnValue.textContent = (Number(amount.value || 0) * selectedPrice).toFixed(2);
+  renderTradeState();
 }
 
 function activeResultOdd() {
@@ -103,6 +106,79 @@ function showToast(title, body) {
   toast.classList.add('open');
   clearTimeout(showToast.timer);
   showToast.timer = setTimeout(() => toast.classList.remove('open'), 2600);
+}
+
+function currentUser() {
+  return window.InfoMarketAuth?.getUser?.() || null;
+}
+
+function amountValue() {
+  return Math.max(0, Number(amount?.value || 0));
+}
+
+function isMarketClosed() {
+  const status = String(market.status || '').toLowerCase();
+  if (['closed', 'settled', 'expired', 'void', 'cancelled', 'canceled'].includes(status)) return true;
+  if (status === 'live') return false;
+  const rawTime = market.rawStartsAt || market.startsAt || market.closeTime || market.deadline;
+  const closeAt = Date.parse(rawTime);
+  return Number.isFinite(closeAt) && closeAt > 0 && closeAt <= Date.now();
+}
+
+function regionUnavailable() {
+  return Boolean(market.restricted || market.regionRestricted || market.detail?.restricted);
+}
+
+function formatUsdt(value) {
+  return `${Number(value || 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} USDT`;
+}
+
+async function loadBalance() {
+  if (!currentUser()) {
+    accountBalance = null;
+    return null;
+  }
+  try {
+    const balance = await window.InfoMarketAPI?.balances?.();
+    accountBalance = Number(balance?.available || 0);
+    return accountBalance;
+  } catch (_) {
+    accountBalance = 0;
+    return accountBalance;
+  }
+}
+
+function computeTradeState() {
+  if (!currentUser()) return { key: 'login', label: t('order.loginToTrade'), note: t('order.signInToViewBalance'), disabled: false };
+  if (regionUnavailable()) return { key: 'region', label: t('order.checkRegion'), note: t('order.regionUnavailable'), disabled: true };
+  if (isMarketClosed()) return { key: 'closed', label: t('order.marketClosed'), note: t('order.awaitingSettlement'), disabled: true };
+  if (accountBalance !== null && amountValue() > accountBalance) return { key: 'deposit', label: t('order.depositToTrade'), note: t('order.insufficientBalance'), disabled: false };
+  return { key: 'tradable', label: t('order.place'), note: '', disabled: false };
+}
+
+function renderTradeState() {
+  const submit = document.querySelector('aside.trade .submit');
+  const balanceLine = document.querySelector('[data-balance-line]');
+  const tradeStatus = document.querySelector('[data-trade-status]');
+  const restricted = document.querySelector('aside.trade .restricted');
+  tradeState = computeTradeState();
+  if (submit) {
+    submit.textContent = tradeState.label;
+    submit.disabled = Boolean(tradeState.disabled);
+  }
+  if (balanceLine) {
+    const text = currentUser()
+      ? `${t('order.balance')} <strong>${accountBalance === null ? '-- USDT' : formatUsdt(accountBalance)}</strong>`
+      : t('order.signInToViewBalance');
+    balanceLine.innerHTML = text;
+  }
+  if (tradeStatus) tradeStatus.textContent = tradeState.note || '';
+  if (restricted) restricted.classList.remove('open');
+}
+
+async function syncTradeState({ refreshBalance = false } = {}) {
+  if (refreshBalance || (currentUser() && accountBalance === null)) await loadBalance();
+  renderTradeState();
 }
 
 function syncTradePanel() {
@@ -383,9 +459,9 @@ function createOrderModal() {
         window.InfoMarketStore.addOrder(order);
       }
       modal.classList.remove('open');
-      document.querySelector('.submit').textContent = t('order.placeAnother');
       renderLastPosition(order);
       showToast(t('order.placed'), `${localizedPick(order.pick)} · ${order.amount.toFixed(2)} USDT`);
+      await syncTradeState({ refreshBalance: true });
     } catch (error) {
       showToast(t('order.failed'), error.message);
     }
@@ -413,10 +489,16 @@ async function loadMarketFromApi() {
 
 
 document.querySelector('.submit').addEventListener('click', () => {
-  if (window.InfoMarketAuth && !window.InfoMarketAuth.getUser()) {
-    window.InfoMarketAuth.openAuth();
+  renderTradeState();
+  if (tradeState.key === 'login') {
+    window.InfoMarketAuth?.openAuth?.();
     return;
   }
+  if (tradeState.key === 'deposit') {
+    location.href = 'assets.html';
+    return;
+  }
+  if (tradeState.disabled) return;
   orderModal.querySelector('[data-order-market]').textContent = marketTitleText(market);
   orderModal.querySelector('[data-order-pick]').textContent = `${localizedPick(selectedPick)} @${formatPrice(selectedPrice)}`;
   orderModal.querySelector('[data-order-amount]').textContent = `${Number(amount.value || 0).toFixed(2)} USDT`;
@@ -462,6 +544,7 @@ function initMarket() {
   bindTabs();
   syncTradePanel();
   syncReturn();
+  syncTradeState({ refreshBalance: true });
   bindTradeChoices();
 }
 
@@ -473,6 +556,7 @@ document.querySelectorAll('.quick button').forEach((button) => {
 });
 
 amount.addEventListener('input', syncReturn);
+setInterval(() => syncTradeState(), 2000);
 loadMarketFromApi().then(initMarket);
 
 

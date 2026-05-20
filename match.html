@@ -382,6 +382,7 @@
       margin-bottom: 12px;
     }
     .balance { color: var(--muted); font-size: var(--font-sm); margin-bottom: 12px; }
+    .balance strong { color: var(--text); font-weight: 610; }
     .amount {
       height: 48px;
       border: 1px solid var(--line);
@@ -399,7 +400,10 @@
     .row { display: flex; justify-content: space-between; gap: 12px; padding: 10px 0; border-top: 1px solid #f0ece8; color: var(--muted); font-size: var(--font-md); }
     .row strong { color: var(--text); font-weight: 610; text-align: right; }
     .submit { width: 100%; height: 46px; border: 0; border-radius: 13px; background: var(--brand); color: #fff; font-size: var(--font-base); font-weight: 650; margin-top: 12px; }
-    .restricted { margin-top: 10px; height: 44px; border: 0; border-radius: 13px; background: #f2efec; color: var(--muted); font-weight: 590; width: 100%; }
+    .submit:disabled { cursor: not-allowed; background: #d9d2cc; color: #7f7770; }
+    .trade-state-note { min-height: 18px; margin-top: 9px; color: var(--muted); font-size: var(--font-sm); line-height: 1.45; }
+    .restricted { display: none; margin-top: 10px; height: 44px; border: 0; border-radius: 13px; background: #f2efec; color: var(--muted); font-weight: 590; width: 100%; }
+    .restricted.open { display: block; }
     .position-mini {
       display: none;
       margin-top: 12px;
@@ -723,25 +727,26 @@
         <div class="choice-row"><button class="choice up" id="upBtn">YES @1.700</button><button class="choice down" id="downBtn">NO</button></div>
         <div class="selected-label" id="selectedLabel">Home YES</div>
         <div class="trade-rule" id="tradeRule">YES / NO market</div>
-        <div class="balance"><span data-i18n="order.balance">Available balance</span> 12,480 USDT</div>
+        <div class="balance" data-balance-line><span data-i18n="order.balance">Available balance</span> <strong>-- USDT</strong></div>
         <div class="amount"><input id="amount" value="500" inputmode="decimal" /><span>USDT</span></div>
-        <div class="quick"><button data-amount="5">$5</button><button data-amount="25">$25</button><button data-amount="100">$100</button></div>
+        <div class="quick"><button data-amount="5">5 USDT</button><button data-amount="25">25 USDT</button><button data-amount="100">100 USDT</button></div>
         <div class="row"><span data-i18n="order.potentialReturn">Potential return</span><strong id="returnValue">850.00</strong></div>
         <div class="row"><span data-i18n="order.infCredits">INF Credits</span><strong id="infCredits">+62.5</strong></div>
         <div class="row"><span data-i18n="order.insurance">Alpha Insurance</span><strong id="insuranceCover">40% cover</strong></div>
         <button class="submit" data-i18n="order.place">Place order</button>
         <button class="restricted" data-i18n="order.regionCheck">Region check required</button>
+        <div class="trade-state-note" data-trade-status></div>
         <div class="position-mini" data-position-mini></div>
       </div>
     </aside>
   </div>
-  <script src="assets/i18n.js?v=pmaudit1"></script>
+  <script src="assets/i18n.js?v=tradestate1"></script>
   <script src="assets/web-data.js"></script>
   <script src="assets/brand-ui.js?v=marketlogos1"></script>
   <script src="assets/market-normalizer.js"></script>
   <script src="assets/api-client.js?v=odds-engine-2"></script>
   <script src="assets/web-store.js"></script>
-  <script src="assets/web-match.js?v=pmaudit1"></script>
+  <script src="assets/web-match.js?v=tradestate1"></script>
   <script src="assets/web-shell.js"></script>
 </body>
 </html>
