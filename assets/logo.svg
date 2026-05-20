@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="infomarket.ai logo">
+  <defs>
+    <linearGradient id="logoFill" x1="8" y1="6" x2="40" y2="42" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2b3037"/>
+      <stop offset="1" stop-color="#15191f"/>
+    </linearGradient>
+  </defs>
+  <rect x="5" y="5" width="38" height="38" rx="12" fill="url(#logoFill)"/>
+  <path d="M15.5 30.5L23.8 17.2L32.5 30.5" fill="none" stroke="#f8fafc" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M16.5 30.5H31.5" stroke="#58aa88" stroke-width="3.8" stroke-linecap="round"/>
+  <circle cx="24" cy="12.8" r="2.8" fill="#58aa88"/>
+</svg>

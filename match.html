@@ -1,0 +1,551 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Market Detail - infomarket.ai</title>
+  <style>
+    :root {
+      --bg: #fbf8f4;
+      --panel: #ffffff;
+      --text: #17191d;
+      --muted: #6c6f75;
+      --line: #e7e2dd;
+      --brand: #cf7049;
+      --brand-deep: #9e5339;
+      --brand-soft: #f7e4d9;
+      --green: #55a873;
+      --green-soft: #dcefdc;
+      --red: #bd6f75;
+      --red-soft: #f1dddd;
+      --ink: #15181c;
+      --gold: #bc9658;
+      --font-xs: 11px;
+      --font-sm: 12px;
+      --font-md: 13px;
+      --font-base: 14px;
+      --font-lg: 16px;
+      font-family: "Aptos", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100%;
+      background:
+        radial-gradient(circle at 8% 0%, rgba(207, 112, 73, .08), transparent 24%),
+        linear-gradient(180deg, #fffaf6 0%, var(--bg) 320px),
+        var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+    a { color: inherit; text-decoration: none; }
+    .notice {
+      min-height: 40px;
+      display: grid;
+      place-items: center;
+      background: #d66f45;
+      color: #fff;
+      padding: 8px 18px;
+      text-align: center;
+      font-size: var(--font-md);
+      font-weight: 580;
+    }
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid rgba(25, 25, 25, .08);
+      background: rgba(251, 248, 244, .92);
+      backdrop-filter: blur(18px);
+    }
+    .top-inner {
+      max-width: 1320px;
+      min-height: 70px;
+      margin: 0 auto;
+      padding: 0 28px;
+      display: grid;
+      grid-template-columns: 228px minmax(260px, 1fr) auto;
+      gap: 24px;
+      align-items: center;
+    }
+    .brand { display: flex; align-items: center; gap: 11px; font-size: 16px; font-weight: 590; letter-spacing: -0.025em; }
+    .brand img { width: 36px; height: 36px; }
+    .brand em { color: var(--brand); font-style: normal; font-weight: 520; }
+    .search {
+      height: 44px;
+      border: 1px solid rgba(28, 31, 35, .10);
+      border-radius: 999px;
+      background: rgba(255,255,255,.72);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0 16px;
+      color: #70747b;
+    }
+    .search input { width: 100%; border: 0; outline: 0; background: transparent; color: var(--text); font-size: var(--font-base); }
+    .actions { display: flex; align-items: center; gap: 10px; }
+    .link-btn, .primary, .menu-btn {
+      height: 38px;
+      border: 1px solid rgba(28,31,35,.10);
+      border-radius: 999px;
+      background: #fff;
+      color: var(--text);
+      padding: 0 14px;
+      font-weight: 560;
+    }
+    .primary { border: 0; background: var(--brand); color: #fff; padding: 0 18px; font-weight: 590; }
+    .language-control {
+      height: 38px;
+      width: 38px;
+      border: 1px solid rgba(28,31,35,.10);
+      border-radius: 999px;
+      background: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text);
+      flex: 0 0 auto;
+      position: relative;
+      overflow: hidden;
+    }
+    .language-control svg { width: 18px; height: 18px; pointer-events: none; }
+    .language-control select { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; opacity: 0; cursor: pointer; }
+    .menu-btn { display: none; }
+    .page {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 24px 28px 64px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 360px;
+      gap: 22px;
+      align-items: start;
+    }
+    .back { display: inline-flex; margin-bottom: 18px; color: var(--muted); font-size: var(--font-md); font-weight: 560; }
+    .event-card {
+      border: 1px solid rgba(96,72,55,.14);
+      border-radius: 22px;
+      background:
+        radial-gradient(circle at 12% 0%, rgba(207,112,73,.07), transparent 34%),
+        radial-gradient(circle at 92% 100%, rgba(85,168,115,.06), transparent 36%),
+        var(--panel);
+      padding: 18px;
+      margin-bottom: 16px;
+    }
+    .market-head {
+      display: grid;
+      grid-template-columns: 64px minmax(0, 1fr);
+      gap: 14px;
+      align-items: center;
+    }
+    .event-logo {
+      width: 64px;
+      height: 64px;
+      border-radius: 18px;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 680;
+      background: linear-gradient(145deg, #cf7049, #7b4433);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.28);
+    }
+    h1 { margin: 0; font-size: 20px; line-height: 1.18; font-weight: 590; letter-spacing: -0.025em; }
+    .sub { margin-top: 8px; color: var(--muted); font-size: var(--font-md); line-height: 1.45; }
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .scoreboard {
+      margin-top: 16px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255,255,255,.62);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 96px minmax(0, 1fr);
+      align-items: center;
+      gap: 14px;
+      padding: 14px;
+    }
+    .score-team {
+      display: grid;
+      grid-template-columns: 42px minmax(0, 1fr);
+      gap: 10px;
+      align-items: center;
+    }
+    .score-team.away { grid-template-columns: minmax(0, 1fr) 42px; text-align: right; }
+    .team-crest {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      background: linear-gradient(145deg, #b5483f, #7a2a2a);
+      border: 2px solid rgba(255,255,255,.8);
+      font-size: 11px;
+      font-weight: 680;
+    }
+    .team-crest.away { background: linear-gradient(145deg, #315fa7, #1a2c58); }
+    .score-team strong {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: var(--font-base);
+      font-weight: 610;
+    }
+    .score-team span { display: block; margin-top: 3px; color: var(--muted); font-size: 12px; }
+    .score-center {
+      height: 58px;
+      border-radius: 16px;
+      background: #f2efec;
+      display: grid;
+      place-items: center;
+      font-size: 18px;
+      line-height: 1;
+      font-weight: 620;
+      letter-spacing: -0.05em;
+    }
+    .metric {
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      background: rgba(255,255,255,.62);
+      padding: 12px;
+    }
+    .metric span { display: block; color: var(--muted); font-size: 12px; font-weight: 560; }
+    .metric strong { display: block; margin-top: 6px; font-size: 15px; font-weight: 590; letter-spacing: -0.02em; }
+    .metric .green { color: var(--green); font-size: 12px; margin-left: 6px; }
+    .match-explain {
+      margin-top: 14px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(255,255,255,.68);
+      padding: 12px 14px;
+      color: var(--muted);
+      font-size: var(--font-md);
+      line-height: 1.5;
+    }
+    .match-explain strong { color: var(--text); font-weight: 610; }
+    .chart {
+      height: 230px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      position: relative;
+      margin: 16px 0;
+      overflow: hidden;
+      background: #fff;
+    }
+    .chart::before {
+      content: "";
+      position: absolute;
+      inset: 30px 0 40px;
+      background: repeating-linear-gradient(180deg, transparent 0, transparent 44px, #f1ede8 45px);
+    }
+    .chart svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .chart-label { position: absolute; right: 12px; top: 28px; color: var(--muted); font-size: 12px; font-weight: 560; }
+    .chart-label.second { top: 122px; }
+    .tabs { display: flex; gap: 8px; flex-wrap: wrap; margin: 18px 0 14px; }
+    .tab {
+      height: 34px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 0 13px;
+      background: #fff;
+      color: var(--text);
+      font-size: var(--font-sm);
+      font-weight: 560;
+    }
+    .tab.active { border-color: var(--brand); background: var(--brand); color: #fff; }
+    .panel {
+      border: 1px solid rgba(96,72,55,.14);
+      border-radius: 18px;
+      background: #fff;
+      padding: 16px;
+      margin-bottom: 14px;
+    }
+    .panel.hidden { display: none; }
+    .panel-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 12px; }
+    .panel h2 { margin: 0; font-size: 15px; font-weight: 590; letter-spacing: -0.015em; }
+    .odds-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 9px; }
+    .odd {
+      min-height: 62px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fff;
+      display: grid;
+      gap: 5px;
+      padding: 10px;
+      font-weight: 590;
+      text-align: left;
+    }
+    .odd:hover, .odd.selected { border-color: rgba(96,72,55,.26); background: #fff; }
+    .odd span { color: var(--text); font-size: var(--font-md); }
+    .odd strong { display: flex; gap: 6px; flex-wrap: wrap; font-size: 12px; }
+    .yes { color: var(--green); }
+    .no { color: var(--red); }
+    .odd strong:has(.yes):not(:has(.no)) { color: var(--green); }
+    .odd strong:has(.no):not(:has(.yes)) { color: var(--red); }
+    .score-grid { display: grid; grid-template-columns: repeat(5,minmax(0,1fr)); gap: 9px; }
+    .score-market {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fff;
+      padding: 9px;
+      display: grid;
+      gap: 6px;
+    }
+    .score-name { font-size: 15px; line-height: 1; font-weight: 600; letter-spacing: -0.025em; }
+    .score-choice {
+      height: 28px;
+      border: 0;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      padding: 0 8px;
+      font-size: 11px;
+      font-weight: 620;
+    }
+    .score-choice strong { font-size: 11px; }
+    .yes-choice, .no-choice { background: #fff; color: #111318; border: 1px solid var(--line); }
+    .score-choice.selected { outline: 2px solid currentColor; }
+    .score-market:has(.score-choice.selected) { border-color: rgba(96,72,55,.28); background: #fff; }
+    .score-more {
+      min-height: 84px;
+      border: 1px solid rgba(207,112,73,.22);
+      border-radius: 14px;
+      background: #f8e7dd;
+      color: var(--brand-deep);
+      font-size: var(--font-sm);
+      font-weight: 650;
+    }
+    .empty-inline { grid-column: 1 / -1; color: var(--muted); padding: 10px 0; }
+    .orderbook {
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: var(--muted);
+      font-size: var(--font-md);
+    }
+    .trade {
+      position: sticky;
+      top: 96px;
+      align-self: start;
+      border: 1px solid rgba(96,72,55,.16);
+      border-radius: 20px;
+      background: #fff;
+      overflow: hidden;
+    }
+    .trade-top {
+      min-height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      border-bottom: 1px solid var(--line);
+    }
+    .buy-sell { display: flex; gap: 14px; font-size: var(--font-base); font-weight: 610; }
+    .buy-sell .muted { color: #a2a5aa; }
+    .trade-body { padding: 16px; }
+    .choice-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+    .choice-row.single { grid-template-columns: 1fr; }
+    .choice-row.single #downBtn { display: none; }
+    .choice { height: 44px; border: 0; border-radius: 12px; font-size: var(--font-md); font-weight: 650; }
+    .choice.up { background: #fff; color: var(--green); border: 1px solid var(--line); }
+    .choice.down { background: #fff; color: var(--red); border: 1px solid var(--line); }
+    .selected-label { font-size: 15px; font-weight: 600; margin-bottom: 8px; letter-spacing: -0.01em; }
+    .trade-rule {
+      min-height: 34px;
+      display: flex;
+      align-items: center;
+      border-radius: 12px;
+      background: #f8f2ee;
+      color: var(--muted);
+      padding: 0 10px;
+      font-size: 12px;
+      margin-bottom: 12px;
+    }
+    .balance { color: var(--muted); font-size: var(--font-sm); margin-bottom: 12px; }
+    .amount {
+      height: 48px;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 12px;
+      margin-bottom: 12px;
+    }
+    .amount input { width: 100%; border: 0; outline: 0; font-size: 16px; font-weight: 600; }
+    .amount span { color: var(--muted); font-weight: 560; }
+    .quick { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-bottom: 14px; }
+    .quick button { height: 38px; border: 1px solid var(--line); border-radius: 12px; background: #fff; font-size: var(--font-md); font-weight: 610; color: var(--muted); }
+    .row { display: flex; justify-content: space-between; gap: 12px; padding: 10px 0; border-top: 1px solid #f0ece8; color: var(--muted); font-size: var(--font-md); }
+    .row strong { color: var(--text); font-weight: 610; text-align: right; }
+    .submit { width: 100%; height: 46px; border: 0; border-radius: 13px; background: var(--brand); color: #fff; font-size: var(--font-base); font-weight: 650; margin-top: 12px; }
+    .restricted { margin-top: 10px; height: 44px; border: 0; border-radius: 13px; background: #f2efec; color: var(--muted); font-weight: 590; width: 100%; }
+    .position-mini {
+      display: none;
+      margin-top: 12px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fbfaf8;
+      padding: 12px;
+      color: var(--muted);
+      font-size: var(--font-sm);
+      line-height: 1.45;
+    }
+    .position-mini.open { display: block; }
+    .position-mini strong { display: block; color: var(--text); font-size: var(--font-base); font-weight: 610; margin-bottom: 4px; }
+    .toast {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      z-index: 120;
+      width: min(360px, calc(100vw - 32px));
+      border: 1px solid rgba(85,168,115,.28);
+      border-radius: 16px;
+      background: #fff;
+      color: var(--text);
+      padding: 13px 14px;
+      box-shadow: 0 16px 44px rgba(29,31,35,.13);
+      opacity: 0;
+      transform: translateY(12px);
+      pointer-events: none;
+      transition: .18s ease;
+      font-size: var(--font-md);
+    }
+    .toast.open { opacity: 1; transform: translateY(0); }
+    .toast strong { display: block; margin-bottom: 3px; font-weight: 610; }
+    .order-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(21,25,31,.42);
+      padding: 18px;
+    }
+    .order-modal-backdrop.open { display: flex; }
+    .order-modal {
+      width: min(100%, 430px);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: #fff;
+      overflow: hidden;
+    }
+    .order-modal-head {
+      height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 18px;
+      border-bottom: 1px solid var(--line);
+      font-size: var(--font-lg);
+      font-weight: 610;
+    }
+    .modal-close { width: 34px; height: 34px; border: 0; border-radius: 9px; background: #f2efec; }
+    .order-modal-body { padding: 18px; }
+    .order-note { color: var(--muted); font-size: var(--font-sm); line-height: 1.5; }
+    @media (max-width: 1080px) {
+      .page { grid-template-columns: 1fr; }
+      .trade { position: static; }
+      .score-grid { grid-template-columns: repeat(4,minmax(0,1fr)); }
+    }
+    @media (max-width: 760px) {
+      .notice { font-size: 12px; }
+      .top-inner { min-height: auto; grid-template-columns: 1fr auto; padding: 12px 16px; }
+      .brand span { display: none; }
+      .search { grid-column: 1 / -1; order: 3; }
+      .actions .link-btn:first-child { display: none; }
+      .page { padding: 18px 14px 44px; }
+      .metrics, .odds-grid { grid-template-columns: 1fr; }
+      .score-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+      .scoreboard { grid-template-columns: 1fr; }
+      .score-team.away { grid-template-columns: 42px minmax(0, 1fr); text-align: left; }
+      .score-team.away .team-crest { order: 0; }
+      .score-team.away div { order: 1; }
+      h1 { font-size: 19px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="notice" data-i18n="home.notice">Trading is unavailable in restricted jurisdictions. Please review the terms before placing orders.</div>
+  <header class="topbar">
+    <div class="top-inner">
+      <a class="brand" href="index.html"><img src="assets/logo.svg" alt="infomarket.ai logo"><span>infomarket<em>.ai</em></span></a>
+      <div class="search"><svg viewBox="0 0 20 20" aria-hidden="true" width="18" height="18"><path d="M8.8 15.2a6.4 6.4 0 1 1 0-12.8 6.4 6.4 0 0 1 0 12.8Zm4.5-1.5 4.1 4.1" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" /></svg><input data-i18n-placeholder="search.home" placeholder="Search markets, teams, scores or assets" /></div>
+      <div class="actions"><label class="language-control compact" title="Language" aria-label="Language"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="7.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M3 10h14M10 2.5c2 2 3 4.5 3 7.5s-1 5.5-3 7.5M10 2.5c-2 2-3 4.5-3 7.5s1 5.5 3 7.5" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round"/></svg><select data-language-select aria-label="Language"><option value="en">English</option><option value="zh-CN">简体中文</option><option value="ja">日本語</option><option value="ko">한국어</option><option value="vi">Tiếng Việt</option><option value="id">Bahasa Indonesia</option></select></label><button class="primary" data-auth-action data-auth-label="Log in / Sign up" data-auth-label-key="auth.loginSignup" data-i18n="auth.loginSignup">Log in / Sign up</button></div>
+    </div>
+  </header>
+
+  <div class="page">
+    <main>
+      <a class="back" href="index.html">Back to markets</a>
+      <section class="event-card">
+        <div class="market-head">
+          <div class="event-logo" id="eventLogo">K</div>
+          <div><h1 id="eventTitle">Seoul vs Anyang</h1><div class="sub" id="eventSub">K League / 2026/5/5 18:00 / Pending</div></div>
+        </div>
+        <div class="scoreboard" data-scoreboard>
+          <div class="score-team">
+            <span class="team-crest" id="homeLogo">H</span>
+            <div><strong id="homeName">Home</strong><span id="homeRecord"></span></div>
+          </div>
+          <div class="score-center"><span id="scoreLine">- : -</span></div>
+          <div class="score-team away">
+            <div><strong id="awayName">Away</strong><span id="awayRecord"></span></div>
+            <span class="team-crest away" id="awayLogo">A</span>
+          </div>
+        </div>
+        <div class="metrics">
+          <div class="metric"><span>Volume</span><strong id="volume">318,420 USDT</strong></div>
+          <div class="metric"><span>Best price</span><strong><span id="bestPrice">Home @1.700</span> <b class="green">+2.4%</b></strong></div>
+          <div class="metric"><span>Time left</span><strong id="timeLeft">04:03</strong></div>
+        </div>
+        <div class="match-explain" id="matchExplain"></div>
+      </section>
+      <section class="chart"><div class="chart-label">@4.750</div><div class="chart-label second">@1.700</div><svg viewBox="0 0 900 230" preserveAspectRatio="none" aria-hidden="true"><path d="M0 178 C70 172,110 178,170 174 S280 170,340 162 S430 152,500 116 S565 84,640 90 S730 70,790 92 S850 108,900 94" fill="none" stroke="#cf7049" stroke-width="3"/><path d="M0 178 C70 172,110 178,170 174 S280 170,340 162 S430 152,500 116 S565 84,640 90 S730 70,790 92 S850 108,900 94 L900 230 L0 230 Z" fill="rgba(207,112,73,.08)"/></svg></section>
+      <div class="tabs" data-tabs><button class="tab active" data-tab="all">All</button><button class="tab" data-tab="result">Result</button><button class="tab" data-tab="score">Correct score</button><button class="tab" data-tab="totals">Totals</button><button class="tab" data-tab="handicap">Handicap</button></div>
+      <section class="panel" data-section="result"><div class="panel-head"><h2>Match result</h2><span class="sub">Fixed pool quotes</span></div><div class="odds-grid" data-odds-grid></div></section>
+      <section class="panel" data-section="score"><div class="panel-head"><h2>Correct score</h2><span class="sub">Show 4 first; expand for all 25 scores from 0-0 to 4-4</span></div><div class="score-grid" data-score-grid></div></section>
+      <section class="panel" data-section="activity"><div class="panel-head"><h2>Market activity</h2><span class="sub">4.4K USDT volume</span></div><div class="orderbook"><span>Trades, quote updates, and settlement events will appear here.</span><strong>Live pool quotes</strong></div></section>
+    </main>
+
+    <aside class="trade">
+      <div class="trade-top"><div class="buy-sell"><span>Buy</span><span class="muted">Sell</span></div><strong>1-Tap</strong></div>
+      <div class="trade-body">
+        <div class="choice-row"><button class="choice up" id="upBtn">YES @1.700</button><button class="choice down" id="downBtn">NO</button></div>
+        <div class="selected-label" id="selectedLabel">Home YES</div>
+        <div class="trade-rule" id="tradeRule">YES / NO market</div>
+        <div class="balance">Balance 12,480 USDT</div>
+        <div class="amount"><input id="amount" value="500" inputmode="decimal" /><span>USDT</span></div>
+        <div class="quick"><button data-amount="5">$5</button><button data-amount="25">$25</button><button data-amount="100">$100</button></div>
+        <div class="row"><span>Potential return</span><strong id="returnValue">850.00</strong></div>
+        <div class="row"><span>INF Credits</span><strong id="infCredits">+62.5</strong></div>
+        <div class="row"><span>Alpha Insurance</span><strong id="insuranceCover">40% cover</strong></div>
+        <button class="submit">Place order</button>
+        <button class="restricted">Region check required</button>
+        <div class="position-mini" data-position-mini></div>
+      </div>
+    </aside>
+  </div>
+  <script src="assets/i18n.js"></script>
+  <script src="assets/web-data.js"></script>
+  <script src="assets/brand-ui.js"></script>
+  <script src="assets/market-normalizer.js"></script>
+  <script src="assets/api-client.js"></script>
+  <script src="assets/web-store.js"></script>
+  <script src="assets/web-match.js"></script>
+  <script src="assets/web-shell.js"></script>
+</body>
+</html>
+
+

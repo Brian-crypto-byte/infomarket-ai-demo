@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dashboard - infomarket.ai</title>
+  <link rel="stylesheet" href="assets/app.css" />
+</head>
+<body>
+  <script src="assets/i18n.js"></script>
+  <script src="assets/page-shell.js"></script>
+  <script>document.write(appHeader('Dashboard'));</script>
+
+  <main class="app-shell">
+    <section class="hero-panel">
+      <div class="page-head" style="margin-bottom:0">
+        <div>
+          <p class="eyebrow">Account overview</p>
+          <h1>Dashboard</h1>
+          <div class="sub">Manage USDT balances, prediction positions, INFO Vault, Alpha Insurance, and INF Credits unlock progress.</div>
+        </div>
+        <button class="btn primary" onclick="location.href='assets.html'">Deposit / Withdraw</button>
+      </div>
+    </section>
+
+    <section class="cards" data-account-cards>
+      <div class="card"><span>Available balance</span><strong data-account="available">12,480.00</strong></div>
+      <div class="card"><span>Frozen in orders</span><strong data-account="frozen">3,250.00</strong></div>
+      <div class="card"><span>Vault balance</span><strong data-account="vault">24,000.00</strong></div>
+      <div class="card"><span>INF Credits</span><strong class="green" data-account="credits">8,416.2</strong></div>
+    </section>
+
+    <div class="layout">
+      <section>
+        <div class="panel">
+          <div class="panel-title-row"><h2>Current positions</h2><button class="btn" onclick="location.href='positions.html'">View all</button></div>
+          <table class="table" data-dashboard-positions>
+            <thead><tr><th>Market</th><th>Pick</th><th>Amount</th><th>Potential return</th><th>Status</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+        <div class="panel">
+          <h2>INF Credits unlock</h2>
+          <div class="row"><span>Cumulative volume</span><strong data-volume-unlock>0 / 250,000 USDT</strong></div>
+          <div class="row"><span>Active days</span><strong>18 / 30 days</strong></div>
+          <div class="row"><span>Vault lock</span><strong>24,000 USDT ? 18 days</strong></div>
+          <div class="row"><span>Unlockable amount</span><strong class="green" data-unlockable>0 INF</strong></div>
+        </div>
+      </section>
+
+      <aside>
+        <div class="panel">
+          <h2>Quick actions</h2>
+          <div class="quick-grid">
+            <a class="quick-link" href="assets.html"><strong>Assets</strong><span>Deposit, withdraw, and internal balances</span></a>
+            <a class="quick-link" href="positions.html"><strong>Positions</strong><span>Orders, PnL, and settlement status</span></a>
+            <a class="quick-link" href="rewards.html"><strong>Rewards</strong><span>Mining, tasks, and referrals</span></a>
+            <a class="quick-link" href="vault.html"><strong>INFO Vault</strong><span>USDT yield with INF Credits boost</span></a>
+            <a class="quick-link" href="insurance.html"><strong>INFO Insurance</strong><span>Claim nodes and insurance cover</span></a>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h2>Alpha Insurance</h2>
+          <div class="row"><span>Active cover</span><strong data-cover-total>0 USDT</strong></div>
+          <div class="row"><span>Claimable</span><strong class="green">180 USDT</strong></div>
+          <div class="row"><span>Pool health</span><strong>Healthy</strong></div>
+          <button class="btn" style="width:100%" onclick="location.href='insurance.html'">Open insurance nodes</button>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <script src="assets/api-client.js"></script>
+  <script src="assets/web-store.js"></script>
+  <script src="assets/web-dashboard.js"></script>
+  <script src="assets/brand-ui.js"></script>
+  <script src="assets/web-shell.js"></script>
+</body>
+</html>
+
+
+

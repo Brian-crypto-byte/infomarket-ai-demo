@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Project Status - infomarket.ai</title>
+  <link rel="stylesheet" href="assets/app.css" />
+</head>
+<body>
+  <script src="assets/i18n.js"></script>
+  <script src="assets/page-shell.js"></script>
+  <script>document.write(appHeader('Project'));</script>
+
+  <main class="app-shell">
+    <a class="back-link" href="index.html">Back to markets</a>
+    <section class="hero-panel">
+      <div class="page-head" style="margin-bottom:0">
+        <div>
+          <p class="eyebrow">Build overview</p>
+          <h1>infomarket.ai project status</h1>
+          <div class="sub">A single place to review what has been implemented in the current Web prototype and what should be developed next.</div>
+        </div>
+        <button class="btn primary" onclick="location.href='admin.html'">Open admin</button>
+      </div>
+    </section>
+
+    <section class="cards">
+      <div class="card"><span>Frontend pages</span><strong data-status="pages">0</strong></div>
+      <div class="card"><span>Markets</span><strong data-status="markets">0</strong></div>
+      <div class="card"><span>Correct-score lines</span><strong data-status="scores">25</strong></div>
+      <div class="card"><span>Local modules</span><strong data-status="modules">0</strong></div>
+    </section>
+
+    <div class="layout">
+      <section>
+        <div class="panel">
+          <h2>Implemented modules</h2>
+          <div class="task-list" data-module-list></div>
+        </div>
+        <div class="panel">
+          <h2>Core product rules</h2>
+          <div class="row"><span>Football result markets</span><strong>YES / NO</strong></div>
+          <div class="row"><span>Correct score markets</span><strong>25 scores, fixed odds, no sell after buy</strong></div>
+          <div class="row"><span>Crypto markets</span><strong>Up / Down</strong></div>
+          <div class="row"><span>USDT custody</span><strong>On-chain deposit / withdraw, off-chain ledger</strong></div>
+          <div class="row"><span>Removed scope</span><strong>No P2P matching, no multi-chain for now</strong></div>
+        </div>
+      </section>
+      <aside>
+        <div class="panel">
+          <h2>Fast links</h2>
+          <div class="quick-grid">
+            <a class="quick-link" href="index.html"><strong>Markets</strong><span>Homepage market list</span></a>
+            <a class="quick-link" href="match.html?market=manutd-forest"><strong>Match detail</strong><span>Football odds and score market</span></a>
+            <a class="quick-link" href="dashboard.html"><strong>Dashboard</strong><span>User account overview</span></a>
+            <a class="quick-link" href="assets.html"><strong>Assets</strong><span>Internal ledger buckets</span></a>
+            <a class="quick-link" href="vault.html"><strong>Vault</strong><span>INFO Vault operations</span></a>
+            <a class="quick-link" href="insurance.html"><strong>Insurance</strong><span>Alpha payout nodes</span></a>
+            <a class="quick-link" href="rewards.html"><strong>Rewards</strong><span>INF Credits and tasks</span></a>
+            <a class="quick-link" href="admin.html"><strong>Admin</strong><span>Operations console</span></a>
+          </div>
+        </div>
+        <div class="panel">
+          <h2>Next build queue</h2>
+          <div class="row"><span>Backend API</span><strong>Auth, orders, ledger</strong></div>
+          <div class="row"><span>Database schema</span><strong>Users, markets, orders, balances</strong></div>
+          <div class="row"><span>Solana service</span><strong>USDT deposit watcher and withdrawal signer</strong></div>
+          <div class="row"><span>Risk engine</span><strong>Exposure, anti-wash, region controls</strong></div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <script src="assets/web-data.js"></script>
+  <script src="assets/web-status.js"></script>
+  <script src="assets/brand-ui.js"></script>
+  <script src="assets/web-shell.js"></script>
+</body>
+</html>
+
+
+

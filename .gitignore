@@ -1,0 +1,10 @@
+.env
+node_modules/
+.railway/
+*.log
+cloudflared-*.out.log
+cloudflared-*.err.log
+tunnel.out.log
+tunnel.err.log
+server.out.log
+server.err.log

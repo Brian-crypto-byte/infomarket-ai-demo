@@ -1,0 +1,551 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>infomarket.ai - 15 Design Directions</title>
+  <style>
+    :root {
+      --ink: #20242a;
+      --muted: #636d78;
+      --line: #d9dee5;
+      --paper: #f3f4f5;
+      --green: #468a71;
+      --red: #ad6268;
+      --blue: #2e67b7;
+      --cream: #f3eee5;
+      font-family: "Aptos", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #eceff2; color: var(--ink); -webkit-font-smoothing: antialiased; }
+    button { font: inherit; cursor: pointer; }
+    .top {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(246, 247, 248, .94);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid #d5dae1;
+    }
+    .top-inner {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 14px 22px;
+      display: grid;
+      grid-template-columns: 260px 1fr auto;
+      gap: 18px;
+      align-items: center;
+    }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 590; letter-spacing: -0.02em; }
+    .brand img { width: 32px; height: 32px; }
+    .tabs {
+      display: flex;
+      gap: 7px;
+      overflow-x: auto;
+      padding: 4px;
+      border: 1px solid #d7dce3;
+      border-radius: 999px;
+      background: #fff;
+    }
+    .tabs::-webkit-scrollbar { display: none; }
+    .tabs button {
+      height: 32px;
+      border: 0;
+      border-radius: 999px;
+      background: transparent;
+      color: #58636f;
+      padding: 0 12px;
+      white-space: nowrap;
+      font-size: 13px;
+      font-weight: 560;
+    }
+    .tabs button.active { background: #20242a; color: #fff; }
+    .note { color: #66717d; font-size: 13px; white-space: nowrap; }
+    .wrap { max-width: 1440px; margin: 0 auto; padding: 24px 22px 58px; }
+    .intro {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: flex-end;
+      margin-bottom: 18px;
+    }
+    .intro h1 { margin: 0; font-size: 31px; font-weight: 590; letter-spacing: -0.035em; }
+    .intro p { max-width: 740px; margin: 8px 0 0; color: #66717d; line-height: 1.55; }
+    .count { border: 1px solid var(--line); border-radius: 999px; padding: 8px 12px; background: #fff; color: #59636e; font-size: 13px; }
+    .layout { display: grid; grid-template-columns: 340px minmax(0, 1fr); gap: 18px; align-items: start; }
+    .side {
+      position: sticky;
+      top: 78px;
+      display: grid;
+      gap: 14px;
+    }
+    .group {
+      border: 1px solid #d7dce3;
+      border-radius: 16px;
+      background: #fff;
+      padding: 14px;
+    }
+    .group h2 { margin: 0 0 10px; font-size: 16px; font-weight: 590; letter-spacing: -0.01em; }
+    .group button {
+      width: 100%;
+      min-height: 54px;
+      border: 1px solid transparent;
+      border-radius: 12px;
+      background: transparent;
+      display: block;
+      text-align: left;
+      padding: 10px;
+      color: #20242a;
+    }
+    .group button strong { display: block; font-size: 14px; font-weight: 590; }
+    .group button span { display: block; margin-top: 3px; color: #66717d; font-size: 12.5px; }
+    .group button.active { border-color: #cbd2da; background: #f4f6f7; }
+    .preview-shell {
+      min-height: 820px;
+      border: 1px solid #cfd5dd;
+      border-radius: 22px;
+      background: #fff;
+      overflow: hidden;
+    }
+    .browser-bar {
+      height: 44px;
+      border-bottom: 1px solid #dce1e7;
+      background: #fafafa;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 16px;
+      color: #8a929b;
+      font-size: 13px;
+    }
+    .dot { width: 10px; height: 10px; border-radius: 50%; background: #d0d5dc; }
+    .url { margin-left: 10px; height: 26px; min-width: 280px; border-radius: 999px; background: #f0f2f4; display: grid; place-items: center; }
+    .screen { min-height: 776px; padding: 26px; transition: background .25s ease; }
+    .screen.light { background: #fff; }
+    .screen.cream { background: var(--cream); }
+    .screen.ink { background: #20242a; color: #f8fafc; }
+    .screen.glass { background: linear-gradient(135deg, #f8fafc, #eef5f1 70%, #e4eee9); }
+    .screen.editorial { background: #fbfaf7; color: #24211d; }
+    .preview-head {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 20px;
+      align-items: start;
+      margin-bottom: 22px;
+    }
+    .skill-tag {
+      display: inline-flex;
+      width: fit-content;
+      min-height: 28px;
+      align-items: center;
+      border: 1px solid currentColor;
+      border-radius: 999px;
+      padding: 0 10px;
+      opacity: .72;
+      font-size: 12.5px;
+      font-weight: 560;
+    }
+    .preview-title { margin: 10px 0 0; font-size: 42px; font-weight: 560; letter-spacing: -0.06em; line-height: .98; text-wrap: pretty; }
+    .preview-desc { max-width: 690px; margin: 12px 0 0; color: color-mix(in srgb, currentColor 68%, transparent); line-height: 1.55; }
+    .logo-word { display: flex; align-items: center; gap: 9px; font-size: 18px; font-weight: 590; letter-spacing: -0.02em; }
+    .logo-word img { width: 34px; height: 34px; }
+    .navline { display: flex; gap: 18px; margin-top: 16px; color: color-mix(in srgb, currentColor 62%, transparent); font-size: 14px; font-weight: 560; }
+    .market-board { display: grid; grid-template-columns: 1fr 330px; gap: 18px; align-items: start; }
+    .market-list { display: grid; gap: 10px; }
+    .match {
+      border: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+      border-radius: var(--radius, 14px);
+      background: var(--card, #fff);
+      padding: 15px;
+      display: grid;
+      grid-template-columns: 330px 1fr;
+      gap: 16px;
+      align-items: center;
+    }
+    .screen.ink .match, .screen.ink .panel, .screen.ink .stat, .screen.ink .quote, .screen.ink .score { background: rgba(255,255,255,.06); }
+    .meta { display: flex; align-items: center; gap: 8px; color: color-mix(in srgb, currentColor 62%, transparent); font-size: 13px; margin-bottom: 11px; }
+    .league { width: 25px; height: 25px; border-radius: 8px; border: 1px solid color-mix(in srgb, currentColor 20%, transparent); display: grid; place-items: center; font-size: 11px; font-weight: 650; }
+    .team { display: grid; grid-template-columns: 34px 34px 1fr 56px; align-items: center; gap: 9px; margin-top: 8px; }
+    .scorebox { height: 30px; border-radius: 8px; background: color-mix(in srgb, currentColor 10%, transparent); display: grid; place-items: center; font-weight: 590; }
+    .crest { width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; color: #fff; font-size: 10px; font-weight: 650; background: linear-gradient(145deg,#b3443f,#7a252c); }
+    .crest.blue { background: linear-gradient(145deg,#2e67b7,#132c5a); }
+    .crest.gold { background: linear-gradient(145deg,#b68f36,#755a22); }
+    .team strong { font-weight: 560; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .team span:last-child { color: color-mix(in srgb, currentColor 58%, transparent); font-size: 12.5px; }
+    .odds { display: grid; gap: 8px; }
+    .result-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .score-row { display: grid; grid-template-columns: repeat(3, 1fr) 66px; gap: 8px; }
+    .quote, .score {
+      min-height: 38px;
+      border: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+      border-radius: 10px;
+      background: #fff;
+      display: grid;
+      place-items: center;
+      font-size: 13px;
+      font-weight: 560;
+    }
+    .score { grid-template-columns: 32px 1fr 1fr; padding: 0 8px; gap: 5px; font-size: 12px; }
+    .score b { font-size: 13px; font-weight: 590; }
+    .green { color: var(--green); }
+    .red { color: var(--red); }
+    .panel {
+      border: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+      border-radius: var(--radius, 16px);
+      background: var(--card, #fff);
+      padding: 16px;
+    }
+    .panel h3 { margin: 0 0 12px; font-size: 18px; font-weight: 590; }
+    .stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 14px; }
+    .stat { border: 1px solid color-mix(in srgb, currentColor 18%, transparent); border-radius: var(--radius, 14px); background: var(--card, #fff); padding: 14px; }
+    .stat span { display: block; color: color-mix(in srgb, currentColor 62%, transparent); font-size: 13px; }
+    .stat strong { display: block; margin-top: 6px; font-size: 25px; font-weight: 560; letter-spacing: -0.04em; }
+    .slip-row { display: flex; justify-content: space-between; gap: 14px; padding: 11px 0; border-top: 1px solid color-mix(in srgb, currentColor 14%, transparent); color: color-mix(in srgb, currentColor 62%, transparent); font-size: 14px; }
+    .slip-row:first-of-type { border-top: 0; }
+    .slip-row strong { color: currentColor; font-weight: 590; }
+    .hero-visual {
+      min-height: 270px;
+      border: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+      border-radius: calc(var(--radius, 16px) + 8px);
+      background: var(--hero, #20242a);
+      color: #fff;
+      display: grid;
+      grid-template-columns: 1fr 120px 1fr;
+      align-items: center;
+      gap: 18px;
+      padding: 24px;
+      margin-bottom: 14px;
+      overflow: hidden;
+      position: relative;
+    }
+    .hero-visual:after {
+      content: "";
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      right: -80px;
+      top: -90px;
+      background: rgba(70, 138, 113, .22);
+    }
+    .hero-team { display: grid; justify-items: center; gap: 12px; position: relative; z-index: 1; }
+    .hero-crest { width: 72px; height: 72px; border-radius: 50%; display: grid; place-items: center; background: linear-gradient(145deg,#b3443f,#7a252c); font-weight: 650; }
+    .hero-crest.blue { background: linear-gradient(145deg,#2e67b7,#132c5a); }
+    .hero-score { position: relative; z-index: 1; text-align: center; }
+    .hero-score strong { display: block; font-size: 54px; font-weight: 540; letter-spacing: -0.08em; }
+    .video-frames { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .frame {
+      min-height: 150px;
+      border: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+      border-radius: 16px;
+      padding: 14px;
+      background: color-mix(in srgb, currentColor 5%, transparent);
+      display: grid;
+      align-content: space-between;
+    }
+    .frame b { font-size: 15px; font-weight: 590; }
+    .frame span { color: color-mix(in srgb, currentColor 62%, transparent); font-size: 13px; line-height: 1.45; }
+    .shot-number { width: fit-content; border-radius: 999px; border: 1px solid color-mix(in srgb, currentColor 18%, transparent); padding: 4px 8px; font-size: 12px; }
+    .prompt-card {
+      border: 1px dashed color-mix(in srgb, currentColor 26%, transparent);
+      border-radius: 16px;
+      padding: 14px;
+      background: color-mix(in srgb, currentColor 4%, transparent);
+      color: color-mix(in srgb, currentColor 72%, transparent);
+      line-height: 1.55;
+      font-size: 14px;
+    }
+    @media (max-width: 1040px) {
+      .top-inner, .layout, .market-board, .match { grid-template-columns: 1fr; }
+      .side { position: static; }
+      .top-inner { gap: 10px; }
+    }
+    @media (max-width: 720px) {
+      .wrap { padding: 18px 12px 42px; }
+      .intro, .preview-head { display: block; }
+      .screen { padding: 16px; }
+      .result-row, .score-row, .stat-grid, .video-frames, .hero-visual { grid-template-columns: 1fr; }
+      .preview-title { font-size: 32px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="top">
+    <div class="top-inner">
+      <div class="brand"><img src="assets/logo.svg" alt="">infomarket.ai 璁捐瀹為獙瀹?/div>
+      <div class="tabs" id="skillTabs"></div>
+      <div class="note">5 涓妧鑳?脳 3 濂?= 15 濂?/div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="intro">
+      <div>
+        <h1>15 濂楃綉绔欒璁℃柟鍚?/h1>
+        <p>姣忎釜鎶€鑳界敤鑷繁鐨勬柟娉曡鍑?3 濂楋細鏈変氦鏄撶粓绔€佹湁浣撹偛姣斿垎涓績銆佹湁璧勪骇鍚庡彴銆佹湁鍥惧儚椋庢牸鎻愮ず銆佹湁瑙嗛璺紨鍙欎簨銆傜敤浜庨€夋柟鍚戯紝涓嶈鐩栧綋鍓嶆寮忛〉闈€?/p>
+      </div>
+      <div class="count" id="currentCount">01 / 15</div>
+    </section>
+
+    <div class="layout">
+      <aside class="side" id="conceptNav"></aside>
+      <section class="preview-shell">
+        <div class="browser-bar">
+          <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+          <span class="url">infomarket.ai/design-lab</span>
+        </div>
+        <div class="screen light" id="screen"></div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    const concepts = [
+      {
+        skill: '璁捐AEO', title: 'AEO 01 / 璧涗簨娴锋姤鍨嬮椤?, theme: 'glass',
+        tag: 'GPT Image visual direction', desc: '鎶婇椤靛綋鎴愪竴寮犻噾铻嶄綋鑲叉捣鎶ワ細澶ч潰绉劍鐐规瘮璧涜瑙夈€侀槦寰姐€佹瘮鍒嗐€佸浐瀹氳禂鐜囧拰姣斿垎 YES/NO銆傞€傚悎鍋氬己鍝佺墝绗竴鍗拌薄銆?,
+        layout: 'hero', radius: '22px', hero: 'linear-gradient(135deg,#20242a,#2d3b35 70%,#406d59)'
+      },
+      {
+        skill: '璁捐AEO', title: 'AEO 02 / 浜у搧鎻掑浘鍨嬮椤?, theme: 'cream',
+        tag: 'Illustrated product system', desc: '寮鸿皟 INFO 閲戝簱銆佷繚闄┿€両NF Credits 鐨勪骇鍝佹彃鍥炬劅銆備氦鏄撳垪琛ㄤ笉鎶㈡垙锛岄€傚悎鎶婇娴嬩氦鏄撳寘瑁呮垚瀹屾暣閲戣瀺浜у搧銆?,
+        layout: 'asset', radius: '20px', hero: 'linear-gradient(135deg,#2a2722,#5f4b32)'
+      },
+      {
+        skill: '璁捐AEO', title: 'AEO 03 / 鍥惧儚鍗＄墖甯傚満', theme: 'editorial',
+        tag: 'Image-card market feed', desc: '姣忎釜甯傚満鍍忎竴寮犲彲鐢熸垚灏侀潰鐨勫浘鍍忓崱鐗囷細浣撹偛銆佸姞瀵嗐€丄I 鏂伴椈鍚勮嚜鏈夎瑙夊満鏅紝棣栭〉鏇村儚楂樼骇鍐呭浜ゆ槗骞冲彴銆?,
+        layout: 'cards', radius: '18px', hero: 'linear-gradient(135deg,#2e4439,#1f2328)'
+      },
+      {
+        skill: 'web-design-engineer', title: 'WDE 01 / 鏋佺畝甯傚満缁堢', theme: 'light',
+        tag: 'Production web UI', desc: '鏈€鑳借惤鍦扮殑涓€濂楋細Polymarket 寮忓鑸紝鍒楄〃楂樺瘑搴︿絾涓嶆嫢鎸わ紝姣斿垎鍏ュ彛寮猴紝閫傚悎鐩存帴鍙樻垚姝ｅ紡棣栭〉銆?,
+        layout: 'terminal', radius: '12px'
+      },
+      {
+        skill: 'web-design-engineer', title: 'WDE 02 / 涓撲笟浣撹偛浜ゆ槗鍙?, theme: 'glass',
+        tag: 'Sports-first dashboard', desc: '瓒崇悆浼樺厛锛岄灞忓睍绀洪槦寰藉拰瀹炴椂姣斿垎锛屽悓鏃朵繚鐣欒祫浜т笌璁㈠崟鍖恒€傛瘮鍒嗗競鍦轰粠 0-0 鍒?4-4 鐨勮鍒欓潪甯哥獊鍑恒€?,
+        layout: 'sports', radius: '16px', hero: 'linear-gradient(135deg,#17212f,#243b45)'
+      },
+      {
+        skill: 'web-design-engineer', title: 'WDE 03 / 涓汉鍚庡彴铻嶅悎棣栭〉', theme: 'light',
+        tag: 'Account-aware homepage', desc: '鐢ㄦ埛鐧诲綍鍚庨椤靛氨鏄競鍦?+ 璧勪骇 + 鎸佷粨涓夊悎涓€锛岄€傚悎寮哄寲閲戝簱銆佷繚闄╁拰闀挎湡鐣欏瓨銆?,
+        layout: 'asset', radius: '14px'
+      },
+      {
+        skill: 'gpt-image-2', title: 'IMG 01 / 鐜荤拑閲戣瀺骞垮憡椤?, theme: 'glass',
+        tag: 'Prompt-ready visual mockup', desc: '鍙洿鎺ヨ浆鎴?GPT Image 2 鐨勭綉椤佃瑙夛細鐜荤拑璐ㄦ劅銆佸喎闈欑豢鑹层€佺悆闃熷浘褰㈠拰閲戣瀺 UI 鍙犲眰銆?,
+        layout: 'prompt', radius: '24px', hero: 'linear-gradient(135deg,#eaf3ef,#ffffff)'
+      },
+      {
+        skill: 'gpt-image-2', title: 'IMG 02 / 璧涗簨瀹炲喌澶х墖', theme: 'ink',
+        tag: 'Cinematic match visual', desc: '鏆楄壊浣撹偛澶х墖鏂瑰悜锛屾瘮鍒嗐€侀槦寰藉拰璧旂巼鍍忚禌浜嬪疄鍐佃浆鎾寘瑁呫€傞€傚悎鍋?Banner銆佸箍鍛婂浘銆佹椿鍔ㄩ〉銆?,
+        layout: 'hero', radius: '20px', hero: 'linear-gradient(135deg,#14171c,#263232 65%,#684047)'
+      },
+      {
+        skill: 'gpt-image-2', title: 'IMG 03 / 淇℃伅鍥鹃椤?, theme: 'cream',
+        tag: 'Infographic landing', desc: '鎶婁氦鏄撱€佹寲鐭裤€侀噾搴撱€佷繚闄╅杞仛鎴愪俊鎭浘鍨嬮椤点€傞€傚悎瑙ｉ噴浜у搧锛岃€屼笉鏄彧灞曠ず甯傚満銆?,
+        layout: 'infographic', radius: '18px'
+      },
+      {
+        skill: 'kb-retriever', title: 'KB 01 / PRD 瑙勫垯椹卞姩棣栭〉', theme: 'light',
+        tag: 'Knowledge-structured IA', desc: '浠庝骇鍝佽鍒欏弽鎺ㄤ俊鎭灦鏋勶細浜ゆ槗銆佹瘮鍒嗐€侀噾搴撱€佷繚闄┿€丆redits銆侀鎺у叆鍙ｆ竻鏅板垎灞傘€?,
+        layout: 'kb', radius: '14px'
+      },
+      {
+        skill: 'kb-retriever', title: 'KB 02 / 椋庢帶鍙俊棣栭〉', theme: 'editorial',
+        tag: 'Trust and ledger first', desc: '绐佸嚭閾句笅鎾悎銆佸唴閮ㄨ处鏈€佹瘡鏃ュ璐︺€佸喎鐑挶鍖呭拰 KYC 椋庢帶锛岄€傚悎姝ｅ紡閲戣瀺浜у搧鐨勪俊浠诲缓绔嬨€?,
+        layout: 'trust', radius: '12px'
+      },
+      {
+        skill: 'kb-retriever', title: 'KB 03 / 鍝佺被瀵艰埅鐭ヨ瘑鍥捐氨', theme: 'light',
+        tag: 'Category knowledge map', desc: '鎶婁綋鑲层€佸姞瀵嗐€佺數绔炪€丄I銆佽储缁忋€佹斂娌汇€佸ū涔愭媶鎴愬彲娴忚鐭ヨ瘑鍦板浘锛岄€傚悎甯傚満寰堝鏃剁殑棣栭〉銆?,
+        layout: 'map', radius: '16px'
+      },
+      {
+        skill: 'web-video-presentation', title: 'VIDEO 01 / 铻嶈祫璺紨棣栭〉', theme: 'ink',
+        tag: 'Pitch narrative site', desc: '鍍忎竴鏉″彲浠ュ綍灞忕殑瑙嗛婕旂ず锛氶棶棰樸€佽В鍐虫柟妗堛€侀杞€佹寚鏍囥€佷骇鍝佺晫闈㈠垎闀滄帹杩涖€?,
+        layout: 'video', radius: '20px', hero: 'linear-gradient(135deg,#12161b,#26382f)'
+      },
+      {
+        skill: 'web-video-presentation', title: 'VIDEO 02 / 浜у搧鍙戝竷椤?, theme: 'glass',
+        tag: 'Launch keynote website', desc: 'Apple 鍙戝竷浼氬紡鑺傚锛氬皯鏂囧瓧銆佸ぇ鐣欑櫧銆侀€愬睆瑙ｉ噴浜ゆ槗銆佹瘮鍒嗐€佷繚闄┿€侀噾搴撱€?,
+        layout: 'video', radius: '24px', hero: 'linear-gradient(135deg,#f8fafc,#e9f4ef)'
+      },
+      {
+        skill: 'web-video-presentation', title: 'VIDEO 03 / 鏂版墜鏁欒偛鍔ㄧ嚎', theme: 'cream',
+        tag: 'Onboarding story flow', desc: '鎶娾€滃厖鍊?涓嬪崟-涔颁繚闄?缁撶畻-棰嗗彇濂栧姳鈥濆仛鎴愯繛缁晠浜嬶紝鏇撮€傚悎 Web/H5 鏂扮敤鎴疯浆鍖栥€?,
+        layout: 'onboard', radius: '18px'
+      }
+    ];
+
+    const groups = [...new Set(concepts.map((item) => item.skill))];
+    let activeIndex = 0;
+
+    function matchBlock() {
+      return `
+        <div class="match">
+          <div>
+            <div class="meta"><span class="league">EPL</span><span class="red">瀹炴椂</span><strong>EPL / 2H - 90</strong><span>$6.45M 浜ゆ槗閲?/span></div>
+            <div class="team"><span class="scorebox">3</span><span class="crest">MU</span><strong>Man Utd</strong><span>18-11-7</span></div>
+            <div class="team"><span class="scorebox">2</span><span class="crest blue">NF</span><strong>Forest</strong><span>11-10-15</span></div>
+          </div>
+          <div class="odds">
+            <div class="result-row"><div class="quote">MUN <span class="green">@1.090</span></div><div class="quote">Draw <span class="green">@10.300</span></div><div class="quote">NFO <span class="green">@500.000</span></div></div>
+            <div class="score-row"><div class="score"><b>0-0</b><span class="green">Y 5.20</span><span class="red">N 1.03</span></div><div class="score"><b>1-0</b><span class="green">Y 6.55</span><span class="red">N 1.04</span></div><div class="score"><b>2-1</b><span class="green">Y 9.42</span><span class="red">N 1.05</span></div><div class="quote">More</div></div>
+          </div>
+        </div>
+      `;
+    }
+
+    function secondMatch() {
+      return `
+        <div class="match">
+          <div>
+            <div class="meta"><span class="league">SA</span><span class="red">瀹炴椂</span><strong>Serie A / 1H - 21</strong><span>$364.42K 浜ゆ槗閲?/span></div>
+            <div class="team"><span class="scorebox">0</span><span class="crest blue">INT</span><strong>Inter Milan</strong><span>27-4-5</span></div>
+            <div class="team"><span class="scorebox">0</span><span class="crest gold">VER</span><strong>Verona</strong><span>3-11-22</span></div>
+          </div>
+          <div class="odds">
+            <div class="result-row"><div class="quote">INT <span class="green">@1.450</span></div><div class="quote">Draw <span class="green">@4.350</span></div><div class="quote">VER <span class="green">@9.090</span></div></div>
+            <div class="score-row"><div class="score"><b>0-0</b><span class="green">Y 5.20</span><span class="red">N 1.03</span></div><div class="score"><b>1-1</b><span class="green">Y 8.07</span><span class="red">N 1.04</span></div><div class="score"><b>2-0</b><span class="green">Y 7.90</span><span class="red">N 1.04</span></div><div class="quote">More</div></div>
+          </div>
+        </div>
+      `;
+    }
+
+    function heroVisual() {
+      return `
+        <div class="hero-visual">
+          <div class="hero-team"><span class="hero-crest">MU</span><strong>Man Utd</strong></div>
+          <div class="hero-score"><strong>3 : 2</strong><span>2H - 90</span></div>
+          <div class="hero-team"><span class="hero-crest blue">NF</span><strong>Forest</strong></div>
+        </div>
+      `;
+    }
+
+    function sidePanel(type) {
+      const title = type === 'slip' ? '浜ゆ槗鍗? : type === 'trust' ? '鍙俊绯荤粺' : '璐︽埛鎬昏';
+      return `
+        <aside class="panel">
+          <h3>${title}</h3>
+          <div class="slip-row"><span>鍙敤浣欓</span><strong>12,480 USDT</strong></div>
+          <div class="slip-row"><span>INF Credits</span><strong class="green">8,416.2</strong></div>
+          <div class="slip-row"><span>Alpha 淇濋櫓</span><strong>鏈€楂?40%</strong></div>
+          <div class="slip-row"><span>閲戝簱 APR</span><strong>12.4%</strong></div>
+        </aside>
+      `;
+    }
+
+    function renderBody(concept) {
+      if (concept.layout === 'hero' || concept.layout === 'sports') {
+        return `
+          ${heroVisual()}
+          <div class="market-board">
+            <div class="market-list">${matchBlock()}${secondMatch()}</div>
+            ${sidePanel('slip')}
+          </div>
+        `;
+      }
+      if (concept.layout === 'asset') {
+        return `
+          <div class="stat-grid"><div class="stat"><span>鍙敤</span><strong>12,480</strong></div><div class="stat"><span>閲戝簱</span><strong>24,000</strong></div><div class="stat"><span>淇濋櫓璧斾粯</span><strong class="green">180</strong></div></div>
+          <div class="market-board"><div class="market-list">${matchBlock()}${secondMatch()}</div>${sidePanel('asset')}</div>
+        `;
+      }
+      if (concept.layout === 'cards') {
+        return `
+          <div class="stat-grid"><div class="stat"><span>Sports</span><strong>Football scores</strong></div><div class="stat"><span>Crypto</span><strong>Up / Down</strong></div><div class="stat"><span>INFO</span><strong>Vault + Insurance</strong></div></div>
+          <div class="market-list">${matchBlock()}${secondMatch()}</div>
+        `;
+      }
+      if (concept.layout === 'prompt') {
+        return `
+          <div class="market-board">
+            <div>
+              ${heroVisual()}
+              <div class="prompt-card">Image prompt direction: clean fintech betting exchange homepage, Apple-level restraint, football match centerpiece, real-time score, YES/NO correct score market, USDT ledger, soft glass panels, no purple gradient, no emoji.</div>
+            </div>
+            ${sidePanel('slip')}
+          </div>
+        `;
+      }
+      if (concept.layout === 'infographic') {
+        return `
+          <div class="stat-grid"><div class="stat"><span>01 Trade</span><strong>USDT 涓嬪崟</strong></div><div class="stat"><span>02 Mine</span><strong>INF Credits</strong></div><div class="stat"><span>03 Protect</span><strong>Alpha 淇濋櫓</strong></div></div>
+          <div class="market-board"><div class="panel"><h3>浜ゆ槗 鈫?鎸栫熆 鈫?閲戝簱/淇濋櫓 鈫?TVL 椋炶疆</h3><div class="slip-row"><span>浜ゆ槗閲戦</span><strong>缁戝畾 Credits</strong></div><div class="slip-row"><span>閲戝簱瀛樻</span><strong>鏀剁泭 + 鍔犳垚</strong></div><div class="slip-row"><span>浜忔崯淇濆崟</span><strong>璧斾粯鑺傜偣</strong></div></div>${sidePanel('asset')}</div>
+        `;
+      }
+      if (concept.layout === 'kb' || concept.layout === 'trust' || concept.layout === 'map') {
+        return `
+          <div class="stat-grid"><div class="stat"><span>甯傚満</span><strong>浣撹偛 / 鍔犲瘑 / AI</strong></div><div class="stat"><span>璐︽湰</span><strong>available / frozen</strong></div><div class="stat"><span>缁撶畻</span><strong>閾句笅鎾悎</strong></div></div>
+          <div class="market-board"><div class="market-list">${matchBlock()}${secondMatch()}</div>${sidePanel('trust')}</div>
+        `;
+      }
+      if (concept.layout === 'video' || concept.layout === 'onboard') {
+        return `
+          <div class="video-frames">
+            <div class="frame"><span class="shot-number">Scene 01</span><b>鐪熷疄浜嬩欢棰勬祴</b><span>鐢ㄦ埛鐪嬪埌鐒︾偣姣旇禌鍜屾牳蹇冭禂鐜囥€?/span></div>
+            <div class="frame"><span class="shot-number">Scene 02</span><b>姣斿垎 YES / NO</b><span>0-0 鍒?4-4 鐨?25 涓瘮鍒嗭紝姣忎釜閮芥湁鍥哄畾璧旂巼銆?/span></div>
+            <div class="frame"><span class="shot-number">Scene 03</span><b>浜ゆ槗椋炶疆</b><span>USDT 浜ゆ槗銆両NF Credits銆侀噾搴撱€佷繚闄╁舰鎴愮暀瀛樸€?/span></div>
+          </div>
+          <div style="height:14px"></div>
+          <div class="market-board"><div class="market-list">${matchBlock()}</div>${sidePanel('slip')}</div>
+        `;
+      }
+      return `<div class="market-list">${matchBlock()}${secondMatch()}</div>`;
+    }
+
+    function renderPreview(index) {
+      activeIndex = index;
+      const concept = concepts[index];
+      const screen = document.getElementById('screen');
+      screen.className = `screen ${concept.theme}`;
+      screen.style.setProperty('--radius', concept.radius || '14px');
+      screen.style.setProperty('--hero', concept.hero || 'linear-gradient(135deg,#20242a,#33433c)');
+      screen.style.setProperty('--card', concept.theme === 'ink' ? 'rgba(255,255,255,.06)' : '#fff');
+      screen.innerHTML = `
+        <div class="preview-head">
+          <div>
+            <span class="skill-tag">${concept.skill}</span>
+            <h2 class="preview-title">${concept.title}</h2>
+            <p class="preview-desc">${concept.desc}</p>
+            <div class="navline"><span>鐑棬</span><span>浣撹偛</span><span>鍔犲瘑</span><span>鐢电珵</span><span>INFO 閲戝簱</span><span>INFO 淇濋櫓</span></div>
+          </div>
+          <div class="logo-word"><img src="assets/logo.svg" alt="">infomarket.ai</div>
+        </div>
+        ${renderBody(concept)}
+      `;
+      document.getElementById('currentCount').textContent = `${String(index + 1).padStart(2, '0')} / ${concepts.length}`;
+      document.querySelectorAll('[data-concept]').forEach((button) => button.classList.toggle('active', Number(button.dataset.concept) === index));
+      document.querySelectorAll('[data-skill]').forEach((button) => button.classList.toggle('active', button.dataset.skill === concept.skill));
+    }
+
+    function renderNav() {
+      const tabs = document.getElementById('skillTabs');
+      tabs.innerHTML = groups.map((skill) => `<button data-skill="${skill}">${skill}</button>`).join('');
+      tabs.querySelectorAll('[data-skill]').forEach((button) => {
+        button.addEventListener('click', () => renderPreview(concepts.findIndex((item) => item.skill === button.dataset.skill)));
+      });
+
+      const nav = document.getElementById('conceptNav');
+      nav.innerHTML = groups.map((skill) => {
+        const items = concepts.map((item, index) => ({ ...item, index })).filter((item) => item.skill === skill);
+        return `
+          <section class="group">
+            <h2>${skill}</h2>
+            ${items.map((item) => `<button data-concept="${item.index}"><strong>${item.title.split(' / ').slice(1).join(' / ') || item.title}</strong><span>${item.tag}</span></button>`).join('')}
+          </section>
+        `;
+      }).join('');
+      nav.querySelectorAll('[data-concept]').forEach((button) => {
+        button.addEventListener('click', () => renderPreview(Number(button.dataset.concept)));
+      });
+    }
+
+    renderNav();
+    renderPreview(0);
+  </script>
+</body>
+</html>
+
+

@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: infomarket-ai-demo
+    runtime: node
+    plan: free
+    buildCommand: npm install --omit=dev
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production

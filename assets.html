@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Assets - infomarket.ai</title>
+  <link rel="stylesheet" href="assets/app.css" />
+</head>
+<body>
+  <script src="assets/i18n.js"></script>
+  <script src="assets/page-shell.js"></script>
+  <script>document.write(appHeader('Assets'));</script>
+
+  <main class="app-shell">
+    <a class="back-link" href="dashboard.html">Back to dashboard</a>
+    <div class="page-head">
+      <div>
+        <p class="eyebrow">Internal ledger</p>
+        <h1>Assets</h1>
+        <div class="sub">On-chain only handles USDT deposits and withdrawals. Trading freezes, settlement, vault balances, claimable payouts, and locked INF Credits live in the internal ledger.</div>
+      </div>
+      <button class="btn primary" data-auth-action data-auth-label="Connect wallet">Connect wallet</button>
+    </div>
+
+    <section class="cards">
+      <div class="card"><span>Available</span><strong data-balance="available">0.00</strong></div>
+      <div class="card"><span>Frozen</span><strong data-balance="frozen">0.00</strong></div>
+      <div class="card"><span>Vault</span><strong data-balance="vault">0.00</strong></div>
+      <div class="card"><span>Claimable</span><strong class="green" data-balance="claimable">0.00</strong></div>
+    </section>
+
+    <div class="layout">
+      <section>
+        <div class="panel">
+          <h2>USDT deposit</h2>
+          <div class="segmented"><button class="tab active" data-network="Solana">Solana</button><button class="tab" data-network="TRC20">TRC20</button><button class="tab" data-network="ERC20">ERC20</button></div>
+          <div class="field">
+            <label>Deposit address</label>
+            <div class="input"><input class="mono" data-deposit-address value="7Nf8mZkB2q84xV1T9q" readonly><button class="btn" data-copy-address>Copy</button></div>
+            <span class="copy-ok" data-copy-ok>Copied</span>
+          </div>
+          <div class="field">
+            <label>Confirm deposit amount</label>
+            <div class="input"><input class="big" data-deposit-amount value="2000" inputmode="decimal"><span>USDT</span><button class="btn primary" data-deposit-confirm>Confirm</button></div>
+          </div>
+          <div class="muted-note">Deposits credit the internal USDT ledger after chain confirmation. Production will assign a unique address per user and reconcile every transfer.</div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title-row"><h2>Ledger entries</h2><button class="btn" data-clear-demo>Refresh ledger</button></div>
+          <table class="table" data-ledger-table>
+            <thead><tr><th>Type</th><th>Amount</th><th>Status</th><th>Note</th><th>Time</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+
+      <aside>
+        <div class="panel">
+          <h2>USDT withdrawal</h2>
+          <div class="field"><label>Withdrawal address</label><div class="input"><input data-withdraw-address placeholder="Paste USDT address"></div></div>
+          <div class="field"><label>Amount</label><div class="input"><input class="big" data-withdraw-amount value="500" inputmode="decimal"><span>USDT</span></div></div>
+          <button class="btn primary" style="width:100%" data-withdraw-submit>Submit withdrawal</button>
+          <div class="muted-note" style="margin-top:10px;">Withdrawals are created from your internal USDT balance first. A later backend service will sign and broadcast hot-wallet transfers.</div>
+        </div>
+
+        <div class="panel">
+          <h2>Withdrawal status</h2>
+          <table class="table" data-withdrawal-status>
+            <thead><tr><th>Amount</th><th>Status</th><th>Time</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+        <div class="panel">
+          <h2>Account buckets</h2>
+          <div class="row"><span>available</span><strong data-bucket="available">0.00</strong></div>
+          <div class="row"><span>frozen</span><strong data-bucket="frozen">0.00</strong></div>
+          <div class="row"><span>trading</span><strong data-bucket="trading">0.00</strong></div>
+          <div class="row"><span>vault</span><strong data-bucket="vault">0.00</strong></div>
+          <div class="row"><span>claimable</span><strong data-bucket="claimable">0.00</strong></div>
+          <div class="row"><span>locked</span><strong data-bucket="locked">0.00 INF</strong></div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <script src="assets/api-client.js"></script>
+  <script src="assets/web-store.js"></script>
+  <script src="assets/web-assets.js"></script>
+  <script src="assets/brand-ui.js"></script>
+  <script src="assets/web-shell.js"></script>
+</body>
+</html>
+
+
+

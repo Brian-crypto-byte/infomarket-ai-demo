@@ -1,0 +1,93 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>INFO Vault - infomarket.ai</title>
+  <link rel="stylesheet" href="assets/app.css" />
+</head>
+<body>
+  <script src="assets/i18n.js?v=i18n3"></script>
+  <script src="assets/page-shell.js"></script>
+  <script>document.write(appHeader('INFO Vault'));</script>
+
+  <main class="app-shell">
+    <a class="back-link" href="dashboard.html" data-i18n="common.backDashboard">Back to dashboard</a>
+    <section class="hero-panel">
+      <div class="page-head" style="margin-bottom:0">
+        <div>
+          <p class="eyebrow" data-i18n="vault.product">INFO Products</p>
+          <h1 data-i18n="vault.title">INFO Vault</h1>
+          <div class="sub" data-i18n="vault.subtitle">Deposit idle USDT into fixed-term vault plans. Funds stay in the internal ledger and unlock after 7, 15, 30, 60, or 180 days.</div>
+        </div>
+        <div><span class="badge green" data-i18n="vault.estimatedApr">Estimated APR 12.4%</span></div>
+      </div>
+    </section>
+
+    <section class="cards">
+      <div class="card"><span data-i18n="vault.myVault">My vault</span><strong data-vault="balance">0</strong></div>
+      <div class="card"><span data-i18n="vault.accruedYield">Accrued yield</span><strong class="green" data-vault="yield">0</strong></div>
+      <div class="card"><span data-i18n="vault.infBoost">INF boost</span><strong class="amber" data-vault="boost">1.35x</strong></div>
+      <div class="card"><span data-i18n="vault.tvl">Vault TVL</span><strong>1.37M</strong></div>
+    </section>
+
+    <div class="layout">
+      <section>
+        <div class="panel">
+          <div class="panel-title-row"><h2 data-i18n="vault.yieldCurve">Yield curve</h2><span class="badge green" data-i18n="vault.dailySettlement">Daily settlement</span></div>
+          <div class="chart">
+            <svg viewBox="0 0 900 220" preserveAspectRatio="none">
+              <path d="M0 160 C120 140,180 150,280 116 S430 102,520 84 S690 70,900 48" fill="none" stroke="#55a873" stroke-width="4"/>
+              <path d="M0 160 C120 140,180 150,280 116 S430 102,520 84 S690 70,900 48 L900 220 L0 220 Z" fill="rgba(85,168,115,.10)"/>
+            </svg>
+          </div>
+        </div>
+        <div class="panel">
+          <h2 data-i18n="vault.rules">Vault rules</h2>
+          <div class="row"><span data-i18n="vault.terms">Vault terms</span><strong>7 / 15 / 30 / 60 / 180 days</strong></div>
+          <div class="row"><span data-i18n="vault.yieldSettlement">Yield settlement</span><strong data-i18n="vault.dailySettlement">Daily</strong></div>
+          <div class="row"><span data-i18n="vault.withdraw">Withdraw</span><strong data-i18n="vault.afterLock">After lock expires</strong></div>
+          <div class="row"><span data-i18n="vault.creditsBoost">Credits boost</span><strong data-i18n="vault.longerBoost">Longer term, higher boost</strong></div>
+        </div>
+        <div class="panel">
+          <div class="panel-title-row"><h2 data-i18n="vault.ledger">Vault ledger</h2><button class="btn" onclick="location.href='assets.html'" data-i18n="common.openAssets">Open assets</button></div>
+          <table class="table" data-vault-ledger>
+            <thead><tr><th>Type</th><th data-i18n="vault.amount">Amount</th><th>Status</th><th>Time</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+
+      <aside>
+        <div class="panel">
+          <h2 data-i18n="vault.manage">Manage vault</h2>
+          <div class="segmented two"><button class="tab active" data-vault-action="deposit" data-i18n="vault.deposit">Deposit</button><button class="tab" data-vault-action="withdraw" data-i18n="vault.withdrawAction">Withdraw</button></div>
+          <div class="field" data-vault-term-wrap><label data-i18n="vault.lockTerm">Lock term</label><div class="segmented" style="grid-template-columns:repeat(5,minmax(0,1fr))"><button class="tab active" data-vault-term="7">7D</button><button class="tab" data-vault-term="15">15D</button><button class="tab" data-vault-term="30">30D</button><button class="tab" data-vault-term="60">60D</button><button class="tab" data-vault-term="180">180D</button></div></div>
+          <div class="field"><label data-i18n="vault.amount">Amount</label><div class="input"><input class="big" data-vault-amount value="1000" inputmode="decimal"><span>USDT</span></div></div>
+          <button class="btn primary" style="width:100%" data-vault-submit data-i18n="vault.confirmDeposit">Confirm deposit</button>
+          <div class="muted-note" style="margin-top:10px;" data-vault-note>Moves USDT from available balance into INFO Vault.</div>
+        </div>
+        <div class="panel">
+          <h2 data-i18n="vault.account">My vault account</h2>
+          <div class="row"><span data-i18n="vault.available">Available</span><strong data-vault-account="available">0 USDT</strong></div>
+          <div class="row"><span data-i18n="vault.principal">Principal</span><strong data-vault-account="principal">0 USDT</strong></div>
+          <div class="row"><span data-i18n="vault.accruedYield">Accrued yield</span><strong class="green" data-vault-account="yield">0 USDT</strong></div>
+          <div class="row"><span data-i18n="vault.claimableYield">Claimable yield</span><strong class="green" data-vault-account="claimable">0 USDT</strong></div>
+          <div class="row"><span data-i18n="vault.currentTerm">Current term</span><strong data-vault-account="term">30 days</strong></div>
+          <div class="row"><span data-i18n="vault.unlockDate">Unlock date</span><strong data-vault-account="unlock">After lock</strong></div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <script src="assets/api-client.js"></script>
+  <script src="assets/web-store.js"></script>
+  <script src="assets/web-vault.js?v=i18n2"></script>
+  <script src="assets/brand-ui.js"></script>
+  <script src="assets/web-shell.js"></script>
+</body>
+</html>
+
+
+
+

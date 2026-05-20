@@ -1,0 +1,689 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>infomarket.ai - 3 Website Design Concepts</title>
+  <style>
+    :root {
+      --ink: #1f2328;
+      --muted: #66707c;
+      --line: #d8dee6;
+      --paper: #f5f6f7;
+      --green: #468a71;
+      --red: #ad6268;
+      --blue: #2d65b7;
+      font-family: "Aptos", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: #eef0f2;
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+    }
+    button { font: inherit; cursor: pointer; }
+    .stage-top {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid #d5d9df;
+      background: rgba(245, 246, 247, .92);
+      backdrop-filter: blur(16px);
+    }
+    .stage-inner {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 16px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+    .stage-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 590;
+      letter-spacing: -0.02em;
+    }
+    .stage-brand img { width: 32px; height: 32px; }
+    .switcher {
+      display: flex;
+      gap: 8px;
+      padding: 5px;
+      border: 1px solid #d7dce2;
+      border-radius: 999px;
+      background: #fff;
+    }
+    .switcher button {
+      height: 34px;
+      border: 0;
+      border-radius: 999px;
+      background: transparent;
+      color: #56616d;
+      padding: 0 14px;
+      font-size: 14px;
+      font-weight: 560;
+    }
+    .switcher button.active {
+      background: #20242a;
+      color: #fff;
+    }
+    .stage-note {
+      color: #66707c;
+      font-size: 14px;
+    }
+    .canvas {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 26px 22px 60px;
+    }
+    .concept { display: none; }
+    .concept.active { display: block; }
+    .concept-head {
+      margin-bottom: 16px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 18px;
+    }
+    .concept-head h1 {
+      margin: 0;
+      font-size: 28px;
+      font-weight: 590;
+      letter-spacing: -0.03em;
+    }
+    .concept-head p {
+      max-width: 660px;
+      margin: 8px 0 0;
+      color: #66707c;
+      line-height: 1.5;
+    }
+    .pill {
+      display: inline-flex;
+      min-height: 30px;
+      align-items: center;
+      border: 1px solid #d8dee6;
+      border-radius: 999px;
+      background: #fff;
+      padding: 0 10px;
+      color: #56616d;
+      font-size: 13px;
+      font-weight: 560;
+    }
+    .browser {
+      min-height: 760px;
+      border: 1px solid #cfd5dd;
+      border-radius: 22px;
+      background: #fff;
+      overflow: hidden;
+    }
+    .browser-bar {
+      height: 44px;
+      border-bottom: 1px solid #dce1e7;
+      background: #fafafa;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 16px;
+      color: #8a929b;
+      font-size: 13px;
+    }
+    .dot { width: 10px; height: 10px; border-radius: 50%; background: #d0d5dc; }
+    .url { margin-left: 10px; height: 26px; min-width: 280px; border-radius: 999px; background: #f0f2f4; display: grid; place-items: center; }
+    .logo-text {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-weight: 590;
+      letter-spacing: -0.02em;
+    }
+    .logo-text img { width: 30px; height: 30px; }
+    .price-green { color: var(--green); }
+    .price-red { color: var(--red); }
+
+    /* Concept A */
+    .a-shell { background: #fff; min-height: 716px; }
+    .a-top {
+      height: 66px;
+      display: grid;
+      grid-template-columns: 210px 1fr auto;
+      align-items: center;
+      gap: 20px;
+      padding: 0 28px;
+      border-bottom: 1px solid #dce1e7;
+    }
+    .a-search {
+      height: 40px;
+      border: 1px solid #d8dee6;
+      border-radius: 10px;
+      background: #f3f5f7;
+      color: #67717c;
+      display: flex;
+      align-items: center;
+      padding: 0 14px;
+      font-size: 14px;
+    }
+    .a-actions { display: flex; gap: 8px; }
+    .small-btn {
+      height: 36px;
+      border: 1px solid #d8dee6;
+      border-radius: 9px;
+      background: #fff;
+      padding: 0 12px;
+      font-weight: 560;
+    }
+    .small-btn.dark { background: #20242a; border-color: #20242a; color: #fff; }
+    .a-nav {
+      height: 48px;
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      padding: 0 28px;
+      border-bottom: 1px solid #dce1e7;
+      color: #65707b;
+      font-size: 14px;
+      font-weight: 560;
+    }
+    .a-nav span:first-child { color: #20242a; }
+    .a-main { padding: 24px 28px 32px; }
+    .a-date { margin: 0 0 16px; font-size: 20px; font-weight: 590; letter-spacing: -0.02em; }
+    .a-list { display: grid; gap: 10px; }
+    .a-match {
+      display: grid;
+      grid-template-columns: 420px 1fr;
+      align-items: center;
+      gap: 20px;
+      border: 1px solid #d9dee5;
+      border-radius: 14px;
+      padding: 15px 16px;
+    }
+    .match-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+      color: #65707b;
+      font-size: 13px;
+    }
+    .league-chip {
+      width: 26px;
+      height: 26px;
+      border-radius: 8px;
+      border: 1px solid #d9dee5;
+      display: grid;
+      place-items: center;
+      color: #2f3741;
+      font-size: 11px;
+      font-weight: 650;
+    }
+    .team-line {
+      display: grid;
+      grid-template-columns: 36px 34px minmax(0, 1fr) 70px;
+      align-items: center;
+      gap: 10px;
+      margin-top: 8px;
+    }
+    .scorebox {
+      height: 30px;
+      border-radius: 8px;
+      background: #e9edf1;
+      display: grid;
+      place-items: center;
+      font-weight: 590;
+    }
+    .crest {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 650;
+      background: linear-gradient(145deg, #b4413f, #78252c);
+    }
+    .crest.blue { background: linear-gradient(145deg, #2a67bd, #142b59); }
+    .crest.gold { background: linear-gradient(145deg, #b7923c, #765a22); }
+    .team-name { font-size: 16px; font-weight: 560; }
+    .record { color: #707a85; font-size: 13px; }
+    .a-market { display: grid; gap: 8px; }
+    .result-row, .score-row { display: grid; gap: 8px; }
+    .result-row { grid-template-columns: repeat(3, 1fr); }
+    .score-row { grid-template-columns: repeat(3, 1fr) 66px; }
+    .quote {
+      min-height: 38px;
+      border: 1px solid #d9dee5;
+      border-radius: 9px;
+      background: #fff;
+      display: grid;
+      place-items: center;
+      font-size: 13px;
+      font-weight: 560;
+    }
+    .quote em { color: var(--green); font-style: normal; }
+    .score-quote {
+      min-height: 38px;
+      border: 1px solid #d9dee5;
+      border-radius: 9px;
+      display: grid;
+      grid-template-columns: 32px 1fr 1fr;
+      align-items: center;
+      gap: 6px;
+      padding: 0 8px;
+      font-size: 12px;
+      font-weight: 560;
+    }
+    .score-quote b { font-size: 13px; font-weight: 590; }
+
+    /* Concept B */
+    .b-shell {
+      min-height: 716px;
+      background:
+        radial-gradient(circle at 80% 15%, rgba(70, 138, 113, .16), transparent 30%),
+        linear-gradient(180deg, #f9faf9, #ffffff 45%);
+    }
+    .b-top {
+      height: 70px;
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      padding: 0 30px;
+    }
+    .b-nav {
+      display: flex;
+      gap: 20px;
+      color: #65707b;
+      font-size: 14px;
+      font-weight: 560;
+      margin-left: 18px;
+    }
+    .b-spacer { flex: 1; }
+    .b-main {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 340px;
+      gap: 20px;
+      padding: 10px 30px 32px;
+    }
+    .b-hero {
+      border: 1px solid #d9dee5;
+      border-radius: 24px;
+      background: #fff;
+      padding: 22px;
+    }
+    .b-hero-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 18px;
+    }
+    .b-title { margin: 0; font-size: 34px; font-weight: 570; letter-spacing: -0.04em; }
+    .b-sub { margin: 8px 0 0; color: #65707b; }
+    .b-scoreboard {
+      min-height: 230px;
+      border-radius: 20px;
+      background: #20242a;
+      color: #fff;
+      display: grid;
+      grid-template-columns: 1fr 120px 1fr;
+      align-items: center;
+      gap: 20px;
+      padding: 26px;
+    }
+    .b-team { display: grid; justify-items: center; gap: 12px; }
+    .b-crest {
+      width: 74px;
+      height: 74px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(145deg, #b4413f, #78252c);
+      font-weight: 650;
+    }
+    .b-crest.blue { background: linear-gradient(145deg, #2a67bd, #142b59); }
+    .b-team strong { font-size: 21px; font-weight: 560; }
+    .b-score { text-align: center; }
+    .b-score strong { display: block; font-size: 56px; font-weight: 540; letter-spacing: -0.08em; }
+    .b-score span { color: #b9c1ca; font-size: 13px; }
+    .b-markets {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .b-tile {
+      border: 1px solid #d9dee5;
+      border-radius: 14px;
+      padding: 13px;
+      background: #fff;
+    }
+    .b-tile span { display: block; color: #65707b; font-size: 13px; }
+    .b-tile strong { display: block; margin-top: 5px; font-size: 20px; font-weight: 570; }
+    .b-score-section {
+      margin-top: 16px;
+      border-top: 1px solid #e4e8ed;
+      padding-top: 16px;
+    }
+    .b-score-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+    .b-score-cell {
+      border: 1px solid #d9dee5;
+      border-radius: 12px;
+      padding: 10px;
+      display: grid;
+      gap: 7px;
+      font-size: 12px;
+    }
+    .b-score-cell b { font-size: 15px; font-weight: 570; }
+    .b-aside { display: grid; gap: 14px; align-content: start; }
+    .b-card {
+      border: 1px solid #d9dee5;
+      border-radius: 20px;
+      background: #fff;
+      padding: 18px;
+    }
+    .b-card h3 { margin: 0 0 12px; font-size: 18px; font-weight: 590; }
+    .b-slip-row {
+      display: flex;
+      justify-content: space-between;
+      border-top: 1px solid #e4e8ed;
+      padding: 12px 0;
+      color: #65707b;
+      font-size: 14px;
+    }
+    .b-slip-row:first-of-type { border-top: 0; }
+    .b-slip-row strong { color: #20242a; font-weight: 590; }
+
+    /* Concept C */
+    .c-shell {
+      min-height: 716px;
+      background: #f4f0e8;
+      color: #24211d;
+    }
+    .c-top {
+      height: 74px;
+      display: grid;
+      grid-template-columns: 210px 1fr auto;
+      align-items: center;
+      gap: 22px;
+      padding: 0 30px;
+      border-bottom: 1px solid rgba(36, 33, 29, .14);
+    }
+    .c-nav { display: flex; gap: 18px; color: #6e675e; font-size: 14px; font-weight: 560; }
+    .c-nav span:first-child { color: #24211d; }
+    .c-main {
+      display: grid;
+      grid-template-columns: 300px minmax(0, 1fr);
+      gap: 22px;
+      padding: 24px 30px 34px;
+    }
+    .c-left { display: grid; gap: 14px; align-content: start; }
+    .c-panel {
+      border: 1px solid rgba(36, 33, 29, .16);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, .58);
+      padding: 17px;
+    }
+    .c-panel h3 { margin: 0 0 12px; font-size: 18px; font-weight: 590; }
+    .c-big-number { font-size: 38px; font-weight: 540; letter-spacing: -0.06em; }
+    .c-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 0;
+      border-top: 1px solid rgba(36, 33, 29, .12);
+      color: #6e675e;
+      font-size: 14px;
+    }
+    .c-row strong { color: #24211d; font-weight: 590; }
+    .c-feed { display: grid; gap: 12px; }
+    .c-market {
+      border: 1px solid rgba(36, 33, 29, .16);
+      border-radius: 20px;
+      background: #fffaf2;
+      padding: 18px;
+      display: grid;
+      grid-template-columns: 1fr 520px;
+      gap: 18px;
+      align-items: center;
+    }
+    .c-market h2 { margin: 0 0 6px; font-size: 23px; font-weight: 570; letter-spacing: -0.03em; }
+    .c-market p { margin: 0 0 16px; color: #6e675e; }
+    .c-teams { display: grid; gap: 9px; }
+    .c-teamline { display: grid; grid-template-columns: 36px 36px 1fr; align-items: center; gap: 10px; }
+    .c-odds { display: grid; gap: 8px; }
+    .c-results { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .c-scoreline { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+    .c-box {
+      border: 1px solid rgba(36, 33, 29, .16);
+      border-radius: 12px;
+      background: #fff;
+      min-height: 42px;
+      display: grid;
+      place-items: center;
+      font-size: 13px;
+      font-weight: 560;
+    }
+    .c-box.score { grid-template-columns: 32px 1fr 1fr; padding: 0 8px; gap: 6px; }
+
+    @media (max-width: 900px) {
+      .stage-inner, .concept-head { display: block; }
+      .switcher { margin-top: 14px; overflow-x: auto; }
+      .a-top, .c-top { grid-template-columns: 1fr; height: auto; padding: 16px; }
+      .a-match, .b-main, .c-main, .c-market { grid-template-columns: 1fr; }
+      .score-row, .b-score-grid, .c-scoreline { grid-template-columns: 1fr 1fr; }
+      .b-scoreboard { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header class="stage-top">
+    <div class="stage-inner">
+      <div class="stage-brand"><img src="assets/logo.svg" alt="">infomarket.ai design concepts</div>
+      <div class="switcher" role="tablist">
+        <button class="active" data-target="concept-a">鏂规 01 甯傚満缁堢</button>
+        <button data-target="concept-b">鏂规 02 姣旇禌涓績</button>
+        <button data-target="concept-c">鏂规 03 璧勪骇浜ゆ槗鍙?/button>
+      </div>
+      <div class="stage-note">3 濂楅椤佃璁″浘锛屼笉瑕嗙洊褰撳墠寮€鍙戦〉</div>
+    </div>
+  </header>
+
+  <main class="canvas">
+    <section class="concept active" id="concept-a">
+      <div class="concept-head">
+        <div>
+          <h1>鏂规 01锛氬競鍦虹粓绔?/h1>
+          <p>鏈€鎺ヨ繎 Polymarket 鐨勪俊鎭瘑搴︼細鐧藉簳銆佸垪琛ㄣ€佺煭闃熷悕銆佽禂鐜囨寜閽拰姣斿垎 YES/NO 棰勮銆傞噸鐐规槸浜ゆ槗鏁堢巼鍜屾瘮鍒嗗叆鍙ｃ€?/p>
+        </div>
+        <span class="pill">閫傚悎棣栫増涓婄嚎 / 楂橀浜ゆ槗</span>
+      </div>
+      <div class="browser">
+        <div class="browser-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">infomarket.ai</span></div>
+        <div class="a-shell">
+          <header class="a-top">
+            <div class="logo-text"><img src="assets/logo.svg" alt="">infomarket.ai</div>
+            <div class="a-search">鎼滅储鐞冮槦銆佹瘮鍒嗐€佸競鍦烘垨琛屾儏</div>
+            <div class="a-actions"><button class="small-btn">鐧诲綍</button><button class="small-btn dark">娉ㄥ唽</button></div>
+          </header>
+          <nav class="a-nav">
+            <span>鐑棬</span><span>绐佸彂</span><span>鏈€鏂?/span><span>浣撹偛</span><span>鍔犲瘑</span><span>鐢电珵</span><span>绉戞妧</span><span>INFO 閲戝簱</span><span>INFO 淇濋櫓</span>
+          </nav>
+          <main class="a-main">
+            <h2 class="a-date">Sun, May 17</h2>
+            <div class="a-list">
+              <article class="a-match">
+                <div>
+                  <div class="match-meta"><span class="league-chip">EPL</span><span class="price-red">瀹炴椂</span><strong>EPL / 2H - 90</strong><span>$6.45M 浜ゆ槗閲?/span></div>
+                  <div class="team-line"><span class="scorebox">3</span><span class="crest">MU</span><span class="team-name">Man Utd</span><span class="record">18-11-7</span></div>
+                  <div class="team-line"><span class="scorebox">2</span><span class="crest">NF</span><span class="team-name">Forest</span><span class="record">11-10-15</span></div>
+                </div>
+                <div class="a-market">
+                  <div class="result-row"><button class="quote">MUN <em>@1.090</em></button><button class="quote">Draw <em>@10.300</em></button><button class="quote">NFO <em>@500.000</em></button></div>
+                  <div class="score-row">
+                    <button class="score-quote"><b>0-0</b><span class="price-green">Y 5.200</span><span class="price-red">N 1.035</span></button>
+                    <button class="score-quote"><b>1-0</b><span class="price-green">Y 6.550</span><span class="price-red">N 1.042</span></button>
+                    <button class="score-quote"><b>2-1</b><span class="price-green">Y 9.420</span><span class="price-red">N 1.056</span></button>
+                    <button class="quote">More</button>
+                  </div>
+                </div>
+              </article>
+              <article class="a-match">
+                <div>
+                  <div class="match-meta"><span class="league-chip">SA</span><span class="price-red">瀹炴椂</span><strong>Serie A / 1H - 21</strong><span>$364.42K 浜ゆ槗閲?/span></div>
+                  <div class="team-line"><span class="scorebox">0</span><span class="crest blue">INT</span><span class="team-name">Inter Milan</span><span class="record">27-4-5</span></div>
+                  <div class="team-line"><span class="scorebox">0</span><span class="crest blue">VER</span><span class="team-name">Verona</span><span class="record">3-11-22</span></div>
+                </div>
+                <div class="a-market">
+                  <div class="result-row"><button class="quote">INT <em>@1.450</em></button><button class="quote">Draw <em>@4.350</em></button><button class="quote">VER <em>@9.090</em></button></div>
+                  <div class="score-row">
+                    <button class="score-quote"><b>0-0</b><span class="price-green">Y 5.200</span><span class="price-red">N 1.035</span></button>
+                    <button class="score-quote"><b>1-1</b><span class="price-green">Y 8.070</span><span class="price-red">N 1.049</span></button>
+                    <button class="score-quote"><b>2-0</b><span class="price-green">Y 7.900</span><span class="price-red">N 1.049</span></button>
+                    <button class="quote">More</button>
+                  </div>
+                </div>
+              </article>
+              <article class="a-match">
+                <div>
+                  <div class="match-meta"><span class="league-chip">EPL</span><strong>EPL / 22:00</strong><span>$3.83M 浜ゆ槗閲?/span></div>
+                  <div class="team-line"><span class="scorebox" style="opacity:0"></span><span class="crest gold">WOL</span><span class="team-name">Wolves</span><span class="record">3-9-24</span></div>
+                  <div class="team-line"><span class="scorebox" style="opacity:0"></span><span class="crest">FUL</span><span class="team-name">Fulham</span><span class="record">14-6-16</span></div>
+                </div>
+                <div class="a-market">
+                  <div class="result-row"><button class="quote">WOL <em>@4.350</em></button><button class="quote">Draw <em>@3.850</em></button><button class="quote">FUL <em>@1.890</em></button></div>
+                  <div class="score-row">
+                    <button class="score-quote"><b>0-0</b><span class="price-green">Y 5.200</span><span class="price-red">N 1.035</span></button>
+                    <button class="score-quote"><b>1-0</b><span class="price-green">Y 6.550</span><span class="price-red">N 1.042</span></button>
+                    <button class="score-quote"><b>1-2</b><span class="price-green">Y 9.940</span><span class="price-red">N 1.060</span></button>
+                    <button class="quote">More</button>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </main>
+        </div>
+      </div>
+    </section>
+
+    <section class="concept" id="concept-b">
+      <div class="concept-head">
+        <div>
+          <h1>鏂规 02锛氭瘮璧涗腑蹇?/h1>
+          <p>鏇村儚涓撲笟浣撹偛浜ゆ槗绔欙細杩涘叆棣栭〉灏辩湅鍒扮劍鐐规瘮璧涖€侀槦寰姐€佹瘮鍒嗗拰瀹屾暣姣斿垎甯傚満銆備氦鏄撴劅鏇村己锛岄€傚悎绐佸嚭瓒崇悆鍝佺被銆?/p>
+        </div>
+        <span class="pill">閫傚悎浣撹偛浼樺厛 / 姣斿垎鏍稿績</span>
+      </div>
+      <div class="browser">
+        <div class="browser-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">infomarket.ai/sports</span></div>
+        <div class="b-shell">
+          <header class="b-top">
+            <div class="logo-text"><img src="assets/logo.svg" alt="">infomarket.ai</div>
+            <nav class="b-nav"><span>鐑棬</span><span>瓒崇悆</span><span>绡悆</span><span>鍔犲瘑</span><span>鐢电珵</span><span>濂栧姳</span></nav>
+            <div class="b-spacer"></div>
+            <button class="small-btn">涓汉鍚庡彴</button><button class="small-btn dark">杩炴帴閽卞寘</button>
+          </header>
+          <main class="b-main">
+            <section class="b-hero">
+              <div class="b-hero-top">
+                <div><h2 class="b-title">Man Utd vs Forest</h2><div class="b-sub">EPL / 瀹炴椂 / $6.45M 浜ゆ槗閲?/div></div>
+                <span class="pill">Correct Score: 25 lines</span>
+              </div>
+              <div class="b-scoreboard">
+                <div class="b-team"><span class="b-crest">MU</span><strong>Man Utd</strong></div>
+                <div class="b-score"><strong>3 : 2</strong><span>2H - 90</span></div>
+                <div class="b-team"><span class="b-crest blue">NF</span><strong>Forest</strong></div>
+              </div>
+              <div class="b-markets">
+                <div class="b-tile"><span>MUN YES</span><strong class="price-green">@1.090</strong></div>
+                <div class="b-tile"><span>Draw YES</span><strong class="price-green">@10.300</strong></div>
+                <div class="b-tile"><span>NFO YES</span><strong class="price-green">@500.000</strong></div>
+              </div>
+              <div class="b-score-section">
+                <div class="b-hero-top"><h3 style="margin:0;font-size:18px;font-weight:590">姣斿垎棰勬祴</h3><button class="small-btn">灞曞紑 25 涓瘮鍒?/button></div>
+                <div class="b-score-grid">
+                  <div class="b-score-cell"><b>0-0</b><span class="price-green">YES @5.200</span><span class="price-red">NO @1.035</span></div>
+                  <div class="b-score-cell"><b>1-0</b><span class="price-green">YES @6.550</span><span class="price-red">NO @1.042</span></div>
+                  <div class="b-score-cell"><b>2-1</b><span class="price-green">YES @9.420</span><span class="price-red">NO @1.056</span></div>
+                  <div class="b-score-cell"><b>3-2</b><span class="price-green">YES @12.290</span><span class="price-red">NO @1.070</span></div>
+                  <div class="b-score-cell"><b>4-4</b><span class="price-green">YES @16.680</span><span class="price-red">NO @1.091</span></div>
+                </div>
+              </div>
+            </section>
+            <aside class="b-aside">
+              <div class="b-card"><h3>浜ゆ槗鍗?/h3><div class="b-slip-row"><span>閫夋嫨</span><strong>3-2 YES</strong></div><div class="b-slip-row"><span>鍥哄畾璧旂巼</span><strong>@12.290</strong></div><div class="b-slip-row"><span>閲戦</span><strong>100 USDT</strong></div><div class="b-slip-row"><span>娼滃湪鍥炴姤</span><strong class="price-green">1,229 USDT</strong></div><button class="small-btn dark" style="width:100%;margin-top:10px">纭涓嬪崟</button></div>
+              <div class="b-card"><h3>INFO 浜у搧</h3><div class="b-slip-row"><span>閲戝簱 APR</span><strong>12.4%</strong></div><div class="b-slip-row"><span>Alpha 淇濋櫓</span><strong>鏈€楂?40%</strong></div><div class="b-slip-row"><span>INF Credits</span><strong class="price-green">1.35x</strong></div></div>
+              <div class="b-card"><h3>鍚岃仈璧?/h3><div class="b-slip-row"><span>Wolves vs Fulham</span><strong>22:00</strong></div><div class="b-slip-row"><span>Leeds vs Brighton</span><strong>22:00</strong></div></div>
+            </aside>
+          </main>
+        </div>
+      </div>
+    </section>
+
+    <section class="concept" id="concept-c">
+      <div class="concept-head">
+        <div>
+          <h1>鏂规 03锛氳祫浜т氦鏄撳彴</h1>
+          <p>鏇村亸鈥滀氦鏄撳钩鍙?+ 璧勪骇绠＄悊鈥濓細宸︿晶鏄敤鎴疯祫閲戙€侀噾搴撱€佷繚闄╁拰 Credits锛屽彸渚ф槸绮鹃€夊競鍦恒€傝川鎰熸洿鍍忛噾铻嶄骇鍝侊紝涓嶉偅涔堜綋鑲茬珯銆?/p>
+        </div>
+        <span class="pill">閫傚悎閲戝簱/淇濋櫓鍟嗕笟鍖?/span>
+      </div>
+      <div class="browser">
+        <div class="browser-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">infomarket.ai</span></div>
+        <div class="c-shell">
+          <header class="c-top">
+            <div class="logo-text"><img src="assets/logo.svg" alt="">infomarket.ai</div>
+            <nav class="c-nav"><span>鐑棬</span><span>浣撹偛</span><span>鍔犲瘑</span><span>鐢电珵</span><span>INFO 閲戝簱</span><span>INFO 淇濋櫓</span><span>濂栧姳</span></nav>
+            <button class="small-btn dark">7Nf...9q</button>
+          </header>
+          <main class="c-main">
+            <aside class="c-left">
+              <div class="c-panel"><h3>璐︽埛璧勪骇</h3><div class="c-big-number">42,180</div><div style="color:#6e675e;margin-top:4px">USDT total equity</div></div>
+              <div class="c-panel"><h3>鍐呴儴璐︽湰</h3><div class="c-row"><span>available</span><strong>12,480</strong></div><div class="c-row"><span>frozen</span><strong>3,250</strong></div><div class="c-row"><span>vault</span><strong>24,000</strong></div><div class="c-row"><span>claimable</span><strong class="price-green">180</strong></div></div>
+              <div class="c-panel"><h3>INF Credits</h3><div class="c-big-number price-green">8,416</div><div class="c-row"><span>浠婃棩鏂板</span><strong>+142.8</strong></div><div class="c-row"><span>瑙ｉ攣杩涘害</span><strong>26%</strong></div></div>
+              <div class="c-panel"><h3>INFO 浜у搧</h3><div class="c-row"><span>閲戝簱 APR</span><strong>12.4%</strong></div><div class="c-row"><span>Alpha 淇濋櫓</span><strong>40%</strong></div></div>
+            </aside>
+            <section class="c-feed">
+              <article class="c-market">
+                <div>
+                  <h2>Man Utd vs Forest</h2><p>EPL / 瀹炴椂 / $6.45M 浜ゆ槗閲?/p>
+                  <div class="c-teams"><div class="c-teamline"><span class="scorebox">3</span><span class="crest">MU</span><strong>Man Utd</strong></div><div class="c-teamline"><span class="scorebox">2</span><span class="crest blue">NF</span><strong>Forest</strong></div></div>
+                </div>
+                <div class="c-odds"><div class="c-results"><button class="c-box">MUN @1.090</button><button class="c-box">Draw @10.300</button><button class="c-box">NFO @500.000</button></div><div class="c-scoreline"><button class="c-box score"><b>0-0</b><span class="price-green">Y 5.20</span><span class="price-red">N 1.03</span></button><button class="c-box score"><b>1-0</b><span class="price-green">Y 6.55</span><span class="price-red">N 1.04</span></button><button class="c-box score"><b>2-1</b><span class="price-green">Y 9.42</span><span class="price-red">N 1.05</span></button><button class="c-box">More</button></div></div>
+              </article>
+              <article class="c-market">
+                <div>
+                  <h2>Inter Milan vs Verona</h2><p>Serie A / 瀹炴椂 / $364.42K 浜ゆ槗閲?/p>
+                  <div class="c-teams"><div class="c-teamline"><span class="scorebox">0</span><span class="crest blue">INT</span><strong>Inter Milan</strong></div><div class="c-teamline"><span class="scorebox">0</span><span class="crest blue">VER</span><strong>Verona</strong></div></div>
+                </div>
+                <div class="c-odds"><div class="c-results"><button class="c-box">INT @1.450</button><button class="c-box">Draw @4.350</button><button class="c-box">VER @9.090</button></div><div class="c-scoreline"><button class="c-box score"><b>0-0</b><span class="price-green">Y 5.20</span><span class="price-red">N 1.03</span></button><button class="c-box score"><b>1-1</b><span class="price-green">Y 8.07</span><span class="price-red">N 1.04</span></button><button class="c-box score"><b>2-0</b><span class="price-green">Y 7.90</span><span class="price-red">N 1.04</span></button><button class="c-box">More</button></div></div>
+              </article>
+              <article class="c-market">
+                <div>
+                  <h2>BTC close above 68,000</h2><p>Crypto / 浠婃棩 UTC close / 184,900 USDT 浜ゆ槗閲?/p>
+                </div>
+                <div class="c-odds"><div class="c-results" style="grid-template-columns:repeat(2,1fr)"><button class="c-box">Up @1.740</button><button class="c-box">Down @2.060</button></div></div>
+              </article>
+            </section>
+          </main>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const buttons = document.querySelectorAll('[data-target]');
+    const concepts = document.querySelectorAll('.concept');
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        buttons.forEach((item) => item.classList.remove('active'));
+        concepts.forEach((item) => item.classList.remove('active'));
+        button.classList.add('active');
+        document.getElementById(button.dataset.target).classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>
+
+

@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Log in - infomarket.ai</title>
+  <link rel="stylesheet" href="assets/app.css" />
+</head>
+<body>
+  <script src="assets/i18n.js"></script>
+  <script src="assets/page-shell.js"></script>
+  <script>document.write(appHeader('Log in'));</script>
+
+  <main class="app-shell" style="max-width:760px">
+    <section class="hero-panel">
+      <p class="eyebrow" data-i18n="auth.secure">Secure sign-in</p>
+      <h1 data-i18n="auth.title">Log in to infomarket.ai</h1>
+      <div class="sub" data-i18n="auth.subtitle">Use email for a trading account or connect a mainstream wallet for deposits, withdrawals, and INF token claims.</div>
+    </section>
+
+    <section class="panel">
+      <h2 data-i18n="auth.emailTitle">Continue with email</h2>
+      <form class="email-form" data-page-email-form style="display:grid;gap:10px;margin-bottom:18px">
+        <input style="width:100%;height:46px;border:1px solid var(--line);border-radius:11px;padding:0 12px" type="email" name="email" autocomplete="email" placeholder="name@example.com" required />
+        <label class="terms-check">
+          <input type="checkbox" data-page-terms>
+          <span><span data-i18n="auth.termsPrefix">I have read and agree to the</span> <a href="terms.html" target="_blank" rel="noopener" data-i18n="auth.terms">User Agreement</a> <span data-i18n="auth.termsAnd">and</span> <a href="privacy.html" target="_blank" rel="noopener" data-i18n="auth.privacy">Privacy Policy</a></span>
+        </label>
+        <div class="terms-error" data-page-terms-error data-i18n="auth.termsRequired">Please accept the User Agreement and Privacy Policy before continuing.</div>
+        <button class="btn primary" type="submit" data-i18n="auth.emailButton">Continue with email</button>
+      </form>
+      <h2 data-i18n="auth.walletTitle">Or choose wallet</h2>
+      <div class="wallet-grid" data-page-wallets style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px"></div>
+      <div class="auth-note" style="margin-top:14px" data-i18n="auth.devNote">Development mode simulates sign-in. Production will add email verification, wallet signatures, invite codes, balance accounting, and withdrawal security checks.</div>
+    </section>
+  </main>
+
+  <script src="assets/brand-ui.js"></script>
+  <script src="assets/web-shell.js"></script>
+  <script>
+    const wallets = ['Phantom', 'Backpack', 'Solflare', 'MetaMask', 'Coinbase Wallet', 'WalletConnect', 'OKX Wallet', 'Trust Wallet', 'Binance Web3', 'Rabby', 'Bitget Wallet', 'TokenPocket', 'imToken', 'Bybit Wallet', 'Gate Wallet', 'Tonkeeper', 'Keplr', 'Ledger'];
+    const walletGrid = document.querySelector('[data-page-wallets]');
+    walletGrid.innerHTML = wallets.map((wallet) => `<button class="wallet-option" type="button" data-login-wallet="${wallet}">${InfoMarketBrand.walletIcon(wallet)}<span>${wallet}</span></button>`).join('');
+    document.querySelector('[data-page-email-form]').addEventListener('submit', (event) => {
+      event.preventDefault();
+      if (!document.querySelector('[data-page-terms]').checked) {
+        document.querySelector('[data-page-terms-error]').classList.add('show');
+        return;
+      }
+      InfoMarketAuth.loginEmail(event.currentTarget.email.value);
+      location.href = 'dashboard.html';
+    });
+    document.querySelectorAll('[data-login-wallet]').forEach((button) => {
+      button.addEventListener('click', async () => {
+        if (!document.querySelector('[data-page-terms]').checked) {
+          document.querySelector('[data-page-terms-error]').classList.add('show');
+          return;
+        }
+        button.disabled = true;
+        await InfoMarketAuth.loginWallet(button.dataset.loginWallet);
+        location.href = 'dashboard.html';
+      });
+    });
+  </script>
+</body>
+</html>
+
+

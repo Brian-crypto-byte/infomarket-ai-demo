@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin - infomarket.ai</title>
+  <link rel="stylesheet" href="assets/app.css" />
+  <style>
+    body { background: #f5f4f1; }
+    .admin-app { min-height: 100vh; display: grid; grid-template-columns: 248px minmax(0, 1fr); }
+    .admin-side { position: sticky; top: 0; height: 100vh; background: #15181c; color: #e9ecef; padding: 18px 14px; }
+    .admin-brand { display: flex; align-items: center; gap: 10px; padding: 0 8px 22px; font-size: 16px; font-weight: 590; }
+    .admin-brand img { width: 34px; height: 34px; }
+    .nav-title { color: #98a2ad; font-size: 11px; font-weight: 680; letter-spacing: .08em; padding: 18px 10px 8px; }
+    .admin-nav { width: 100%; height: 40px; border: 0; border-radius: 10px; background: transparent; color: #cbd2da; display: flex; align-items: center; padding: 0 10px; font-weight: 560; text-align: left; }
+    .admin-nav.active, .admin-nav:hover { background: #252b33; color: #fff; }
+    .admin-main { min-width: 0; }
+    .admin-top { height: 66px; display: flex; align-items: center; gap: 14px; padding: 0 24px; background: #fff; border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 10; }
+    .admin-search { height: 42px; max-width: 520px; flex: 1; border: 1px solid var(--line); border-radius: 999px; background: #fafafa; display: flex; align-items: center; gap: 10px; padding: 0 13px; color: var(--muted); }
+    .admin-search input { width: 100%; border: 0; outline: 0; background: transparent; }
+    .operator { margin-left: auto; color: var(--muted); font-weight: 560; }
+    .admin-page { padding: 22px 24px 48px; }
+    .admin-cards { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; margin-bottom: 18px; }
+    .admin-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(360px, .85fr); gap: 18px; }
+    .score-admin-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; max-height: 280px; overflow: auto; padding-right: 4px; }
+    .score-admin { border: 1px solid var(--line); border-radius: 12px; padding: 8px; background: #fff; display: grid; gap: 6px; }
+    .score-admin strong { font-size: 16px; font-weight: 610; }
+    .score-admin .mini { display: grid; grid-template-columns: 26px 1fr; gap: 4px; align-items: center; color: var(--muted); font-size: 12px; }
+    .score-admin input { width: 100%; min-width: 0; height: 28px; border: 1px solid var(--line); border-radius: 8px; padding: 0 6px; }
+    .admin-form { display: grid; gap: 11px; }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .three-col { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .admin-log { display: grid; gap: 9px; }
+    .admin-log-item { border: 1px solid var(--line); border-radius: 12px; background: #fff; padding: 10px; font-size: 13px; color: var(--muted); }
+    .admin-log-item strong { display: block; color: var(--text); margin-bottom: 4px; font-weight: 610; }
+    .football-import-list { display: grid; gap: 8px; max-height: 360px; overflow: auto; }
+    .football-import-item { border: 1px solid var(--line); border-radius: 12px; background: #fff; padding: 10px; display: grid; grid-template-columns: 20px minmax(0, 1fr) auto; gap: 10px; align-items: center; }
+    .football-import-item strong { display: block; font-size: 13px; font-weight: 610; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .football-import-item span { color: var(--muted); font-size: 12px; }
+    .football-import-item small { color: var(--muted); font-weight: 560; }
+    .settlement-score { display: grid; grid-template-columns: minmax(54px, 1fr) 10px minmax(54px, 1fr); gap: 6px; align-items: center; max-width: 170px; }
+    .settlement-score input, .settlement-note { width: 100%; height: 30px; border: 1px solid var(--line); border-radius: 8px; padding: 0 8px; background: #fff; font-size: 13px; }
+    .settlement-note { margin-top: 6px; max-width: 220px; }
+    .settlement-actions { display: flex; flex-wrap: wrap; gap: 6px; min-width: 210px; }
+    .btn.danger { color: #a33b2f; border-color: #e0bbb6; background: #fff8f7; }
+    .btn.danger:hover { background: #fbecea; }
+    @media (max-width: 1100px) { .admin-app { grid-template-columns: 1fr; } .admin-side { display: none; } .admin-cards { grid-template-columns: repeat(2, 1fr); } .admin-grid { grid-template-columns: 1fr; } .admin-top { height: auto; flex-wrap: wrap; padding: 12px 14px; } .admin-search { min-width: 100%; } }
+    @media (max-width: 620px) { .admin-cards, .two-col, .three-col, .score-admin-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div class="admin-app">
+    <aside class="admin-side">
+      <div class="admin-brand"><img src="assets/logo.svg" alt="infomarket.ai"><span>Admin</span></div>
+      <div class="nav-title">Operations</div>
+      <button class="admin-nav active" data-admin-tab="dashboard">Dashboard</button>
+      <button class="admin-nav" data-admin-tab="football">Football import</button>
+      <button class="admin-nav" data-admin-tab="markets">Markets</button>
+      <button class="admin-nav" data-admin-tab="odds">Odds</button>
+      <button class="admin-nav" data-admin-tab="settlement">Settlement</button>
+      <button class="admin-nav" data-admin-tab="withdrawals">Withdrawals</button>
+      <div class="nav-title">Risk</div>
+      <button class="admin-nav" data-admin-tab="exposure">Exposure</button>
+      <button class="admin-nav" data-admin-tab="ledger">Ledger Audit</button>
+      <button class="admin-nav" data-admin-tab="insurance">Insurance Pool</button>
+    </aside>
+
+    <main class="admin-main">
+      <header class="admin-top">
+        <div class="admin-search"><svg viewBox="0 0 20 20" aria-hidden="true" width="18" height="18"><path d="M8.8 15.2a6.4 6.4 0 1 1 0-12.8 6.4 6.4 0 0 1 0 12.8Zm4.5-1.5 4.1 4.1" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" /></svg><input placeholder="Search users, markets, tx ids"></div>
+        <button class="btn" onclick="location.href='index.html'">Open site</button>
+        <button class="btn primary" data-auth-action data-auth-label="Admin login">Admin login</button>
+        <div class="operator">Operator console</div>
+      </header>
+
+      <section class="admin-page">
+        <div class="page-head">
+          <div>
+            <p class="eyebrow">Central operations</p>
+            <h1>Operations Dashboard</h1>
+            <div class="sub">Market creation, fixed pool odds, correct-score lines, settlement, ledger audit, withdrawals, and risk controls.</div>
+          </div>
+          <button class="btn primary" data-create-market>Create market</button>
+        </div>
+
+        <section class="admin-cards">
+          <div class="card"><span>24h Volume</span><strong data-admin-metric="volume">0</strong></div>
+          <div class="card"><span>Open Exposure</span><strong class="red" data-admin-metric="exposure">0</strong></div>
+          <div class="card"><span>Vault TVL</span><strong data-admin-metric="vault">0</strong></div>
+          <div class="card"><span>Insurance Pool</span><strong data-admin-metric="pool">426K</strong></div>
+          <div class="card"><span>Pending Withdrawals</span><strong class="amber" data-admin-metric="withdrawals">0</strong></div>
+        </section>
+
+        <div class="admin-grid">
+          <section>
+            <div class="panel" data-section="football-import">
+              <div class="panel-title-row">
+                <div>
+                  <h2>Football collection</h2>
+                  <div class="sub">Automatically collects Polymarket, Kalshi, and API-Football soccer games, removes duplicates, and publishes match markets to the football channel.</div>
+                </div>
+                <div>
+                  <button class="btn" data-football-preview>Preview</button>
+                  <button class="btn" data-football-run>Run now</button>
+                  <button class="btn primary" data-football-publish>Publish selected</button>
+                </div>
+              </div>
+              <div class="row"><span>Sources</span><strong>Polymarket soccer games / Kalshi soccer / API-Football</strong></div>
+              <div class="row"><span>Auto collection</span><strong data-football-status>Waiting for first run</strong></div>
+              <div class="row"><span>Auto settlement</span><strong>Pull result 30 minutes after match window, then settle open positions</strong></div>
+              <div class="football-import-list" data-football-import-list></div>
+            </div>
+
+            <div class="panel" data-section="markets">
+              <div class="panel-title-row"><h2>Markets</h2><button class="btn" data-export-markets>Export</button></div>
+              <table class="table" data-admin-markets>
+                <thead><tr><th>Market</th><th>Type</th><th>Volume</th><th>Exposure</th><th>Status</th><th></th></tr></thead>
+                <tbody></tbody>
+              </table>
+            </div>
+
+            <div class="panel" data-section="settlement">
+              <div class="panel-title-row"><h2>Settlement queue</h2><button class="btn" data-settle-selected>Run oracle</button></div>
+              <table class="table" data-settlement-table>
+                <thead><tr><th>Market</th><th>Result</th><th>Source</th><th>Status</th><th></th></tr></thead>
+                <tbody></tbody>
+              </table>
+            </div>
+
+            <div class="panel" data-section="withdrawals">
+              <div class="panel-title-row"><h2>Withdrawal review</h2><button class="btn" data-refresh-withdrawals>Refresh</button></div>
+              <table class="table" data-withdrawal-table>
+                <thead><tr><th>User / Address</th><th>Amount</th><th>Risk</th><th>Status</th><th></th></tr></thead>
+                <tbody></tbody>
+              </table>
+            </div>
+
+            <div class="panel" data-section="risk">
+              <div class="panel-title-row"><h2>Risk exposure</h2><button class="btn" data-refresh-risk>Refresh</button></div>
+              <table class="table" data-risk-table>
+                <thead><tr><th>Market</th><th>Stake</th><th>Potential payout</th><th>Status</th></tr></thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </section>
+
+          <aside>
+            <div class="panel" data-section="create">
+              <h2>Create market</h2>
+              <div class="admin-form">
+                <div class="field"><label>Market title</label><div class="input"><input data-new-title value="Arsenal vs Chelsea"></div></div>
+                <div class="two-col">
+                  <div class="field"><label>League</label><div class="input"><input data-new-league value="EPL"></div></div>
+                  <div class="field"><label>Type</label><div class="input"><select data-new-type><option value="football">Football</option><option value="crypto">Crypto</option></select></div></div>
+                </div>
+                <div class="two-col">
+                  <div class="field"><label>Home / Up</label><div class="input"><input data-new-home value="Arsenal"></div></div>
+                  <div class="field"><label>Away / Down</label><div class="input"><input data-new-away value="Chelsea"></div></div>
+                </div>
+                <div class="three-col">
+                  <div class="field"><label>Home YES</label><div class="input"><input data-new-home-odds value="2.120"></div></div>
+                  <div class="field"><label>Draw YES</label><div class="input"><input data-new-draw-odds value="3.400"></div></div>
+                  <div class="field"><label>Away YES</label><div class="input"><input data-new-away-odds value="2.980"></div></div>
+                </div>
+                <button class="btn primary" data-save-market>Save draft market</button>
+              </div>
+            </div>
+
+            <div class="panel" data-section="odds">
+              <div class="panel-title-row"><h2>Odds editor</h2><span class="badge green">Fixed pool</span></div>
+              <div class="admin-form">
+                <div class="field"><label>Market</label><div class="input"><select data-odds-market></select></div></div>
+                <div class="three-col" data-result-odds></div>
+                <button class="btn primary" data-publish-odds>Publish result odds</button>
+              </div>
+            </div>
+
+            <div class="panel" data-section="scores">
+              <div class="panel-title-row"><h2>Correct score odds</h2><span class="badge amber">25 lines</span></div>
+              <div class="score-admin-grid" data-score-admin></div>
+              <button class="btn primary" style="width:100%;margin-top:12px" data-publish-scores>Publish score odds</button>
+            </div>
+
+            <div class="panel" data-section="audit">
+              <h2>Ledger audit</h2>
+              <div class="row"><span>Internal balance</span><strong data-audit="internal">0 USDT</strong></div>
+              <div class="row"><span>On-chain custody</span><strong data-audit="custody">0 USDT</strong></div>
+              <div class="row"><span>Diff</span><strong class="green" data-audit="diff">0 USDT</strong></div>
+              <div class="row"><span>Last reconcile</span><strong data-audit="time">-</strong></div>
+            </div>
+
+            <div class="panel" data-section="risk-settings">
+              <div class="panel-title-row"><h2>Risk limits</h2><span class="badge amber">Pre-trade</span></div>
+              <div class="admin-form">
+                <div class="field"><label>Max order</label><div class="input"><input data-risk-setting="maxOrderUsdt" inputmode="decimal"><span>USDT</span></div></div>
+                <div class="field"><label>User open payout</label><div class="input"><input data-risk-setting="maxUserOpenExposureUsdt" inputmode="decimal"><span>USDT</span></div></div>
+                <div class="field"><label>Market payout</label><div class="input"><input data-risk-setting="maxMarketExposureUsdt" inputmode="decimal"><span>USDT</span></div></div>
+                <div class="field"><label>Correct score payout</label><div class="input"><input data-risk-setting="maxScoreExposureUsdt" inputmode="decimal"><span>USDT</span></div></div>
+                <button class="btn primary" data-save-risk>Save risk limits</button>
+              </div>
+            </div>
+
+            <div class="panel">
+              <h2>Operator log</h2>
+              <div class="admin-log" data-admin-log></div>
+            </div>
+          </aside>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="assets/i18n.js"></script>
+  <script src="assets/web-data.js"></script>
+  <script src="assets/api-client.js"></script>
+  <script src="assets/market-normalizer.js"></script>
+  <script src="assets/web-store.js"></script>
+  <script src="assets/web-admin.js"></script>
+  <script src="assets/brand-ui.js"></script>
+  <script src="assets/web-shell.js"></script>
+</body>
+</html>
+
+
+

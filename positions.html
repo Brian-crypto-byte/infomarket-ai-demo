@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Positions - infomarket.ai</title>
+  <link rel="stylesheet" href="assets/app.css" />
+</head>
+<body>
+  <script src="assets/i18n.js"></script>
+  <script src="assets/page-shell.js"></script>
+  <script>document.write(appHeader('Positions'));</script>
+
+  <main class="app-shell">
+    <a class="back-link" href="dashboard.html">Back to dashboard</a>
+    <div class="page-head">
+      <div>
+        <p class="eyebrow">Prediction orders</p>
+        <h1>Positions</h1>
+        <div class="sub">Track football YES/NO, correct-score fixed-odds positions, crypto Up/Down trades, potential returns, and insurance cover.</div>
+      </div>
+      <button class="btn primary" onclick="location.href='index.html'">Continue trading</button>
+    </div>
+
+    <section class="cards" data-position-cards>
+      <div class="card"><span>Total staked</span><strong data-total-staked>0</strong></div>
+      <div class="card"><span>Potential return</span><strong class="green" data-total-return>0</strong></div>
+      <div class="card"><span>Insured amount</span><strong data-total-insured>0</strong></div>
+      <div class="card"><span>INF Credits</span><strong class="green" data-total-credits>0</strong></div>
+    </section>
+
+    <section class="panel">
+      <div class="tabs" data-position-tabs><button class="tab active" data-status="Open">Open</button><button class="tab" data-status="Settled">Settled</button><button class="tab" data-status="Insured">Insured</button></div>
+      <table class="table" data-dynamic-positions>
+        <thead><tr><th>Market</th><th>Pick</th><th>Amount</th><th>Potential return</th><th>INF Credits</th><th>Insurance</th><th>Rule</th><th></th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </section>
+  </main>
+
+  <script src="assets/api-client.js"></script>
+  <script src="assets/web-store.js"></script>
+  <script src="assets/web-positions.js"></script>
+  <script src="assets/brand-ui.js"></script>
+  <script src="assets/web-shell.js"></script>
+</body>
+</html>
+
+
+

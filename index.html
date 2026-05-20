@@ -1,0 +1,655 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>infomarket.ai</title>
+  <style>
+    :root {
+      --bg: #fbf8f4;
+      --paper: #fbf8f4;
+      --panel: #ffffff;
+      --text: #17191d;
+      --muted: #6c6f75;
+      --line: #e7e2dd;
+      --line-strong: #d6cec6;
+      --brand: #cf7049;
+      --brand-deep: #9e5339;
+      --brand-soft: #f7e4d9;
+      --green: #55a873;
+      --green-soft: #dcefdc;
+      --red: #bd6f75;
+      --red-soft: #f1dddd;
+      --ink: #15181c;
+      --gold: #bc9658;
+      --font-xs: 11px;
+      --font-sm: 12px;
+      --font-md: 13px;
+      --font-base: 14px;
+      --font-lg: 16px;
+      font-family: "Aptos", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 8% 0%, rgba(207, 112, 73, .08), transparent 24%),
+        linear-gradient(180deg, #fffaf6 0%, var(--bg) 280px),
+        var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+    .notice {
+      min-height: 42px;
+      display: grid;
+      place-items: center;
+      background: #d66f45;
+      color: #fff;
+      padding: 8px 18px;
+      text-align: center;
+      font-size: var(--font-md);
+      font-weight: 580;
+    }
+    .topbar {
+      border-bottom: 1px solid rgba(25, 25, 25, .08);
+      background: rgba(251, 248, 244, .92);
+      backdrop-filter: blur(18px);
+      position: sticky;
+      top: 0;
+      z-index: 30;
+    }
+    .top-inner {
+      max-width: 1320px;
+      margin: 0 auto;
+      min-height: 72px;
+      display: grid;
+      grid-template-columns: 228px minmax(280px, 1fr) auto;
+      gap: 24px;
+      align-items: center;
+      padding: 0 28px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      color: var(--ink);
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: 590;
+      letter-spacing: -0.025em;
+    }
+    .brand-logo { width: 36px; height: 36px; flex: 0 0 auto; display: block; }
+    .brand-word em { color: var(--brand); font-style: normal; font-weight: 520; }
+    .search {
+      height: 44px;
+      border: 1px solid rgba(28, 31, 35, .10);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .72);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0 16px;
+      color: #70747b;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.8);
+    }
+    .search svg { width: 18px; height: 18px; flex: 0 0 auto; }
+    .search input {
+      width: 100%;
+      border: 0;
+      outline: 0;
+      background: transparent;
+      color: var(--text);
+      font-size: var(--font-base);
+    }
+    .actions { display: flex; align-items: center; gap: 10px; }
+    .text-btn {
+      height: 38px;
+      border: 0;
+      border-radius: 999px;
+      background: transparent;
+      color: var(--text);
+      padding: 0 12px;
+      font-size: var(--font-base);
+      font-weight: 560;
+    }
+    .text-btn:hover { background: var(--brand-soft); color: var(--brand-deep); }
+    .primary {
+      height: 40px;
+      border: 0;
+      border-radius: 999px;
+      background: var(--brand);
+      color: #fff;
+      padding: 0 18px;
+      font-size: var(--font-base);
+      font-weight: 590;
+    }
+    .language-control {
+      height: 38px;
+      width: 38px;
+      border: 1px solid rgba(28, 31, 35, .10);
+      border-radius: 999px;
+      background: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 0;
+      color: var(--muted);
+      font-size: var(--font-sm);
+      font-weight: 560;
+      flex: 0 0 auto;
+      position: relative;
+      overflow: hidden;
+    }
+    .language-control span { display: none; }
+    .language-control svg { width: 18px; height: 18px; color: var(--text); pointer-events: none; }
+    .language-control select {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      opacity: 0;
+      cursor: pointer;
+    }
+    .nav-wrap {
+      border-bottom: 1px solid rgba(25, 25, 25, .08);
+      background: rgba(251, 248, 244, .88);
+      backdrop-filter: blur(14px);
+    }
+    .nav {
+      max-width: 1320px;
+      margin: 0 auto;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0 28px;
+      overflow-x: auto;
+      white-space: nowrap;
+      color: #24262a;
+      font-size: var(--font-base);
+      font-weight: 590;
+    }
+    .nav::-webkit-scrollbar { display: none; }
+    .nav a {
+      color: inherit;
+      text-decoration: none;
+      height: 34px;
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: 0 12px;
+    }
+    .nav a.active {
+      background: var(--brand);
+      color: #fff;
+    }
+    .nav a:hover:not(.active) { background: var(--brand-soft); color: var(--brand-deep); }
+    .divider { width: 1px; height: 18px; background: rgba(25, 25, 25, .10); flex: 0 0 auto; margin: 0 4px; }
+    .page { max-width: 1320px; margin: 0 auto; padding: 22px 28px 56px; }
+    .section-head { display: none; }
+    .date-title {
+      margin: 0 0 18px;
+      font-size: 18px;
+      font-weight: 590;
+      letter-spacing: -0.02em;
+      color: #2b2724;
+    }
+    .market-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+    .date-title { grid-column: 1 / -1; }
+    .match-card {
+      --accent-a: #d46a42;
+      --accent-b: #4f9b6e;
+      --accent-c: #c39a4a;
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr;
+      align-items: stretch;
+      border: 1px solid rgba(96, 72, 55, .14);
+      border-radius: 28px;
+      background:
+        linear-gradient(var(--panel), var(--panel)) padding-box,
+        conic-gradient(from var(--spin, 0deg), color-mix(in srgb, var(--accent-a) 52%, transparent), color-mix(in srgb, var(--accent-b) 48%, transparent), color-mix(in srgb, var(--accent-c) 44%, transparent), color-mix(in srgb, var(--accent-a) 52%, transparent)) border-box;
+      padding: 18px;
+      cursor: pointer;
+      overflow: hidden;
+      isolation: isolate;
+      transition: transform .22s ease, border-color .22s ease, background .22s ease;
+      animation: cardAura 12s linear infinite;
+    }
+    .match-card::after {
+      content: "";
+      position: absolute;
+      inset: 1px;
+      z-index: -1;
+      border-radius: 26px;
+      background:
+        radial-gradient(circle at 12% 0%, color-mix(in srgb, var(--accent-a) 6%, transparent), transparent 34%),
+        radial-gradient(circle at 92% 100%, color-mix(in srgb, var(--accent-b) 5%, transparent), transparent 36%),
+        var(--panel);
+    }
+    .match-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(96, 72, 55, .20);
+      background:
+        linear-gradient(var(--panel), var(--panel)) padding-box,
+        conic-gradient(from var(--spin, 0deg), var(--accent-a), var(--accent-b), var(--accent-c), var(--accent-a)) border-box;
+    }
+    @property --spin {
+      syntax: "<angle>";
+      inherits: false;
+      initial-value: 0deg;
+    }
+    @keyframes cardAura { to { --spin: 360deg; } }
+    .match-title-row {
+      display: grid;
+      grid-template-columns: 34px minmax(0, 1fr) 20px;
+      align-items: center;
+      gap: 12px;
+      min-height: 40px;
+      margin-bottom: 14px;
+    }
+    body[data-active-category="sports"] .match-card:not(.category-sports),
+    body[data-active-category="soccer"] .match-card:not(.sport-soccer):not(.type-football),
+    body[data-active-category="crypto"] .match-card:not(.category-crypto),
+    body[data-active-category="esports"] .match-card:not(.category-esports),
+    body[data-active-category="tech"] .match-card:not(.category-tech),
+    body[data-active-category="culture"] .match-card:not(.category-culture),
+    body[data-active-category="economy"] .match-card:not(.category-economy),
+    body[data-active-category="weather"] .match-card:not(.category-weather) {
+      display: none;
+    }
+    .match-title-row strong {
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: #1f2328;
+      font-size: 16px;
+      font-weight: 590;
+      letter-spacing: -0.02em;
+    }
+    .card-arrow {
+      color: #a2a5aa;
+      font-size: 26px;
+      line-height: 1;
+      justify-self: end;
+    }
+    .match-inner {
+      border: 1px solid rgba(28, 31, 35, .10);
+      border-radius: 24px;
+      background: rgba(255, 255, 255, .78);
+      padding: 22px 22px 18px;
+    }
+    .versus-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 136px minmax(0, 1fr);
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+    .versus-team {
+      display: grid;
+      justify-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+    .versus-team strong {
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: #111318;
+      font-size: 15px;
+      font-weight: 620;
+      letter-spacing: -0.02em;
+    }
+    .versus-center {
+      display: grid;
+      justify-items: center;
+      gap: 8px;
+      color: #9ca0aa;
+      font-size: var(--font-md);
+      font-weight: 560;
+      text-align: center;
+    }
+    .versus-center b {
+      color: #a1a6b1;
+      font-size: 20px;
+      font-weight: 620;
+      letter-spacing: -0.04em;
+    }
+    .match-body {
+      display: grid;
+      grid-template-columns: minmax(0, .72fr) minmax(0, 1.28fr);
+      gap: 12px;
+      padding: 0 14px 12px;
+      align-items: center;
+    }
+    .match-main,
+    .market-side { min-width: 0; }
+    .match-main { display: grid; gap: 10px; }
+    .match-meta {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 13px 14px 10px;
+      color: var(--muted);
+      font-size: var(--font-sm);
+      font-weight: 520;
+    }
+    .match-meta strong { color: #2b2724; font-weight: 590; }
+    .live-text {
+      min-height: 24px;
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      background: #35be83;
+      color: var(--brand-deep);
+      padding: 0 8px;
+      font-weight: 590;
+      color: #fff;
+    }
+    .live-text.soft { background: #f2efec; color: var(--muted); }
+    .league-badge {
+      width: 30px;
+      height: 30px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      background: #f7e9df;
+      border: 1px solid rgba(207, 112, 73, .18);
+      color: var(--brand-deep);
+      font-size: 11px;
+      font-weight: 680;
+    }
+    .teams-list { display: grid; gap: 10px; }
+    .team-row {
+      display: grid;
+      grid-template-columns: 36px minmax(0, 1fr);
+      align-items: center;
+      gap: 9px;
+    }
+    .score-box {
+      width: 36px;
+      height: 32px;
+      border-radius: 9px;
+      background: #f0ece8;
+      display: grid;
+      place-items: center;
+      font-size: 15px;
+      font-weight: 620;
+      color: #2b2724;
+    }
+    .ghost-score { opacity: 0; }
+    .team-badge {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 680;
+      background: #334155;
+      border: 2px solid rgba(255, 250, 243, .92);
+    }
+    .team-badge.red { background: linear-gradient(145deg,#b93b37,#80232c); }
+    .team-badge.blue { background: linear-gradient(145deg,#2867bc,#162a56); }
+    .team-badge.navy { background: linear-gradient(145deg,#354355,#111827); }
+    .team-badge.gold { background: linear-gradient(145deg,#b59238,#715b22); }
+    .team-badge.purple { background: linear-gradient(145deg,#6d679e,#413c74); }
+    .team-name {
+      font-size: var(--font-base);
+      font-weight: 590;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: #1f2328;
+    }
+    .team-record { display: none; }
+    .market-side { display: grid; gap: 9px; align-content: center; }
+    .result-actions {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .result-btn {
+      min-width: 0;
+      min-height: 58px;
+      border: 1px solid rgba(106, 81, 60, .14);
+      border-radius: 13px;
+      background: #fff;
+      color: var(--text);
+      display: grid;
+      place-items: center;
+      gap: 5px;
+      padding: 7px 6px;
+      overflow: hidden;
+      font-size: var(--font-sm);
+      font-weight: 610;
+      letter-spacing: -0.01em;
+    }
+    .result-btn:hover,
+    .result-btn:focus,
+    .result-btn:focus-visible {
+      outline: none;
+      border-color: rgba(96,72,55,.26);
+      background: #fff;
+    }
+    .result-btn span {
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .result-btn strong {
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      min-height: 24px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      background: transparent;
+      color: var(--green);
+      padding: 0 5px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: var(--font-base);
+      font-weight: 650;
+    }
+    .result-btn span { color: var(--green); }
+    .result-btn.no-action span { color: var(--red); }
+    .result-btn.no-action strong {
+      background: transparent;
+      color: var(--red);
+    }
+    @media (max-width: 640px) {
+      .result-btn strong {
+        min-height: 22px;
+        font-size: 10px;
+        padding: 0 4px;
+      }
+    }
+    .score-preview {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      padding: 12px 0 0;
+    }
+    .score-chip {
+      min-height: 44px;
+      border: 1px solid rgba(106, 81, 60, .14);
+      border-radius: 13px;
+      background: #fff;
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto auto;
+      align-content: center;
+      align-items: center;
+      justify-items: stretch;
+      gap: 4px;
+      padding: 0 10px;
+      min-width: 0;
+    }
+    .score-chip b {
+      font-size: 13px;
+      line-height: 1;
+      font-weight: 620;
+      letter-spacing: -0.03em;
+    }
+    .score-chip span {
+      width: auto;
+      min-height: auto;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 0;
+      background: transparent !important;
+      font-size: 12px;
+      font-weight: 620;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      padding: 0 4px;
+    }
+    .score-chip i { display: inline; color: #c8ccd2; font-style: normal; font-size: 11px; }
+    .score-chip .yes { color: var(--green); background: transparent; }
+    .score-chip .no { color: var(--red); background: transparent; }
+    .more-score {
+      grid-column: 1 / -1;
+      min-height: 34px;
+      border: 0;
+      border-radius: 12px;
+      background: transparent;
+      color: #111318;
+      font-size: var(--font-base);
+      font-weight: 650;
+    }
+    .binary-card {
+      min-height: 206px;
+      align-content: start;
+    }
+    .binary-title {
+      margin: 0;
+      padding: 0 14px 12px;
+      min-height: 74px;
+      color: #1f2328;
+      font-size: 15px;
+      line-height: 1.32;
+      font-weight: 590;
+      letter-spacing: -0.015em;
+    }
+    .binary-actions {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      padding: 0 14px 14px;
+      margin-top: auto;
+    }
+    .empty-state {
+      grid-column: 1 / -1;
+      margin: 0;
+      padding: 22px 0;
+      color: var(--muted);
+      font-size: var(--font-base);
+    }
+    @media (max-width: 1050px) {
+      .market-list { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 900px) {
+      .top-inner { min-height: auto; grid-template-columns: 1fr auto; padding: 12px 16px; }
+      .search { grid-column: 1 / -1; order: 3; }
+      .match-body { grid-template-columns: 1fr; }
+      .score-preview { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .actions .text-btn:first-child { display: none; }
+    }
+    @media (max-width: 560px) {
+      .notice { font-size: var(--font-sm); }
+      .brand-word { display: none; }
+      .page { padding: 20px 14px 46px; }
+      .nav { padding: 0 14px; gap: 6px; }
+      .market-list { grid-template-columns: 1fr; }
+      .result-actions { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 7px; }
+      .result-btn { min-height: 50px; font-size: var(--font-sm); border-radius: 12px; }
+      .result-btn strong { min-height: 21px; font-size: 10px; padding: 0 4px; }
+      .score-preview { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .match-card { border-radius: 24px; padding: 14px; }
+      .match-inner { border-radius: 20px; padding: 18px 14px 14px; }
+      .versus-row { grid-template-columns: minmax(0, 1fr) 108px minmax(0, 1fr); gap: 10px; }
+      .versus-center b { font-size: 18px; }
+      .match-title-row strong { font-size: 15px; }
+      .team-row { grid-template-columns: 38px minmax(0, 1fr); }
+      .team-record { display: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .match-card { animation: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="notice" data-i18n="home.notice">Trading is unavailable in restricted jurisdictions. Please review the terms before placing orders.</div>
+  <header class="topbar">
+    <div class="top-inner">
+      <a class="brand" href="index.html" aria-label="infomarket.ai home">
+        <img class="brand-logo" src="assets/logo.svg" alt="infomarket.ai logo">
+        <span class="brand-word">infomarket<em>.ai</em></span>
+      </a>
+      <div class="search">
+        <svg viewBox="0 0 20 20" aria-hidden="true">
+          <path d="M8.8 15.2a6.4 6.4 0 1 1 0-12.8 6.4 6.4 0 0 1 0 12.8Zm4.5-1.5 4.1 4.1" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+        </svg>
+        <input data-search data-i18n-placeholder="search.home" placeholder="Search markets, teams, scores or assets" />
+      </div>
+      <div class="actions">
+        <button class="text-btn" onclick="location.href='project-status.html'" data-i18n="nav.project">Project</button>
+        <label class="language-control compact" title="Language" aria-label="Language"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="7.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M3 10h14M10 2.5c2 2 3 4.5 3 7.5s-1 5.5-3 7.5M10 2.5c-2 2-3 4.5-3 7.5s1 5.5 3 7.5" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round"/></svg><select data-language-select aria-label="Language"><option value="en">English</option><option value="zh-CN">&#31616;&#20307;&#20013;&#25991;</option><option value="ja">&#26085;&#26412;&#35486;</option><option value="ko">&#54620;&#44397;&#50612;</option><option value="vi">Ti&#7871;ng Vi&#7879;t</option><option value="id">Bahasa Indonesia</option></select></label>
+        <button class="primary" data-auth-action data-auth-label="Log in / Sign up" data-auth-label-key="auth.loginSignup" data-i18n="auth.loginSignup">Log in / Sign up</button>
+      </div>
+    </div>
+  </header>
+  <div class="nav-wrap">
+    <nav class="nav" aria-label="Main navigation">
+      <a href="index.html?category=trending" data-category="trending" data-i18n="nav.trending">Trending</a>
+      <span class="divider"></span>
+      <a href="index.html?category=sports" data-category="sports" data-i18n="nav.sports">Sports</a>
+      <a class="active" href="index.html?category=soccer" data-category="soccer" data-i18n="nav.soccer">Soccer</a>
+      <a href="index.html?category=crypto" data-category="crypto" data-i18n="nav.crypto">Crypto</a>
+      <a href="index.html?category=esports" data-category="esports" data-i18n="nav.esports">Esports</a>
+      <span class="divider"></span>
+      <a href="index.html?category=tech" data-category="tech" data-i18n="nav.tech">Tech</a>
+      <a href="index.html?category=culture" data-category="culture" data-i18n="nav.culture">Culture</a>
+      <a href="index.html?category=economy" data-category="economy" data-i18n="nav.economy">Economy</a>
+      <a href="index.html?category=weather" data-category="weather" data-i18n="nav.weather">Weather</a>
+      <span class="divider"></span>
+      <a href="vault.html" data-i18n="nav.vault">Vault</a>
+      <a href="insurance.html" data-i18n="nav.insurance">Insurance</a>
+    </nav>
+  </div>
+  <main class="page">
+    <div class="section-head">
+      <h1 data-i18n="home.featured">Featured markets</h1>
+      <a href="#" data-i18n="home.viewAll">View all</a>
+    </div>
+    <section class="market-list" data-market-list></section>
+  </main>
+  <script src="assets/i18n.js?v=teamfix2"></script>
+  <script src="assets/api-client.js"></script>
+  <script src="assets/brand-ui.js?v=teamfix2"></script>
+  <script src="assets/web-data.js"></script>
+  <script src="assets/market-normalizer.js"></script>
+  <script src="assets/web-home.js?v=teamfix2"></script>
+  <script src="assets/web-shell.js"></script>
+</body>
+</html>
+
+
+
+
+

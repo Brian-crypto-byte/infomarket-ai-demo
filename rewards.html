@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rewards - infomarket.ai</title>
+  <link rel="stylesheet" href="assets/app.css" />
+</head>
+<body>
+  <script src="assets/i18n.js"></script>
+  <script src="assets/page-shell.js"></script>
+  <script>document.write(appHeader('Rewards'));</script>
+
+  <main class="app-shell">
+    <a class="back-link" href="dashboard.html">Back to dashboard</a>
+    <div class="page-head">
+      <div>
+        <p class="eyebrow">INF Credits</p>
+        <h1>Rewards</h1>
+        <div class="sub">Trading mining, vault boost, Alpha Insurance boost, referrals, and task rewards are aggregated here. Credits are locked until unlock conditions are met.</div>
+      </div>
+      <button class="btn primary" data-claim-inf>Claim unlocked INF</button>
+    </div>
+
+    <section class="cards">
+      <div class="card"><span>Total Credits</span><strong class="green" data-reward="total">0</strong></div>
+      <div class="card"><span>Unlocked</span><strong data-reward="unlocked">0</strong></div>
+      <div class="card"><span>Today added</span><strong class="green" data-reward="today">0</strong></div>
+      <div class="card"><span>Referral rebate</span><strong data-reward="referral">318.6</strong></div>
+    </section>
+
+    <div class="layout">
+      <section>
+        <div class="panel">
+          <h2>Unlock conditions</h2>
+          <div class="row"><span>Cumulative trading volume</span><strong data-unlock="volumeText">0 / 250,000 USDT</strong></div>
+          <div class="progress"><span data-progress="volume"></span></div>
+          <div class="row"><span>Active days</span><strong>18 / 30 days</strong></div>
+          <div class="progress"><span style="--value:60%"></span></div>
+          <div class="row"><span>Vault balance duration</span><strong data-unlock="vaultText">0 USDT ? 18 days</strong></div>
+          <div class="progress"><span data-progress="vault"></span></div>
+          <div class="row"><span>Valid referrals</span><strong>7 / 10 users</strong></div>
+          <div class="progress"><span style="--value:70%"></span></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title-row"><h2>Reward ledger</h2><button class="btn" onclick="location.href='positions.html'">Open positions</button></div>
+          <table class="table" data-reward-table>
+            <thead><tr><th>Source</th><th>Credits</th><th>Multiplier</th><th>Time</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+        <div class="panel">
+          <h2>Tasks</h2>
+          <div class="task-list" data-task-list></div>
+        </div>
+      </section>
+
+      <aside>
+        <div class="panel">
+          <h2>Mining weights</h2>
+          <div class="row"><span>Trading fee</span><strong>45%</strong></div>
+          <div class="row"><span>Market activity</span><strong>20%</strong></div>
+          <div class="row"><span>Vault balance</span><strong>20%</strong></div>
+          <div class="row"><span>Insurance participation</span><strong>15%</strong></div>
+        </div>
+        <div class="panel">
+          <h2>Referral link</h2>
+          <div class="input"><input class="mono" data-referral value="infomarket.ai/i/7Nf9q" readonly><button class="btn" data-copy-referral>Copy</button></div>
+          <span class="copy-ok" data-copy-ok>Copied</span>
+          <div class="muted-note" style="margin-top:10px;">A valid referral counts after the invited user completes a deposit and first trade.</div>
+        </div>
+        <div class="panel">
+          <h2>Leaderboard</h2>
+          <div class="row"><span>1. 8k...w92</span><strong class="green">18,420</strong></div>
+          <div class="row"><span>2. You</span><strong class="green" data-board-you>0</strong></div>
+          <div class="row"><span>3. Bx...1a7</span><strong class="green">7,880</strong></div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <script src="assets/api-client.js"></script>
+  <script src="assets/web-store.js"></script>
+  <script src="assets/web-rewards.js"></script>
+  <script src="assets/brand-ui.js"></script>
+  <script src="assets/web-shell.js"></script>
+</body>
+</html>
+
+
+

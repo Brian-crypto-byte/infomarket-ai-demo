@@ -1,0 +1,81 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>INFO Insurance - infomarket.ai</title>
+  <link rel="stylesheet" href="assets/app.css" />
+</head>
+<body>
+  <script src="assets/i18n.js?v=i18n3"></script>
+  <script src="assets/page-shell.js"></script>
+  <script>document.write(appHeader('INFO Insurance'));</script>
+
+  <main class="app-shell">
+    <a class="back-link" href="dashboard.html" data-i18n="common.backDashboard">Back to dashboard</a>
+    <div class="page-head">
+      <div>
+        <p class="eyebrow" data-i18n="insurance.eyebrow">Alpha Insurance</p>
+        <h1 data-i18n="insurance.title">INFO Insurance</h1>
+        <div class="sub" data-i18n="insurance.subtitle">Buy optional cover with a prediction order. If the position has a verified loss, the system creates an internal payout node and releases claimable USDT by insurance-pool schedule.</div>
+      </div>
+      <button class="btn primary" onclick="location.href='index.html'" data-i18n="insurance.tradeCover">Trade with cover</button>
+    </div>
+
+    <section class="cards">
+      <div class="card"><span data-i18n="insurance.pool">Insurance pool</span><strong>426K</strong></div>
+      <div class="card"><span data-i18n="insurance.activeCover">Active cover</span><strong data-insurance="activeCover">0</strong></div>
+      <div class="card"><span data-i18n="insurance.claimable">Claimable</span><strong class="green" data-insurance="claimable">0</strong></div>
+      <div class="card"><span data-i18n="insurance.payoutRatio">Payout ratio</span><strong class="amber" data-insurance="ratio">31%</strong></div>
+    </section>
+
+    <div class="layout">
+      <section>
+        <div class="panel">
+          <div class="panel-title-row"><h2 data-i18n="insurance.nodes">Payout nodes</h2><button class="btn" data-seed-insurance data-i18n="insurance.loadNodes">Refresh nodes</button></div>
+          <table class="table" data-insurance-table>
+            <thead><tr><th data-i18n="insurance.node">Node</th><th data-i18n="insurance.source">Source</th><th data-i18n="insurance.premium">Premium</th><th data-i18n="insurance.maxCover">Max cover</th><th data-i18n="insurance.thisPeriod">This period</th><th data-i18n="insurance.status">Status</th><th></th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+        <div class="panel">
+          <h2 data-i18n="insurance.flow">Insurance flow</h2>
+          <div class="row"><span data-i18n="insurance.step1">1. Order placement</span><strong data-i18n="insurance.step1Body">Pay premium with the prediction order</strong></div>
+          <div class="row"><span data-i18n="insurance.step2">2. Loss verification</span><strong data-i18n="insurance.step2Body">Oracle / admin settlement marks eligible loss</strong></div>
+          <div class="row"><span data-i18n="insurance.step3">3. Node created</span><strong data-i18n="insurance.step3Body">Internal payout credential, not on-chain NFT</strong></div>
+          <div class="row"><span data-i18n="insurance.step4">4. Payout schedule</span><strong data-i18n="insurance.step4Body">Released by pool health and user risk tier</strong></div>
+        </div>
+      </section>
+
+      <aside>
+        <div class="panel">
+          <h2 data-i18n="insurance.poolHealth">Pool health</h2>
+          <div class="row"><span data-i18n="insurance.premiumIncome">Premium income</span><strong data-pool="premium">0 USDT</strong></div>
+          <div class="row"><span data-i18n="insurance.pendingPayout">Pending payout</span><strong data-pool="pending">0 USDT</strong></div>
+          <div class="row"><span data-i18n="insurance.singleMax">Single-order max cover</span><strong>40%</strong></div>
+          <div class="row"><span data-i18n="insurance.payoutCycle">Payout cycle</span><strong data-i18n="vault.dailySettlement">Daily</strong></div>
+        </div>
+        <div class="panel">
+          <h2 data-i18n="insurance.productRule">Product rule</h2>
+          <div class="muted-note" data-i18n="insurance.ruleBody">Insurance nodes are internal payout credentials. They are not NFTs and cannot be transferred. Payout depends on settlement result, pool health, user risk score, and order type.</div>
+        </div>
+        <div class="panel">
+          <h2 data-i18n="insurance.claimResult">Claim result</h2>
+          <div class="muted-note" data-claim-result data-i18n="insurance.noClaim">No claim action yet.</div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <script src="assets/api-client.js"></script>
+  <script src="assets/web-store.js"></script>
+  <script src="assets/web-insurance.js?v=i18n2"></script>
+  <script src="assets/brand-ui.js"></script>
+  <script src="assets/web-shell.js"></script>
+</body>
+</html>
+
+
+
+
