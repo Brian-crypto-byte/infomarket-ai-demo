@@ -153,11 +153,13 @@
     }
     h1 { margin: 0; font-size: 20px; line-height: 1.18; font-weight: 590; letter-spacing: -0.025em; }
     .sub { margin-top: 8px; color: var(--muted); font-size: var(--font-md); line-height: 1.45; }
+    .market-trade-zone { margin-top: 16px; }
+    .market-analytics { margin-top: 16px; }
     .metrics {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 10px;
-      margin-top: 14px;
+      margin: 0 0 14px;
     }
     .scoreboard {
       margin-top: 16px;
@@ -231,11 +233,11 @@
     }
     .match-explain strong { color: var(--text); font-weight: 610; }
     .chart {
-      height: 230px;
+      height: 210px;
       border: 1px solid var(--line);
       border-radius: 18px;
       position: relative;
-      margin: 16px 0;
+      margin: 0 0 14px;
       overflow: hidden;
       background: #fff;
     }
@@ -248,7 +250,7 @@
     .chart svg { position: absolute; inset: 0; width: 100%; height: 100%; }
     .chart-label { position: absolute; right: 12px; top: 28px; color: var(--muted); font-size: 12px; font-weight: 560; }
     .chart-label.second { top: 122px; }
-    .tabs { display: flex; gap: 8px; flex-wrap: wrap; margin: 18px 0 14px; }
+    .tabs { display: flex; gap: 8px; flex-wrap: wrap; margin: 0 0 12px; }
     .tab {
       height: 34px;
       border: 1px solid var(--line);
@@ -289,7 +291,7 @@
     .no { color: var(--red); }
     .odd strong:has(.yes):not(:has(.no)) { color: var(--green); }
     .odd strong:has(.no):not(:has(.yes)) { color: var(--red); }
-    .score-grid { display: grid; grid-template-columns: repeat(5,minmax(0,1fr)); gap: 9px; }
+    .score-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 9px; }
     .score-market {
       border: 1px solid var(--line);
       border-radius: 14px;
@@ -457,7 +459,7 @@
     @media (max-width: 1080px) {
       .page { grid-template-columns: 1fr; }
       .trade { position: static; }
-      .score-grid { grid-template-columns: repeat(4,minmax(0,1fr)); }
+      .score-grid { grid-template-columns: repeat(3,minmax(0,1fr)); }
     }
     @media (max-width: 760px) {
       .notice { font-size: 12px; }
@@ -465,14 +467,43 @@
       .brand span { display: none; }
       .search { grid-column: 1 / -1; order: 3; }
       .actions .link-btn:first-child { display: none; }
-      .page { padding: 18px 14px 44px; }
-      .metrics, .odds-grid { grid-template-columns: 1fr; }
+      .page { padding: 14px 12px 34px; gap: 14px; }
+      .event-card { padding: 14px; border-radius: 20px; margin-bottom: 12px; }
+      .market-head { grid-template-columns: 52px minmax(0, 1fr); gap: 12px; }
+      .event-logo { width: 52px; height: 52px; border-radius: 14px; }
+      .metrics { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; overflow-x: auto; padding-bottom: 2px; }
+      .metric { min-width: 118px; padding: 10px; border-radius: 13px; }
+      .metric strong { font-size: 13px; }
+      .odds-grid { grid-template-columns: 1fr; }
       .score-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+      .scoreboard { grid-template-columns: minmax(0, 1fr) 66px minmax(0, 1fr); gap: 8px; padding: 10px; border-radius: 16px; }
+      .score-team { grid-template-columns: 34px minmax(0, 1fr); gap: 7px; min-width: 0; }
+      .score-team.away { grid-template-columns: minmax(0, 1fr) 34px; text-align: right; }
+      .team-crest { width: 34px; height: 34px; font-size: 9px; border-width: 1px; }
+      .score-team strong { font-size: 12px; }
+      .score-team span { display: none; }
+      .score-center { height: 44px; border-radius: 14px; font-size: 14px; }
+      .match-explain { font-size: 12px; padding: 10px 12px; }
+      .panel { padding: 13px; border-radius: 16px; }
+      .panel-head { align-items: flex-start; margin-bottom: 10px; }
+      .panel-head .sub { font-size: 11px; text-align: right; line-height: 1.25; }
+      .score-market { padding: 8px; border-radius: 13px; }
+      .score-name { font-size: 14px; }
+      .score-more { min-height: 72px; }
+      .chart { height: 150px; border-radius: 16px; }
+      .trade { border-radius: 18px; }
+      h1 { font-size: 19px; }
+    }
+    @media (max-width: 430px) {
+      .page { padding-left: 10px; padding-right: 10px; }
+      .score-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
       .scoreboard { grid-template-columns: 1fr; }
-      .score-team.away { grid-template-columns: 42px minmax(0, 1fr); text-align: left; }
+      .score-team.away { grid-template-columns: 34px minmax(0, 1fr); text-align: left; }
       .score-team.away .team-crest { order: 0; }
       .score-team.away div { order: 1; }
-      h1 { font-size: 19px; }
+      .score-center { order: 2; }
+      .metrics { grid-template-columns: 1fr; overflow: visible; }
+      .metric { min-width: 0; }
     }
   </style>
 </head>
@@ -505,18 +536,22 @@
             <span class="team-crest away" id="awayLogo">A</span>
           </div>
         </div>
+        <div class="match-explain" id="matchExplain"></div>
+      </section>
+      <section class="market-trade-zone">
+        <div class="tabs" data-tabs><button class="tab active" data-tab="all">All</button><button class="tab" data-tab="result">Result</button><button class="tab" data-tab="score">Correct score</button></div>
+        <section class="panel" data-section="result"><div class="panel-head"><h2>Match result</h2><span class="sub">Fixed pool quotes</span></div><div class="odds-grid" data-odds-grid></div></section>
+        <section class="panel" data-section="score"><div class="panel-head"><h2>Correct score</h2><span class="sub">Show 4 first; expand for all 25 scores from 0-0 to 4-4</span></div><div class="score-grid" data-score-grid></div></section>
+      </section>
+      <section class="market-analytics">
         <div class="metrics">
           <div class="metric"><span>Volume</span><strong id="volume">318,420 USDT</strong></div>
           <div class="metric"><span>Best price</span><strong><span id="bestPrice">Home @1.700</span> <b class="green">+2.4%</b></strong></div>
           <div class="metric"><span>Time left</span><strong id="timeLeft">04:03</strong></div>
         </div>
-        <div class="match-explain" id="matchExplain"></div>
+        <section class="chart"><div class="chart-label">@4.750</div><div class="chart-label second">@1.700</div><svg viewBox="0 0 900 230" preserveAspectRatio="none" aria-hidden="true"><path d="M0 178 C70 172,110 178,170 174 S280 170,340 162 S430 152,500 116 S565 84,640 90 S730 70,790 92 S850 108,900 94" fill="none" stroke="#cf7049" stroke-width="3"/><path d="M0 178 C70 172,110 178,170 174 S280 170,340 162 S430 152,500 116 S565 84,640 90 S730 70,790 92 S850 108,900 94 L900 230 L0 230 Z" fill="rgba(207,112,73,.08)"/></svg></section>
+        <section class="panel" data-section="activity"><div class="panel-head"><h2>Market activity</h2><span class="sub">4.4K USDT volume</span></div><div class="orderbook"><span>Trades, quote updates, and settlement events will appear here.</span><strong>Live pool quotes</strong></div></section>
       </section>
-      <section class="chart"><div class="chart-label">@4.750</div><div class="chart-label second">@1.700</div><svg viewBox="0 0 900 230" preserveAspectRatio="none" aria-hidden="true"><path d="M0 178 C70 172,110 178,170 174 S280 170,340 162 S430 152,500 116 S565 84,640 90 S730 70,790 92 S850 108,900 94" fill="none" stroke="#cf7049" stroke-width="3"/><path d="M0 178 C70 172,110 178,170 174 S280 170,340 162 S430 152,500 116 S565 84,640 90 S730 70,790 92 S850 108,900 94 L900 230 L0 230 Z" fill="rgba(207,112,73,.08)"/></svg></section>
-      <div class="tabs" data-tabs><button class="tab active" data-tab="all">All</button><button class="tab" data-tab="result">Result</button><button class="tab" data-tab="score">Correct score</button><button class="tab" data-tab="totals">Totals</button><button class="tab" data-tab="handicap">Handicap</button></div>
-      <section class="panel" data-section="result"><div class="panel-head"><h2>Match result</h2><span class="sub">Fixed pool quotes</span></div><div class="odds-grid" data-odds-grid></div></section>
-      <section class="panel" data-section="score"><div class="panel-head"><h2>Correct score</h2><span class="sub">Show 4 first; expand for all 25 scores from 0-0 to 4-4</span></div><div class="score-grid" data-score-grid></div></section>
-      <section class="panel" data-section="activity"><div class="panel-head"><h2>Market activity</h2><span class="sub">4.4K USDT volume</span></div><div class="orderbook"><span>Trades, quote updates, and settlement events will appear here.</span><strong>Live pool quotes</strong></div></section>
     </main>
 
     <aside class="trade">
@@ -537,13 +572,13 @@
       </div>
     </aside>
   </div>
-  <script src="assets/i18n.js?v=trade-choice-1"></script>
+  <script src="assets/i18n.js?v=match-layout-1"></script>
   <script src="assets/web-data.js"></script>
   <script src="assets/brand-ui.js"></script>
   <script src="assets/market-normalizer.js"></script>
   <script src="assets/api-client.js?v=odds-engine-2"></script>
   <script src="assets/web-store.js"></script>
-  <script src="assets/web-match.js?v=trade-choice-1"></script>
+  <script src="assets/web-match.js?v=match-layout-1"></script>
   <script src="assets/web-shell.js"></script>
 </body>
 </html>
