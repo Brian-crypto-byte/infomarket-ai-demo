@@ -321,8 +321,9 @@
       font-size: 11px;
       font-weight: 620;
     }
-    .score-choice strong { font-size: 11px; }
-    .yes-choice, .no-choice { background: #fff; color: #111318; border: 1px solid var(--line); }
+    .score-choice strong { font-size: 11px; color: inherit; }
+    .yes-choice { background: #fff; color: var(--green); border: 1px solid rgba(85,168,115,.34); }
+    .no-choice { background: #fff; color: var(--red); border: 1px solid rgba(189,111,117,.34); }
     .score-choice.selected { outline: 2px solid currentColor; }
     .score-market:has(.score-choice.selected) { border-color: rgba(96,72,55,.28); background: #fff; }
     .score-more {
@@ -640,6 +641,8 @@
         font-size: 12px;
         white-space: nowrap;
       }
+      body.football-market .yes-choice { color: var(--green); }
+      body.football-market .no-choice { color: var(--red); }
       body.football-market .score-choice strong { font-size: 12px; }
       body.football-market .score-more {
         grid-column: 1 / -1;
@@ -737,13 +740,13 @@
       </div>
     </aside>
   </div>
-  <script src="assets/i18n.js?v=tradestate2"></script>
+  <script src="assets/i18n.js?v=scorecolor1"></script>
   <script src="assets/web-data.js"></script>
   <script src="assets/brand-ui.js?v=marketlogos1"></script>
   <script src="assets/market-normalizer.js"></script>
   <script src="assets/api-client.js?v=odds-engine-2"></script>
   <script src="assets/web-store.js"></script>
-  <script src="assets/web-match.js?v=tradestate2"></script>
+  <script src="assets/web-match.js?v=scorecolor1"></script>
   <script src="assets/web-shell.js"></script>
 </body>
 </html>
