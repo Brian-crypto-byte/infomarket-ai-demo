@@ -160,7 +160,6 @@ function renderTradeState() {
   const submit = document.querySelector('aside.trade .submit');
   const balanceLine = document.querySelector('[data-balance-line]');
   const tradeStatus = document.querySelector('[data-trade-status]');
-  const restricted = document.querySelector('aside.trade .restricted');
   tradeState = computeTradeState();
   if (submit) {
     submit.textContent = tradeState.label;
@@ -173,7 +172,6 @@ function renderTradeState() {
     balanceLine.innerHTML = text;
   }
   if (tradeStatus) tradeStatus.textContent = tradeState.note || '';
-  if (restricted) restricted.classList.remove('open');
 }
 
 async function syncTradeState({ refreshBalance = false } = {}) {

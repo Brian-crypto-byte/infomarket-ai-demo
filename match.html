@@ -402,8 +402,6 @@
     .submit { width: 100%; height: 46px; border: 0; border-radius: 13px; background: var(--brand); color: #fff; font-size: var(--font-base); font-weight: 650; margin-top: 12px; }
     .submit:disabled { cursor: not-allowed; background: #d9d2cc; color: #7f7770; }
     .trade-state-note { min-height: 18px; margin-top: 9px; color: var(--muted); font-size: var(--font-sm); line-height: 1.45; }
-    .restricted { display: none; margin-top: 10px; height: 44px; border: 0; border-radius: 13px; background: #f2efec; color: var(--muted); font-weight: 590; width: 100%; }
-    .restricted.open { display: block; }
     .position-mini {
       display: none;
       margin-top: 12px;
@@ -734,19 +732,18 @@
         <div class="row"><span data-i18n="order.infCredits">INF Credits</span><strong id="infCredits">+62.5</strong></div>
         <div class="row"><span data-i18n="order.insurance">Alpha Insurance</span><strong id="insuranceCover">40% cover</strong></div>
         <button class="submit" data-i18n="order.place">Place order</button>
-        <button class="restricted" data-i18n="order.regionCheck">Region check required</button>
         <div class="trade-state-note" data-trade-status></div>
         <div class="position-mini" data-position-mini></div>
       </div>
     </aside>
   </div>
-  <script src="assets/i18n.js?v=tradestate1"></script>
+  <script src="assets/i18n.js?v=tradestate2"></script>
   <script src="assets/web-data.js"></script>
   <script src="assets/brand-ui.js?v=marketlogos1"></script>
   <script src="assets/market-normalizer.js"></script>
   <script src="assets/api-client.js?v=odds-engine-2"></script>
   <script src="assets/web-store.js"></script>
-  <script src="assets/web-match.js?v=tradestate1"></script>
+  <script src="assets/web-match.js?v=tradestate2"></script>
   <script src="assets/web-shell.js"></script>
 </body>
 </html>
