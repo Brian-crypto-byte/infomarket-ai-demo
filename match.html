@@ -548,8 +548,15 @@
         font-weight: 620;
         text-align: center;
       }
-      .score-team span { display: none; }
+      .score-team > div > span { display: none; }
       .score-team .team-crest { display: grid; }
+      .score-team .team-crest .im-logo,
+      .score-team .team-crest .im-logo.has-image {
+        display: grid !important;
+        width: 100% !important;
+        height: 100% !important;
+      }
+      .score-team .team-crest img { display: block; width: 100% !important; height: 100% !important; object-fit: contain; }
       .score-center {
         height: auto;
         min-height: 82px;
@@ -559,6 +566,7 @@
         gap: 7px;
         order: initial;
       }
+      .score-center #scoreLine { display: grid; justify-items: center; gap: 7px; }
       .score-center em { font-size: 13px; color: var(--muted); }
       .score-center b { font-size: 19px; color: #a1a6b1; }
       .match-explain { font-size: 12px; padding: 10px 12px; }
