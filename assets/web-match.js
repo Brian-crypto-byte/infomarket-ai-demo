@@ -68,6 +68,29 @@ function syncReturn() {
   returnValue.textContent = (Number(amount.value || 0) * selectedPrice).toFixed(2);
 }
 
+function activeResultOdd() {
+  if (isCrypto) return null;
+  return market.odds.find((odd) => odd.id === selectedOptionId)
+    || market.odds.find((odd) => selectedPick.startsWith(odd.label))
+    || market.odds[0];
+}
+
+function tradeChoices() {
+  if (isCrypto) {
+    const up = market.odds.find((odd) => String(odd.label).toUpperCase() === 'UP') || market.odds[0];
+    const down = market.odds.find((odd) => String(odd.label).toUpperCase() === 'DOWN') || market.odds[1];
+    return {
+      primary: up && { pick: up.label || 'Up', price: up.price || up.upOdds || up.yes || selectedPrice, mode: 'UP', optionId: up.id },
+      secondary: down && { pick: down.label || 'Down', price: down.price || down.downOdds || down.yes || selectedPrice, mode: 'DOWN', optionId: down.id }
+    };
+  }
+  const odd = activeResultOdd();
+  return {
+    primary: odd && { pick: `${odd.label} YES`, price: odd.yes || odd.price || selectedPrice, mode: 'YES', optionId: odd.id },
+    secondary: odd && { pick: `${odd.label} NO`, price: odd.no || selectedPrice, mode: 'NO', optionId: odd.id }
+  };
+}
+
 function showToast(title, body) {
   let toast = document.querySelector('[data-toast]');
   if (!toast) {
@@ -87,12 +110,15 @@ function syncTradePanel() {
   const primary = document.getElementById('upBtn');
   const secondary = document.getElementById('downBtn');
   const tradeRule = document.getElementById('tradeRule');
-  primary.textContent = `${outcome(selectedMode)} @${formatPrice(selectedPrice)}`;
-  secondary.textContent = isCrypto ? t('market.down') : t('market.no');
+  const choices = tradeChoices();
+  primary.textContent = choices.primary ? `${outcome(choices.primary.mode)} @${formatPrice(choices.primary.price)}` : `${outcome(selectedMode)} @${formatPrice(selectedPrice)}`;
+  secondary.textContent = choices.secondary ? `${outcome(choices.secondary.mode)} @${formatPrice(choices.secondary.price)}` : (isCrypto ? t('market.down') : t('market.no'));
   secondary.disabled = scoreLocked;
+  primary.classList.toggle('selected', selectedMode === (choices.primary?.mode || selectedMode));
+  secondary.classList.toggle('selected', !scoreLocked && selectedMode === choices.secondary?.mode);
   choiceRow.classList.toggle('single', scoreLocked);
-  document.querySelector('.buy-sell span:first-child').textContent = isCrypto ? `Buy ${t('market.up')}` : `Buy ${t('market.yes')}`;
-  document.querySelector('.buy-sell .muted').textContent = scoreLocked ? '' : (isCrypto ? `Buy ${t('market.down')}` : `Buy ${t('market.no')}`);
+  document.querySelector('.buy-sell span:first-child').textContent = isCrypto ? `${t('order.buy')} ${t('market.up')}` : `${t('order.buy')} ${t('market.yes')}`;
+  document.querySelector('.buy-sell .muted').textContent = scoreLocked ? '' : (isCrypto ? `${t('order.buy')} ${t('market.down')}` : `${t('order.buy')} ${t('market.no')}`);
   if (tradeRule) {
     tradeRule.textContent = scoreLocked ? t('order.scoreInfo') : (isCrypto ? t('order.cryptoInfo') : t('order.yesNoInfo'));
   }
@@ -198,6 +224,21 @@ function bindTabs() {
         bindOdds();
       }
     });
+  });
+}
+
+function bindTradeChoices() {
+  const primary = document.getElementById('upBtn');
+  const secondary = document.getElementById('downBtn');
+  primary?.addEventListener('click', () => {
+    const choice = tradeChoices().primary;
+    if (!choice) return;
+    choosePick({ ...choice, locked: false });
+  });
+  secondary?.addEventListener('click', () => {
+    const choice = tradeChoices().secondary;
+    if (!choice || scoreLocked) return;
+    choosePick({ ...choice, locked: false });
   });
 }
 
@@ -350,6 +391,7 @@ function initMarket() {
   bindTabs();
   syncTradePanel();
   syncReturn();
+  bindTradeChoices();
 }
 
 document.querySelectorAll('.quick button').forEach((button) => {

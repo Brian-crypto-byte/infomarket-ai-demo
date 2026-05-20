@@ -187,6 +187,7 @@
   const orderTranslations = {
     en: {
       'order.place': 'Place order',
+      'order.buy': 'Buy',
       'order.placeAnother': 'Place another order',
       'order.regionCheck': 'Region check required',
       'order.latestPosition': 'Latest position',
@@ -210,6 +211,7 @@
     },
     'zh-CN': {
       'order.place': '下单',
+      'order.buy': '买入',
       'order.placeAnother': '继续下单',
       'order.regionCheck': '需要完成地区检查',
       'order.latestPosition': '最新持仓',
@@ -233,6 +235,7 @@
     },
     ja: {
       'order.place': '注文する',
+      'order.buy': '購入',
       'order.placeAnother': '続けて注文',
       'order.regionCheck': '地域確認が必要です',
       'order.latestPosition': '最新ポジション',
@@ -256,6 +259,7 @@
     },
     ko: {
       'order.place': '주문하기',
+      'order.buy': '매수',
       'order.placeAnother': '추가 주문',
       'order.regionCheck': '지역 확인 필요',
       'order.latestPosition': '최근 포지션',
@@ -279,6 +283,7 @@
     },
     vi: {
       'order.place': 'Đặt lệnh',
+      'order.buy': 'Mua',
       'order.placeAnother': 'Đặt lệnh khác',
       'order.regionCheck': 'Cần kiểm tra khu vực',
       'order.latestPosition': 'Vị thế mới nhất',
@@ -302,6 +307,7 @@
     },
     id: {
       'order.place': 'Pasang order',
+      'order.buy': 'Beli',
       'order.placeAnother': 'Pasang order lagi',
       'order.regionCheck': 'Pemeriksaan wilayah diperlukan',
       'order.latestPosition': 'Posisi terbaru',
