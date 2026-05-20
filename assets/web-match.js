@@ -137,6 +137,18 @@ function matchExplainText() {
   const league = entity(market.league);
   const time = formatMatchTime(market.rawStartsAt || market.startsAt);
   const source = market.source ? ` / ${market.source}` : '';
+  if (isCrypto) {
+    if (lang === 'zh-CN') {
+      return `<strong>${marketTitleText(market)}</strong> 是一个 ${league} 预测市场，截止时间为 <strong>${time}</strong>${source}。本页提供上涨 / 下跌方向交易，成交后以固定赔率结算到内部 USDT 余额。`;
+    }
+    return `<strong>${marketTitleText(market)}</strong> is a ${league} prediction market closing at <strong>${time}</strong>${source}. This page offers Up / Down fixed-odds trading, settled to the internal USDT balance.`;
+  }
+  if (!isFootball) {
+    if (lang === 'zh-CN') {
+      return `<strong>${marketTitleText(market)}</strong> 是一个 ${league} YES/NO 预测市场，截止时间为 <strong>${time}</strong>${source}。成交后以固定赔率结算到内部 USDT 余额。`;
+    }
+    return `<strong>${marketTitleText(market)}</strong> is a ${league} YES/NO prediction market closing at <strong>${time}</strong>${source}. Orders settle to the internal USDT balance at fixed odds.`;
+  }
   if (lang === 'zh-CN') {
     return `<strong>${home} vs ${away}</strong> 是一场 ${league} 足球比赛，开赛时间为 <strong>${time}</strong>${source}。本页提供胜平负 YES/NO 预测，以及 0-0 到 4-4 的 25 个固定赔率比分选项。比赛结束后系统会拉取赛果并完成结算。`;
   }
@@ -370,6 +382,9 @@ function initMarket() {
   setHtml('eventLogo', window.InfoMarketBrand ? window.InfoMarketBrand.badge(market.logo || market.league, { type: 'event', title: market.league, fallback: market.league }) : market.logo);
   setText('eventTitle', marketTitleText(market));
   setText('eventSub', `${entity(market.league)} / ${market.startsAt} / ${market.status === 'Live' ? t('market.live') : (market.status || t('market.pending'))}`);
+  document.querySelector('[data-scoreboard]')?.classList.toggle('hidden', !isFootball);
+  document.querySelector('[data-section="score"]')?.classList.toggle('hidden', !isFootball);
+  document.querySelector('[data-tab="score"]')?.classList.toggle('hidden', !isFootball);
   setHtml('matchExplain', matchExplainText());
   setHtml('homeLogo', window.InfoMarketBrand ? window.InfoMarketBrand.badge(market.home.logo || market.home.name, { type: 'team', title: market.home.name, fallback: market.home.name }) : (market.home.logo || market.home.short || 'H'));
   setHtml('awayLogo', window.InfoMarketBrand ? window.InfoMarketBrand.badge(market.away.logo || market.away.name, { type: 'team', title: market.away.name, fallback: market.away.name }) : (market.away.logo || market.away.short || 'A'));
