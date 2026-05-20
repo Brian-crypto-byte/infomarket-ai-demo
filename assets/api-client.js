@@ -221,6 +221,17 @@ async function staticRequest(path, options = {}) {
     const football = (db.markets || []).filter((market) => market.type === 'football');
     return { status: { footballMarkets: football.length, settled: football.filter((m) => m.status === 'settled').length, due: 0, lastOracleCheck: null, lastSettlement: null }, due: [], oracleResults: [], settlements: [] };
   }
+  if (method === 'POST' && url.pathname === '/admin/football/odds/reprice') {
+    const football = (db.markets || []).filter((market) => market.type === 'football');
+    return {
+      ok: true,
+      mode: 'static-preview',
+      model: 'poisson-dixon-coles-v1',
+      footballMarkets: football.length,
+      scoreLinesPerMatch: 25,
+      generatedAt: nowIso()
+    };
+  }
   if (method === 'GET' && url.pathname.startsWith('/logos/')) return { logo: null };
 
   if (['POST', 'PATCH'].includes(method)) {
@@ -288,6 +299,7 @@ window.InfoMarketAPI = {
   publishFootballImport(ids = []) { return this.request('/admin/football/import/publish', { method: 'POST', body: { ids } }); },
   runFootballSettlement() { return this.request('/admin/football/settlement/run', { method: 'POST' }); },
   footballSettlementStatus() { return this.request('/admin/football/settlement/status'); },
+  repriceFootballOdds() { return this.request('/admin/football/odds/reprice', { method: 'POST' }); },
   manualFootballSettlement(payload) { return this.request('/admin/football/settlement/manual', { method: 'POST', body: payload }); },
   voidFootballMarket(payload) { return this.request('/admin/football/settlement/void', { method: 'POST', body: payload }); },
   reviewFootballMarket(payload) { return this.request('/admin/football/settlement/review', { method: 'POST', body: payload }); },

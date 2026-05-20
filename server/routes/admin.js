@@ -1,9 +1,38 @@
 const { sendJson, sendError, readBody } = require('../utils');
 const { getDemoUser, getBalance, getRiskSettings, riskExposure, settleMarket, settleFootballMarket, voidMarket } = require('../domain');
 const { collectFootballCandidates, publishCollectedFootball, runFootballCollection, runFootballSettlement } = require('../football-ops');
+const { priceFootballMarkets } = require('../odds/football-pricing');
 
 async function handleAdmin(req, res, pathname, url, db, writeDb) {
   if (req.method === 'GET' && pathname === '/admin/withdrawals') return sendJson(res, 200, { items: db.withdrawals });
+
+  if (req.method === 'POST' && pathname === '/admin/football/odds/reprice') {
+    const generatedAt = new Date().toISOString();
+    const before = JSON.stringify(db.markets || []);
+    db.markets = priceFootballMarkets(db.markets || [], { generatedAt });
+    const footballMarkets = (db.markets || []).filter((market) => market.type === 'football');
+    db.auditLogs ||= [];
+    db.auditLogs.unshift({
+      id: `aud_${Date.now()}`,
+      action: 'football_odds_repriced',
+      entityType: 'pricing_model',
+      details: {
+        model: 'poisson-dixon-coles-v1',
+        footballMarkets: footballMarkets.length,
+        scoreLinesPerMatch: 25,
+        changed: before !== JSON.stringify(db.markets || [])
+      },
+      createdAt: generatedAt
+    });
+    writeDb(db);
+    return sendJson(res, 200, {
+      ok: true,
+      model: 'poisson-dixon-coles-v1',
+      footballMarkets: footballMarkets.length,
+      scoreLinesPerMatch: 25,
+      generatedAt
+    });
+  }
 
   if (req.method === 'GET' && pathname === '/admin/football/import/preview') {
     const candidates = await collectFootballCandidates(db);

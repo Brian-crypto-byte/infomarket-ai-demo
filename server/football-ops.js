@@ -1,7 +1,7 @@
-const { correctScores } = require('./store/mock-db');
 const { now } = require('./utils');
 const { fetchKalshiSoccerMarkets, fetchApiSportsFootballMarkets, fetchApiSports, teamLogo, noOddsFromYes } = require('./routes/markets');
 const { settleFootballMarket } = require('./domain');
+const { correctScores, priceFootballMarket } = require('./odds/football-pricing');
 
 const POLYMARKET_SOCCER_URL = 'https://gamma-api.polymarket.com/events?limit=80&active=true&closed=false&tag_slug=soccer';
 const POLYMARKET_SOCCER_GAMES_URL = 'https://polymarket.com/zh/sports/soccer/games';
@@ -176,7 +176,7 @@ function normalizePolymarketPageEvent(item = {}) {
   const datePart = Number.isNaN(Date.parse(item.endDate || '')) ? '' : new Date(item.endDate).toISOString().slice(0, 10);
   const marketId = `poly-game-${slug(`${home}-${away}-${datePart || item.url || item.name}`)}`;
   const league = leagueFromPolymarketUrl(item.url);
-  return {
+  return priceFootballMarket({
     id: marketId,
     externalId: item.url || marketId,
     source: 'polymarket-games',
@@ -207,7 +207,7 @@ function normalizePolymarketPageEvent(item = {}) {
     publishable: true,
     collectedAt: now(),
     updatedAt: now()
-  };
+  });
 }
 
 function parseJsonLdScripts(html = '') {
@@ -263,7 +263,7 @@ function normalizePolymarketEvent(event = {}) {
   const awayOdds = decimalFromProbability(firstPrices[1], 2.9);
   const drawOdds = 3.35;
 
-  return {
+  return priceFootballMarket({
     id: marketId,
     externalId: String(event.id || event.slug || marketId),
     source: 'polymarket',
@@ -291,7 +291,7 @@ function normalizePolymarketEvent(event = {}) {
     publishable: true,
     collectedAt: now(),
     updatedAt: now()
-  };
+  });
 }
 
 async function fetchPolymarketSoccerCandidates() {

@@ -1,5 +1,5 @@
 const { sendJson, sendError, readBody, now, id } = require('../utils');
-const { correctScores } = require('../store/mock-db');
+const { correctScores, priceFootballMarket, noOddsFromYes } = require('../odds/football-pricing');
 
 const KALSHI_EVENTS_URL = 'https://external-api.kalshi.com/trade-api/v2/events?limit=200&status=open&with_nested_markets=true';
 const KALSHI_SERIES_URL = 'https://external-api.kalshi.com/trade-api/v2/series?category=Sports&include_volume=true&include_product_metadata=true';
@@ -85,13 +85,6 @@ function localDateString(date = new Date()) {
   return `${parts.year}-${parts.month}-${parts.day}`;
 }
 
-function noOddsFromYes(yesOdds) {
-  const yes = Number(yesOdds);
-  if (!Number.isFinite(yes) || yes <= 1) return null;
-  const probability = Math.min(0.985, Math.max(0.015, 1 / yes));
-  return Number((1 / (1 - probability)).toFixed(2));
-}
-
 function apiFixtureStatus(status = {}) {
   const short = String(status.short || '').toUpperCase();
   if (['1H', '2H', 'HT', 'ET', 'P', 'BT', 'LIVE'].includes(short)) return 'live';
@@ -170,7 +163,7 @@ function apiSportsMarketFromOdds(oddItem, fixture) {
   const exactScore = firstValidBookmaker(oddItem.bookmakers, 'Exact Score');
   const scoreOptions = apiSportsCorrectScores(exactScore?.bet, fixture.fixture.id);
 
-  return {
+  return priceFootballMarket({
     id: `api-football-${fixture.fixture.id}`,
     externalId: String(fixture.fixture.id),
     type: 'football',
@@ -196,7 +189,7 @@ function apiSportsMarketFromOdds(oddItem, fixture) {
       exactScoreBookmaker: exactScore?.bookmaker?.name || null
     },
     updatedAt: oddItem.update || now()
-  };
+  });
 }
 
 async function fetchApiSportsFootballMarkets() {
@@ -234,7 +227,7 @@ function kalshiEventToMarket(event) {
   const title = cleanTitle(event.title || market.title);
   if (!title || !yesOdds || !noOdds) return null;
 
-  return {
+  return priceFootballMarket({
     id: `kalshi-${String(event.event_ticker || market.ticker).toLowerCase().replace(/[^a-z0-9]+/g, '-')}`,
     externalId: market.ticker,
     type: 'binary',
@@ -249,7 +242,7 @@ function kalshiEventToMarket(event) {
       { id: `${market.ticker}-outcome`, groupKey: 'binary_outcome', label: 'Outcome', sideType: 'yes_no', sellable: true, sortOrder: 1, yesOdds, noOdds }
     ],
     updatedAt: market.updated_time || now()
-  };
+  });
 }
 
 async function fetchKalshiMarkets() {
@@ -360,7 +353,7 @@ function normalizeAdminMarket(body = {}) {
   const homeOdds = decimal(body.homeOdds, 2.05);
   const drawOdds = decimal(body.drawOdds, 3.2);
   const awayOdds = decimal(body.awayOdds, 2.9);
-  return {
+  return priceFootballMarket({
     id: marketId,
     type: 'football',
     category: 'sports',
@@ -384,7 +377,7 @@ function normalizeAdminMarket(body = {}) {
     oddsSource: { provider: 'Admin fixed pool', updatedAt: now() },
     createdAt: now(),
     updatedAt: now()
-  };
+  });
 }
 
 function updateMarketOdds(market, body = {}) {
@@ -420,7 +413,7 @@ function optionFromKalshiMarket(market, sortOrder) {
   const noOdds = dollarsToDecimal(market.no_ask_dollars);
   if (!yesOdds || !noOdds) return null;
   const subTitle = cleanTitle(market.yes_sub_title || market.no_sub_title || market.title);
-  return {
+  return priceFootballMarket({
     id: market.ticker,
     groupKey: 'match_result',
     label: /^tie$/i.test(subTitle) ? 'Draw' : subTitle,
@@ -429,7 +422,7 @@ function optionFromKalshiMarket(market, sortOrder) {
     sortOrder,
     yesOdds,
     noOdds
-  };
+  });
 }
 
 function soccerEventToFootball(eventTicker, markets, seriesTitle) {

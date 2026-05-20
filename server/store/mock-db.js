@@ -2,27 +2,7 @@
 const { dataDir, dbPath } = require('../config');
 const { now } = require('../utils');
 
-const scoreOrder = [
-  [0, 0], [1, 0], [0, 1], [1, 1], [2, 0],
-  [0, 2], [2, 1], [1, 2], [2, 2], [3, 0],
-  [0, 3], [3, 1], [1, 3], [3, 2], [2, 3],
-  [3, 3], [4, 0], [0, 4], [4, 1], [1, 4],
-  [4, 2], [2, 4], [4, 3], [3, 4], [4, 4]
-];
-
-function correctScores() {
-  return scoreOrder.map(([home, away], index) => ({
-    id: `score-${home}-${away}`,
-    groupKey: 'correct_score',
-    label: `${home}-${away}`,
-    sideType: 'yes_no',
-    sellable: false,
-    sortOrder: index + 1,
-    yesOdds: Number((5.2 + home * 1.35 + away * 1.52 + Math.abs(home - away) * 0.82).toFixed(2)),
-    noOdds: Number((1.035 + (home + away) * 0.007 + Math.abs(home - away) * 0.004).toFixed(2))
-  }));
-}
-
+const { correctScores, priceFootballMarkets } = require('../odds/football-pricing');
 function seedDb() {
   return {
     users: [
@@ -60,6 +40,12 @@ function seedDb() {
 function ensureDb() {
   if (!fs.existsSync(dataDir)) fs.mkdirSync(dataDir, { recursive: true });
   if (!fs.existsSync(dbPath)) fs.writeFileSync(dbPath, JSON.stringify(seedDb(), null, 2));
+  const db = JSON.parse(fs.readFileSync(dbPath, 'utf8'));
+  const pricedMarkets = priceFootballMarkets(db.markets || []);
+  if (JSON.stringify(pricedMarkets) !== JSON.stringify(db.markets || [])) {
+    db.markets = pricedMarkets;
+    fs.writeFileSync(dbPath, JSON.stringify(db, null, 2));
+  }
 }
 
 function readDb() {
@@ -73,3 +59,4 @@ function writeDb(db) {
 }
 
 module.exports = { ensureDb, readDb, writeDb, correctScores };
+

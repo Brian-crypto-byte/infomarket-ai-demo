@@ -202,6 +202,20 @@ async function runAutoSettlement() {
   }
 }
 
+async function repriceFootballOdds() {
+  const button = document.querySelector('[data-reprice-football]');
+  if (button) button.disabled = true;
+  try {
+    const result = await window.InfoMarketAPI.repriceFootballOdds();
+    addLog('Football odds repriced', `${result.footballMarkets || 0} matches · ${result.scoreLinesPerMatch || 25} score lines · ${result.model || 'pricing model'}`);
+    await loadData();
+  } catch (error) {
+    addLog('Football odds repricing failed', error.message);
+  } finally {
+    if (button) button.disabled = false;
+  }
+}
+
 async function manualFootballSettlement(marketId, button) {
   const homeInput = document.querySelector(`[data-manual-home="${marketId}"]`);
   const awayInput = document.querySelector(`[data-manual-away="${marketId}"]`);
@@ -650,6 +664,7 @@ function bindActions() {
   document.querySelector('[data-create-market]')?.addEventListener('click', () => document.querySelector('[data-new-title]')?.focus());
   document.querySelector('[data-publish-odds]')?.addEventListener('click', () => publishOdds(false));
   document.querySelector('[data-publish-scores]')?.addEventListener('click', () => publishOdds(true));
+  document.querySelector('[data-reprice-football]')?.addEventListener('click', repriceFootballOdds);
   document.querySelector('[data-settle-selected]')?.addEventListener('click', renderSettlement);
   document.querySelector('[data-refresh-withdrawals]')?.addEventListener('click', loadData);
   document.querySelector('[data-refresh-risk]')?.addEventListener('click', loadData);

@@ -107,6 +107,7 @@
               </div>
               <div class="row"><span>Sources</span><strong>Polymarket soccer games / Kalshi soccer / API-Football</strong></div>
               <div class="row"><span>Auto collection</span><strong data-football-status>Waiting for first run</strong></div>
+              <div class="row"><span>Auto odds</span><strong>Poisson + Dixon-Coles model, 25 score lines, YES/NO repricing</strong></div>
               <div class="row"><span>Auto settlement</span><strong>Pull result 30 minutes after match window, then settle open positions</strong></div>
               <div class="football-import-list" data-football-import-list></div>
             </div>
@@ -167,7 +168,7 @@
             </div>
 
             <div class="panel" data-section="odds">
-              <div class="panel-title-row"><h2>Odds editor</h2><span class="badge green">Fixed pool</span></div>
+              <div class="panel-title-row"><h2>Odds editor</h2><button class="btn" data-reprice-football>Auto reprice football</button></div>
               <div class="admin-form">
                 <div class="field"><label>Market</label><div class="input"><select data-odds-market></select></div></div>
                 <div class="three-col" data-result-odds></div>
