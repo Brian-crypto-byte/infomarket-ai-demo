@@ -411,7 +411,14 @@ document.querySelector('.submit').addEventListener('click', () => {
 
 function initMarket() {
   syncMarketLayout();
-  setHtml('eventLogo', window.InfoMarketBrand ? window.InfoMarketBrand.badge(market.logo || market.league, { type: 'event', title: market.league, fallback: market.league }) : market.logo);
+  setHtml('eventLogo', window.InfoMarketBrand ? window.InfoMarketBrand.badge(market.logo || market.league || market.type, {
+    type: 'event',
+    title: isFootball ? market.league : marketTitleText(market),
+    fallback: market.league || market.type,
+    marketTitle: market.title,
+    marketType: market.type,
+    category: market.category || market.league
+  }) : market.logo);
   setText('eventTitle', marketTitleText(market));
   setText('eventSub', `${entity(market.league)} / ${market.startsAt} / ${market.status === 'Live' ? t('market.live') : (market.status || t('market.pending'))}`);
   setHtml('matchExplain', matchExplainText());

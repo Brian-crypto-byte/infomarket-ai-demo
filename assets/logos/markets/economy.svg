@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Economy">
+  <rect width="64" height="64" rx="18" fill="#365314"/>
+  <path fill="#ecfccb" d="M17 43h30v6H17zM22 34h6v9h-6zm10-14h6v23h-6zm10 8h6v15h-6z"/>
+  <path fill="none" stroke="#bef264" stroke-width="4" d="m18 29 10-8 8 6 11-13"/>
+</svg>

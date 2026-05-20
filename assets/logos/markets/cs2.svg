@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Counter-Strike 2">
+  <rect width="64" height="64" rx="18" fill="#1f2937"/>
+  <path fill="#f59e0b" d="M18 42c0-10 7-20 18-20 4 0 7 1 10 3l-4 5c-2-1-4-2-7-2-7 0-11 7-11 14h-6Z"/>
+  <path fill="#fff7ed" d="M36 18h6v28h-6zM44 34h7v5h-7z"/>
+</svg>

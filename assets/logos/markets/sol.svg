@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Solana">
+  <rect width="64" height="64" rx="18" fill="#111827"/>
+  <path fill="#14f195" d="M18 18.5h30l-6 6H12l6-6Z"/>
+  <path fill="#80ecff" d="M16 29h30l-6 6H10l6-6Z"/>
+  <path fill="#dc1fff" d="M22 39.5h30l-6 6H16l6-6Z"/>
+</svg>

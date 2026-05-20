@@ -45,6 +45,21 @@
     'Crypto': 'BTC'
   };
 
+  const marketLogos = [
+    { test: /bitcoin|btc/i, slug: 'btc', title: 'Bitcoin' },
+    { test: /ethereum|ether|eth/i, slug: 'eth', title: 'Ethereum' },
+    { test: /solana|sol\b/i, slug: 'sol', title: 'Solana' },
+    { test: /league of legends|lol/i, slug: 'lol', title: 'League of Legends' },
+    { test: /valorant/i, slug: 'valorant', title: 'Valorant' },
+    { test: /counter[\s-]?strike|cs2/i, slug: 'cs2', title: 'Counter-Strike 2' },
+    { test: /crypto|加密/i, slug: 'crypto', title: 'Crypto market' },
+    { test: /esports|电竞/i, slug: 'esports', title: 'Esports market' },
+    { test: /tech|科技|ai/i, slug: 'tech', title: 'Technology market' },
+    { test: /culture|文化|entertainment/i, slug: 'culture', title: 'Culture market' },
+    { test: /economy|经济|finance/i, slug: 'economy', title: 'Economy market' },
+    { test: /weather|天气/i, slug: 'weather', title: 'Weather market' }
+  ];
+
   const localTeamLogos = {
     'Manchester United': 'manchester-united', 'Man Utd': 'manchester-united', 'Man United': 'manchester-united', MU: 'manchester-united', MUN: 'manchester-united',
     'Manchester City': 'manchester-city', 'Man City': 'manchester-city', MC: 'manchester-city', MCI: 'manchester-city',
@@ -74,6 +89,12 @@
     return slug ? `assets/logos/teams/${slug}.png` : null;
   }
 
+  function localMarketLogo(...values) {
+    const text = values.filter(Boolean).join(' ');
+    const hit = marketLogos.find((item) => item.test.test(text));
+    return hit ? { src: `assets/logos/markets/${hit.slug}.svg`, title: hit.title } : null;
+  }
+
   function hasTeamLogo(label) {
     return Boolean(localTeamLogo(label));
   }
@@ -97,6 +118,13 @@
   }
 
   function badge(label, options = {}) {
+    if (options.type === 'event' && options.marketType && options.marketType !== 'football') {
+      const marketLogo = localMarketLogo(options.marketTitle, options.category, options.marketType, options.title, options.fallback, label);
+      if (marketLogo) {
+        const title = String(options.title || marketLogo.title || options.fallback || label || 'market').replace(/"/g, '&quot;');
+        return `<span class="im-logo im-logo-event im-logo-market has-image" title="${title}"><img src="${marketLogo.src}" alt="${title}" loading="lazy" /></span>`;
+      }
+    }
     const localLogo = options.type !== 'league' ? localTeamLogo(label) : null;
     if (localLogo) {
       const title = String(options.title || options.fallback || label || 'logo').replace(/"/g, '&quot;');
@@ -210,7 +238,7 @@
     document.head.appendChild(style);
   }
 
-  window.InfoMarketBrand = { badge, walletIcon, initials, injectStyles, hydrateLogos, hasTeamLogo };
+  window.InfoMarketBrand = { badge, walletIcon, initials, injectStyles, hydrateLogos, hasTeamLogo, localMarketLogo };
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', injectStyles);
   } else {
