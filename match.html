@@ -251,6 +251,11 @@
     .chart-label { position: absolute; right: 12px; top: 28px; color: var(--muted); font-size: 12px; font-weight: 560; }
     .chart-label.second { top: 122px; }
     .tabs { display: flex; gap: 8px; flex-wrap: wrap; margin: 0 0 12px; }
+    body.non-football-market .page { grid-template-columns: minmax(0, 960px); justify-content: center; }
+    body.non-football-market .tabs { display: none; }
+    body.non-football-market .market-trade-zone { margin-top: 12px; }
+    body.non-football-market .event-card { margin-bottom: 10px; }
+    body.non-football-market .trade { position: static; margin: 0 0 12px; }
     .tab {
       height: 34px;
       border: 1px solid var(--line);
@@ -573,13 +578,13 @@
       </div>
     </aside>
   </div>
-  <script src="assets/i18n.js?v=match-layout-1"></script>
+  <script src="assets/i18n.js?v=nonfootball-direct-1"></script>
   <script src="assets/web-data.js"></script>
   <script src="assets/brand-ui.js"></script>
   <script src="assets/market-normalizer.js"></script>
   <script src="assets/api-client.js?v=odds-engine-2"></script>
   <script src="assets/web-store.js"></script>
-  <script src="assets/web-match.js?v=nonfootball-layout-1"></script>
+  <script src="assets/web-match.js?v=nonfootball-direct-1"></script>
   <script src="assets/web-shell.js"></script>
 </body>
 </html>

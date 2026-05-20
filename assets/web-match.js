@@ -124,6 +124,37 @@ function syncTradePanel() {
   }
 }
 
+function syncMarketLayout() {
+  const nonFootball = !isFootball;
+  document.body.classList.toggle('football-market', isFootball);
+  document.body.classList.toggle('non-football-market', nonFootball);
+
+  document.querySelector('[data-scoreboard]')?.classList.toggle('hidden', nonFootball);
+  document.querySelector('[data-section="score"]')?.classList.toggle('hidden', nonFootball);
+  document.querySelector('[data-tab="score"]')?.classList.toggle('hidden', nonFootball);
+
+  const tradeCard = document.querySelector('aside.trade');
+  const main = document.querySelector('main');
+  const tradeZone = document.querySelector('.market-trade-zone');
+  const analytics = document.querySelector('.market-analytics');
+  if (tradeCard && main && tradeZone && analytics) {
+    if (nonFootball && tradeCard.parentElement !== main) {
+      main.insertBefore(tradeCard, tradeZone);
+    } else if (isFootball && tradeCard.parentElement === main) {
+      document.querySelector('.page')?.appendChild(tradeCard);
+    }
+  }
+
+  const resultTitle = document.querySelector('[data-section="result"] h2');
+  const resultSub = document.querySelector('[data-section="result"] .sub');
+  if (resultTitle) {
+    resultTitle.textContent = isCrypto ? t('market.direction') : (isFootball ? t('market.matchResult') : t('market.outcome'));
+  }
+  if (resultSub) {
+    resultSub.textContent = isCrypto ? t('market.upDownQuotes') : t('market.fixedQuotes');
+  }
+}
+
 function formatMatchTime(value) {
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) return value || t('market.pending');
@@ -379,12 +410,10 @@ document.querySelector('.submit').addEventListener('click', () => {
 });
 
 function initMarket() {
+  syncMarketLayout();
   setHtml('eventLogo', window.InfoMarketBrand ? window.InfoMarketBrand.badge(market.logo || market.league, { type: 'event', title: market.league, fallback: market.league }) : market.logo);
   setText('eventTitle', marketTitleText(market));
   setText('eventSub', `${entity(market.league)} / ${market.startsAt} / ${market.status === 'Live' ? t('market.live') : (market.status || t('market.pending'))}`);
-  document.querySelector('[data-scoreboard]')?.classList.toggle('hidden', !isFootball);
-  document.querySelector('[data-section="score"]')?.classList.toggle('hidden', !isFootball);
-  document.querySelector('[data-tab="score"]')?.classList.toggle('hidden', !isFootball);
   setHtml('matchExplain', matchExplainText());
   setHtml('homeLogo', window.InfoMarketBrand ? window.InfoMarketBrand.badge(market.home.logo || market.home.name, { type: 'team', title: market.home.name, fallback: market.home.name }) : (market.home.logo || market.home.short || 'H'));
   setHtml('awayLogo', window.InfoMarketBrand ? window.InfoMarketBrand.badge(market.away.logo || market.away.name, { type: 'team', title: market.away.name, fallback: market.away.name }) : (market.away.logo || market.away.short || 'A'));
