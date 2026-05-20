@@ -245,6 +245,12 @@ function formatEventDay(value) {
   return date.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
 }
 
+function formatEventKickoff(value) {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return market.startsAt || t('market.pending');
+  return date.toLocaleString(undefined, { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+}
+
 function marketStatusText() {
   if (market.status === 'Live') return t('market.live');
   if (market.status === 'active') return t('market.active');
@@ -528,7 +534,7 @@ function initMarket() {
   setText('awayRecord', market.away.record || '');
   setHtml('scoreLine', market.score
     ? `<b>${market.score.home} : ${market.score.away}</b>`
-    : `<em>${formatEventDay(market.rawStartsAt || market.startsAt)}</em><b>${marketStatusText()}</b>`);
+    : `<em>${formatEventKickoff(market.rawStartsAt || market.startsAt)}</em>`);
   setText('volume', market.volume);
   setText('bestPrice', `${localizedPick(market.detail.bestPick)} @${formatPrice(market.detail.bestPrice)}`);
   setText('timeLeft', market.detail.timeLeft);

@@ -167,7 +167,7 @@
       border-radius: 18px;
       background: rgba(255,255,255,.62);
       display: grid;
-      grid-template-columns: minmax(0, 1fr) 96px minmax(0, 1fr);
+      grid-template-columns: minmax(0, 1fr) 132px minmax(0, 1fr);
       align-items: center;
       gap: 14px;
       padding: 14px;
@@ -202,18 +202,20 @@
     }
     .score-team span { display: block; margin-top: 3px; color: var(--muted); font-size: 12px; }
     .score-center {
-      height: 58px;
-      border-radius: 16px;
-      background: #f2efec;
+      min-height: 52px;
+      border-radius: 14px;
+      background: #f7f3ee;
       display: grid;
       place-items: center;
-      font-size: 18px;
-      line-height: 1;
+      font-size: 15px;
+      line-height: 1.15;
       font-weight: 620;
-      letter-spacing: -0.05em;
+      letter-spacing: -0.02em;
+      padding: 0 10px;
+      text-align: center;
     }
-    .score-center em { font-style: normal; color: var(--muted); font-size: var(--font-md); letter-spacing: 0; }
-    .score-center b { color: #a1a6b1; font-size: 18px; font-weight: 620; letter-spacing: -0.04em; }
+    .score-center em { font-style: normal; color: var(--muted); font-size: var(--font-md); letter-spacing: 0; white-space: nowrap; }
+    .score-center b { color: #20242a; font-size: 17px; font-weight: 620; letter-spacing: -0.03em; white-space: nowrap; }
     .metric {
       border: 1px solid var(--line);
       border-radius: 15px;
@@ -471,6 +473,7 @@
       .page { grid-template-columns: 1fr; }
       .trade { position: static; }
       .score-grid { grid-template-columns: repeat(3,minmax(0,1fr)); }
+      .scoreboard { grid-template-columns: minmax(0, 1fr) 132px minmax(0, 1fr); }
     }
     @media (max-width: 760px) {
       .notice { font-size: 12px; }
@@ -666,7 +669,7 @@
       body:not(.football-market) .score-team.away .team-crest { order: 0; }
       body:not(.football-market) .score-team.away div { order: 1; }
       body:not(.football-market) .score-center { order: 2; }
-      body.football-market .scoreboard { grid-template-columns: minmax(0, 1fr) 96px minmax(0, 1fr); }
+      body.football-market .scoreboard { grid-template-columns: minmax(0, 1fr) 104px minmax(0, 1fr); }
       body.football-market .team-crest { width: 54px; height: 54px; }
       body.football-market .score-team strong { font-size: 13px; }
       body.football-market .score-center b { font-size: 17px; }
@@ -746,7 +749,7 @@
   <script src="assets/market-normalizer.js"></script>
   <script src="assets/api-client.js?v=odds-engine-2"></script>
   <script src="assets/web-store.js"></script>
-  <script src="assets/web-match.js?v=scorecolor1"></script>
+  <script src="assets/web-match.js?v=scorelayout1"></script>
   <script src="assets/web-shell.js"></script>
 </body>
 </html>
