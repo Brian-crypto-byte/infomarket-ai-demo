@@ -1,4 +1,4 @@
-const amount = document.getElementById('amount');
+﻿const amount = document.getElementById('amount');
 const returnValue = document.getElementById('returnValue');
 const oddsGrid = document.querySelector('[data-odds-grid]');
 const scoreGrid = document.querySelector('[data-score-grid]');
@@ -48,6 +48,12 @@ function localizedPick(pick) {
     .replace(/\bDown\b/g, t('market.down'));
 }
 
+function tradeRuleText(kind) {
+  if (kind === 'score' || scoreLocked) return t('order.ruleScore');
+  if (kind === 'crypto' || isCrypto) return t('order.ruleCrypto');
+  return t('order.ruleYesNo');
+}
+
 function setText(id, value) {
   const node = document.getElementById(id);
   if (node) node.textContent = value;
@@ -88,9 +94,7 @@ function syncTradePanel() {
   document.querySelector('.buy-sell span:first-child').textContent = isCrypto ? `Buy ${t('market.up')}` : `Buy ${t('market.yes')}`;
   document.querySelector('.buy-sell .muted').textContent = scoreLocked ? '' : (isCrypto ? `Buy ${t('market.down')}` : `Buy ${t('market.no')}`);
   if (tradeRule) {
-    tradeRule.textContent = scoreLocked
-      ? 'Correct score uses fixed odds. After buying, this position cannot be sold before settlement.'
-      : (isCrypto ? 'Crypto markets use Up / Down outcomes.' : 'Markets use YES / NO outcomes.');
+    tradeRule.textContent = scoreLocked ? t('order.scoreInfo') : (isCrypto ? t('order.cryptoInfo') : t('order.yesNoInfo'));
   }
 }
 
@@ -200,7 +204,7 @@ function bindTabs() {
 function renderLastPosition(order) {
   if (!positionMini || !order) return;
   positionMini.classList.add('open');
-  positionMini.innerHTML = `<strong>Latest position</strong>${order.pick} @${formatPrice(order.price)} · ${order.amount.toFixed(2)} USDT<br>${order.rule}`;
+  positionMini.innerHTML = `<strong>${t('order.latestPosition')}</strong>${localizedPick(order.pick)} @${formatPrice(order.price)} · ${order.amount.toFixed(2)} USDT<br>${order.rule}`;
 }
 
 
@@ -226,18 +230,18 @@ function createOrderModal() {
   const modal = document.createElement('div');
   modal.className = 'order-modal-backdrop';
   modal.innerHTML = `
-    <div class="order-modal" role="dialog" aria-modal="true" aria-label="Confirm order">
-      <div class="order-modal-head"><span>Confirm order</span><button class="modal-close" type="button">x</button></div>
+    <div class="order-modal" role="dialog" aria-modal="true" aria-label="${t('order.confirmTitle')}">
+      <div class="order-modal-head"><span>${t('order.confirmTitle')}</span><button class="modal-close" type="button">x</button></div>
       <div class="order-modal-body">
-        <div class="row"><span>Market</span><strong data-order-market></strong></div>
-        <div class="row"><span>Pick</span><strong data-order-pick></strong></div>
-        <div class="row"><span>Amount</span><strong data-order-amount></strong></div>
-        <div class="row"><span>Potential return</span><strong data-order-return></strong></div>
-        <div class="row"><span>Trade rule</span><strong data-order-rule></strong></div>
+        <div class="row"><span>${t('order.market')}</span><strong data-order-market></strong></div>
+        <div class="row"><span>${t('order.pick')}</span><strong data-order-pick></strong></div>
+        <div class="row"><span>${t('order.amount')}</span><strong data-order-amount></strong></div>
+        <div class="row"><span>${t('order.potentialReturn')}</span><strong data-order-return></strong></div>
+        <div class="row"><span>${t('order.tradeRule')}</span><strong data-order-rule></strong></div>
         <div class="row"><span>Alpha Insurance</span><strong data-order-insurance></strong></div>
         <div class="row"><span>INF Credits</span><strong data-order-credits></strong></div>
-        <button class="submit" type="button" data-confirm-order>Confirm and place</button>
-        <div class="order-note" style="margin-top:12px;">Order uses your internal USDT balance. Winning settlement returns payout to available balance.</div>
+        <button class="submit" type="button" data-confirm-order>${t('order.confirmPlace')}</button>
+        <div class="order-note" style="margin-top:12px;">${t('order.note')}</div>
       </div>
     </div>
   `;
@@ -257,8 +261,8 @@ function createOrderModal() {
       potentialReturn: Number(returnValue.textContent || 0),
       insurance: market.detail.insuranceCover,
       credits: market.detail.infCredits,
-      status: 'Open',
-      rule: scoreLocked ? 'Fixed odds score market; no sell before settlement' : (isCrypto ? 'UP/DOWN market' : 'YES/NO market')
+      status: t('order.open'),
+      rule: tradeRuleText()
     };
     try {
       if (window.InfoMarketAPI) {
@@ -277,11 +281,11 @@ function createOrderModal() {
         window.InfoMarketStore.addOrder(order);
       }
       modal.classList.remove('open');
-      document.querySelector('.submit').textContent = 'Place another order';
+      document.querySelector('.submit').textContent = t('order.placeAnother');
       renderLastPosition(order);
-      showToast('Order placed', `${order.pick} · ${order.amount.toFixed(2)} USDT`);
+      showToast(t('order.placed'), `${localizedPick(order.pick)} · ${order.amount.toFixed(2)} USDT`);
     } catch (error) {
-      showToast('Order failed', error.message);
+      showToast(t('order.failed'), error.message);
     }
   });
   return modal;
@@ -315,7 +319,7 @@ document.querySelector('.submit').addEventListener('click', () => {
   orderModal.querySelector('[data-order-pick]').textContent = `${localizedPick(selectedPick)} @${formatPrice(selectedPrice)}`;
   orderModal.querySelector('[data-order-amount]').textContent = `${Number(amount.value || 0).toFixed(2)} USDT`;
   orderModal.querySelector('[data-order-return]').textContent = `${returnValue.textContent} USDT`;
-  orderModal.querySelector('[data-order-rule]').textContent = scoreLocked ? 'Fixed score odds; no sell' : (isCrypto ? 'UP / DOWN' : 'YES / NO');
+  orderModal.querySelector('[data-order-rule]').textContent = tradeRuleText();
   orderModal.querySelector('[data-order-insurance]').textContent = market.detail.insuranceCover;
   orderModal.querySelector('[data-order-credits]').textContent = `+${market.detail.infCredits}`;
   orderModal.classList.add('open');
@@ -357,3 +361,5 @@ document.querySelectorAll('.quick button').forEach((button) => {
 
 amount.addEventListener('input', syncReturn);
 loadMarketFromApi().then(initMarket);
+
+
