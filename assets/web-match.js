@@ -147,12 +147,16 @@ function syncMarketLayout() {
 
   const resultTitle = document.querySelector('[data-section="result"] h2');
   const resultSub = document.querySelector('[data-section="result"] .sub');
+  const scoreTitle = document.querySelector('[data-section="score"] h2');
+  const scoreSub = document.querySelector('[data-section="score"] .sub');
   if (resultTitle) {
     resultTitle.textContent = isCrypto ? t('market.direction') : (isFootball ? t('market.matchResult') : t('market.outcome'));
   }
   if (resultSub) {
     resultSub.textContent = isCrypto ? t('market.upDownQuotes') : t('market.fixedQuotes');
   }
+  if (scoreTitle) scoreTitle.textContent = t('market.correctScore');
+  if (scoreSub) scoreSub.textContent = t('market.correctScoreSub');
 }
 
 function formatMatchTime(value) {

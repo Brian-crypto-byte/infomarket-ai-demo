@@ -35,6 +35,8 @@
     'market.active': 'Open', 'market.pending': 'Pending', 'market.notStarted': 'Not started',
     'market.moreScores': 'More scores', 'market.showFewer': 'Show fewer',
     'market.matchResult': 'Match result',
+    'market.correctScore': 'Correct score',
+    'market.correctScoreSub': 'First 3 scores shown on mobile; expand for all 25 fixed score lines',
     'market.direction': 'Direction',
     'market.outcome': 'Outcome',
     'market.fixedQuotes': 'Fixed pool quotes',
@@ -96,6 +98,8 @@
       'market.yes': '是', 'market.no': '否', 'market.up': '上涨', 'market.down': '下跌', 'market.home': '主胜', 'market.draw': '平局', 'market.away': '客胜',
       'market.live': '进行中', 'market.active': '可交易', 'market.pending': '待定', 'market.notStarted': '未开始', 'market.moreScores': '更多比分', 'market.showFewer': '收起比分',
       'market.matchResult': '胜平负',
+      'market.correctScore': '比分',
+      'market.correctScoreSub': '手机端先展示 3 个比分，展开后查看全部 25 个固定比分赔率',
       'market.direction': '方向交易', 'market.outcome': '市场结果', 'market.fixedQuotes': '固定赔率报价', 'market.upDownQuotes': '上涨 / 下跌固定赔率',
       'market.empty': '当前暂无可交易市场。', 'market.closes': '截止',
       'common.backDashboard': '返回账户', 'common.openAssets': '打开资产页', 'common.confirm': '确认',
@@ -140,7 +144,7 @@
       'auth.gateTitle': 'ログインが必要です', 'auth.gateBody': '続行するにはログインしてください。', 'auth.adminGateTitle': '管理者権限が必要です', 'auth.adminGateBody': '運用アカウントでログインしてください。',
       'search.home': 'マーケット、チーム、スコア、資産を検索', 'home.notice': '制限対象地域では取引できません。注文前に規約をご確認ください。', 'lang.label': '言語',
       'market.yes': 'はい', 'market.no': 'いいえ', 'market.up': '上昇', 'market.down': '下落', 'market.home': 'ホーム勝利', 'market.draw': '引き分け', 'market.away': 'アウェイ勝利', 'market.live': 'ライブ', 'market.active': '取引可', 'market.notStarted': '開始前', 'market.moreScores': '他のスコア',
-      'market.matchResult': '試合結果', 'market.direction': '方向取引', 'market.outcome': '市場結果', 'market.fixedQuotes': '固定オッズ', 'market.upDownQuotes': '上昇 / 下落の固定オッズ'
+      'market.matchResult': '試合結果', 'market.correctScore': '正確スコア', 'market.correctScoreSub': 'モバイルでは最初に3件を表示し、展開すると25件すべてを確認できます', 'market.direction': '方向取引', 'market.outcome': '市場結果', 'market.fixedQuotes': '固定オッズ', 'market.upDownQuotes': '上昇 / 下落の固定オッズ'
     },
     ko: { ...en,
       'nav.markets': '마켓', 'nav.dashboard': '계정', 'nav.assets': '자산', 'nav.positions': '포지션', 'nav.rewards': '리워드', 'nav.vault': '금고', 'nav.insurance': '보험', 'nav.project': '프로젝트',
@@ -149,7 +153,7 @@
       'auth.gateTitle': '로그인이 필요합니다', 'auth.gateBody': '계속하려면 로그인하세요.', 'auth.adminGateTitle': '관리자 권한 필요', 'auth.adminGateBody': '운영 계정으로 로그인하세요.',
       'search.home': '마켓, 팀, 스코어 또는 자산 검색', 'home.notice': '제한 지역에서는 거래할 수 없습니다. 주문 전 약관을 확인하세요.', 'lang.label': '언어',
       'market.yes': '예', 'market.no': '아니요', 'market.up': '상승', 'market.down': '하락', 'market.home': '홈 승', 'market.draw': '무승부', 'market.away': '원정 승', 'market.live': '라이브', 'market.active': '거래 가능', 'market.notStarted': '시작 전', 'market.moreScores': '더 많은 스코어',
-      'market.matchResult': '경기 결과', 'market.direction': '방향 거래', 'market.outcome': '마켓 결과', 'market.fixedQuotes': '고정 배당 호가', 'market.upDownQuotes': '상승 / 하락 고정 배당'
+      'market.matchResult': '경기 결과', 'market.correctScore': '정확한 스코어', 'market.correctScoreSub': '모바일에서는 3개를 먼저 표시하고, 펼치면 25개 고정 스코어 배당을 모두 볼 수 있습니다', 'market.direction': '방향 거래', 'market.outcome': '마켓 결과', 'market.fixedQuotes': '고정 배당 호가', 'market.upDownQuotes': '상승 / 하락 고정 배당'
     },
     vi: { ...en,
       'nav.markets': 'Thị trường', 'nav.dashboard': 'Tài khoản', 'nav.assets': 'Tài sản', 'nav.positions': 'Vị thế', 'nav.rewards': 'Thưởng', 'nav.vault': 'Kho lợi suất', 'nav.insurance': 'Bảo hiểm', 'nav.project': 'Dự án',
@@ -158,7 +162,7 @@
       'auth.gateTitle': 'Cần đăng nhập', 'auth.gateBody': 'Vui lòng đăng nhập để tiếp tục.', 'auth.adminGateTitle': 'Cần quyền quản trị', 'auth.adminGateBody': 'Vui lòng đăng nhập bằng tài khoản vận hành.',
       'search.home': 'Tìm thị trường, đội bóng, tỷ số hoặc tài sản', 'home.notice': 'Giao dịch không khả dụng tại khu vực bị hạn chế. Vui lòng đọc điều khoản trước khi đặt lệnh.', 'lang.label': 'Ngôn ngữ',
       'market.yes': 'Có', 'market.no': 'Không', 'market.up': 'Tăng', 'market.down': 'Giảm', 'market.home': 'Chủ nhà thắng', 'market.draw': 'Hòa', 'market.away': 'Khách thắng', 'market.live': 'Trực tiếp', 'market.active': 'Có thể giao dịch', 'market.notStarted': 'Chưa bắt đầu', 'market.moreScores': 'Thêm tỷ số',
-      'market.matchResult': 'Kết quả trận đấu', 'market.direction': 'Giao dịch hướng', 'market.outcome': 'Kết quả thị trường', 'market.fixedQuotes': 'Tỷ lệ cố định', 'market.upDownQuotes': 'Tỷ lệ cố định Tăng / Giảm'
+      'market.matchResult': 'Kết quả trận đấu', 'market.correctScore': 'Tỷ số chính xác', 'market.correctScoreSub': 'Trên di động hiển thị trước 3 tỷ số; mở rộng để xem đủ 25 tỷ số cố định', 'market.direction': 'Giao dịch hướng', 'market.outcome': 'Kết quả thị trường', 'market.fixedQuotes': 'Tỷ lệ cố định', 'market.upDownQuotes': 'Tỷ lệ cố định Tăng / Giảm'
     },
     id: { ...en,
       'nav.markets': 'Pasar', 'nav.dashboard': 'Akun', 'nav.assets': 'Aset', 'nav.positions': 'Posisi', 'nav.rewards': 'Reward', 'nav.vault': 'Vault', 'nav.insurance': 'Asuransi', 'nav.project': 'Proyek',
@@ -167,7 +171,7 @@
       'auth.gateTitle': 'Masuk diperlukan', 'auth.gateBody': 'Silakan masuk untuk melanjutkan.', 'auth.adminGateTitle': 'Akses admin diperlukan', 'auth.adminGateBody': 'Silakan masuk dengan akun operator.',
       'search.home': 'Cari pasar, tim, skor, atau aset', 'home.notice': 'Trading tidak tersedia di wilayah terbatas. Harap tinjau ketentuan sebelum memasang order.', 'lang.label': 'Bahasa',
       'market.yes': 'Ya', 'market.no': 'Tidak', 'market.up': 'Naik', 'market.down': 'Turun', 'market.home': 'Tuan rumah menang', 'market.draw': 'Seri', 'market.away': 'Tamu menang', 'market.live': 'Live', 'market.active': 'Dapat diperdagangkan', 'market.notStarted': 'Belum mulai', 'market.moreScores': 'Skor lainnya',
-      'market.matchResult': 'Hasil pertandingan', 'market.direction': 'Trading arah', 'market.outcome': 'Hasil pasar', 'market.fixedQuotes': 'Odds tetap', 'market.upDownQuotes': 'Odds tetap Naik / Turun'
+      'market.matchResult': 'Hasil pertandingan', 'market.correctScore': 'Skor tepat', 'market.correctScoreSub': 'Di mobile tampil 3 skor lebih dulu; buka untuk melihat 25 odds skor tetap', 'market.direction': 'Trading arah', 'market.outcome': 'Hasil pasar', 'market.fixedQuotes': 'Odds tetap', 'market.upDownQuotes': 'Odds tetap Naik / Turun'
     }
   };
 
