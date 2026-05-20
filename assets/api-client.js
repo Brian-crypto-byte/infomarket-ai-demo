@@ -1,4 +1,4 @@
-const STATIC_DB_KEY = 'infomarket.static.db.v1';
+const STATIC_DB_KEY = 'infomarket.static.db.v2';
 
 function nowIso() {
   return new Date().toISOString();
