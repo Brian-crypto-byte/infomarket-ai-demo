@@ -28,6 +28,21 @@ function marketVisibleForCategory(market, category) {
   return market.category === normalizeCategoryParam(category);
 }
 
+function marketStartTime(market) {
+  return Date.parse(market.rawStartsAt || market.startsAt || '') || Number.MAX_SAFE_INTEGER;
+}
+
+function isClosedMarketStatus(status) {
+  return ['closed', 'settled', 'expired', 'void', 'cancelled', 'canceled', 'finished', 'ended'].includes(String(status || '').toLowerCase());
+}
+
+function marketOpenForListing(market) {
+  if (isClosedMarketStatus(market.status)) return false;
+  if (String(market.status || '').toLowerCase() === 'live') return true;
+  const startTime = marketStartTime(market);
+  return startTime === Number.MAX_SAFE_INTEGER || startTime >= Date.now();
+}
+
 function staticBalance(db) {
   const userId = db.users?.[0]?.id || 'usr_demo';
   db.balances ||= {};
@@ -99,13 +114,14 @@ async function staticRequest(path, options = {}) {
       .filter((market) => !type || market.type === type)
       .filter((market) => !status || market.status === status)
       .filter((market) => marketVisibleForCategory(market, category))
+      .filter(marketOpenForListing)
       .filter((market) => {
         const key = `${market.type}:${String(market.title || '').toLowerCase()}`;
         if (seen.has(key)) return false;
         seen.add(key);
         return true;
       })
-      .sort((a, b) => (Date.parse(a.startsAt || '') || 0) - (Date.parse(b.startsAt || '') || 0));
+      .sort((a, b) => marketStartTime(a) - marketStartTime(b));
     return { items };
   }
 

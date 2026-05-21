@@ -115,6 +115,21 @@ function marketMatchesCategory(market) {
   return market.category === activeCategory;
 }
 
+function marketStartTime(market) {
+  return Date.parse(market.rawStartsAt || market.startsAt || '') || Number.MAX_SAFE_INTEGER;
+}
+
+function isClosedMarketStatus(status) {
+  return ['closed', 'settled', 'expired', 'void', 'cancelled', 'canceled', 'finished', 'ended'].includes(String(status || '').toLowerCase());
+}
+
+function marketOpenForListing(market) {
+  if (isClosedMarketStatus(market.status)) return false;
+  if (String(market.status || '').toLowerCase() === 'live') return true;
+  const startTime = marketStartTime(market);
+  return startTime === Number.MAX_SAFE_INTEGER || startTime >= Date.now();
+}
+
 function hasRenderableFootballLogos(market) {
   if (market.type !== 'football') return true;
   const hasLogo = (team) => {
@@ -253,12 +268,9 @@ function renderMarket(market, index) {
 function renderMarkets(marketsSource = window.INFOMARKET_DATA.markets) {
   const markets = marketsSource
     .filter(marketMatchesCategory)
+    .filter(marketOpenForListing)
     .filter(marketMatchesSearch)
-    .sort((a, b) => {
-      const at = Date.parse(a.startsAt || '') || Number.MAX_SAFE_INTEGER;
-      const bt = Date.parse(b.startsAt || '') || Number.MAX_SAFE_INTEGER;
-      return at - bt;
-    });
+    .sort((a, b) => marketStartTime(a) - marketStartTime(b));
   marketList.innerHTML = markets.map(renderMarket).join('') || `<p class="empty-state">${t('market.empty')}</p>`;
   if (window.InfoMarketBrand) window.InfoMarketBrand.hydrateLogos(marketList);
 }
