@@ -11,7 +11,7 @@
 
   const en = {
     'nav.markets': 'Markets', 'nav.dashboard': 'Account', 'nav.assets': 'Assets', 'nav.positions': 'Positions',
-    'nav.rewards': 'Rewards', 'nav.vault': 'Vault', 'nav.insurance': 'Insurance', 'nav.project': 'Project',
+    'nav.rewards': 'Rewards', 'nav.vault': 'Vault', 'nav.insurance': 'Insurance', 'nav.admin': 'Admin', 'nav.project': 'Project',
     'nav.trending': 'Trending', 'nav.sports': 'Sports', 'nav.soccer': 'Soccer', 'nav.crypto': 'Crypto',
     'nav.esports': 'Esports', 'nav.tech': 'Tech', 'nav.culture': 'Culture', 'nav.economy': 'Economy', 'nav.weather': 'Weather',
     'auth.login': 'Log in', 'auth.signup': 'Sign up', 'auth.loginSignup': 'Log in / Sign up',
@@ -90,7 +90,7 @@
   const dict = {
     en,
     'zh-CN': { ...en,
-      'nav.markets': '市场', 'nav.dashboard': '账户', 'nav.assets': '资产', 'nav.positions': '持仓', 'nav.rewards': '奖励', 'nav.vault': '金库', 'nav.insurance': '保险', 'nav.project': '项目',
+      'nav.markets': '市场', 'nav.dashboard': '账户', 'nav.assets': '资产', 'nav.positions': '持仓', 'nav.rewards': '奖励', 'nav.vault': '金库', 'nav.insurance': '保险', 'nav.admin': '管理后台', 'nav.project': '项目',
       'nav.trending': '热门', 'nav.sports': '体育', 'nav.soccer': '足球', 'nav.crypto': '加密', 'nav.esports': '电竞', 'nav.tech': '科技', 'nav.culture': '文化', 'nav.economy': '经济', 'nav.weather': '天气',
       'auth.login': '登录', 'auth.signup': '注册', 'auth.loginSignup': '登录 / 注册', 'auth.secure': '安全登录', 'auth.title': '登录 infomarket.ai',
       'auth.subtitle': '使用邮箱创建交易账户，或连接钱包用于 USDT 充值、提现和 INF Token 领取。',
@@ -156,7 +156,7 @@
       'insurance.claim': '领取'
     },
     ja: { ...en,
-      'nav.markets': 'マーケット', 'nav.dashboard': 'アカウント', 'nav.assets': '資産', 'nav.positions': 'ポジション', 'nav.rewards': '報酬', 'nav.vault': '金庫', 'nav.insurance': '保険', 'nav.project': 'プロジェクト',
+      'nav.markets': 'マーケット', 'nav.dashboard': 'アカウント', 'nav.assets': '資産', 'nav.positions': 'ポジション', 'nav.rewards': '報酬', 'nav.vault': '金庫', 'nav.insurance': '保険', 'nav.admin': '管理画面', 'nav.project': 'プロジェクト',
       'nav.trending': '注目', 'nav.sports': 'スポーツ', 'nav.soccer': 'サッカー', 'nav.crypto': '暗号資産', 'nav.esports': 'eスポーツ', 'nav.tech': 'テクノロジー', 'nav.culture': 'カルチャー', 'nav.economy': '経済', 'nav.weather': '天気',
       'auth.loginSignup': 'ログイン / 登録', 'auth.title': 'infomarket.ai にログイン', 'auth.subtitle': 'メールで取引用アカウントを作成するか、ウォレットを接続して USDT の入出金と INF Token の受け取りを行います。',
       'auth.gateTitle': 'ログインが必要です', 'auth.gateBody': '続行するにはログインしてください。', 'auth.adminGateTitle': '管理者権限が必要です', 'auth.adminGateBody': '運用アカウントでログインしてください。',
@@ -165,7 +165,7 @@
       'market.matchResult': '試合結果', 'market.correctScore': '正確スコア', 'market.correctScoreSub': 'モバイルでは最初に3件を表示し、展開すると25件すべてを確認できます', 'market.all': 'すべて', 'market.result': '結果', 'market.volume': '取引量', 'market.bestPrice': 'ベスト価格', 'market.timeLeft': '残り時間', 'market.activity': '市場アクティビティ', 'market.activitySub': '直近の約定と価格更新', 'market.activityEmpty': '約定、価格更新、精算イベントがここに表示されます。', 'market.liveQuotes': 'ライブプール価格', 'market.direction': '方向取引', 'market.outcome': '市場結果', 'market.fixedQuotes': '固定オッズ', 'market.upDownQuotes': '上昇 / 下落の固定オッズ'
     },
     ko: { ...en,
-      'nav.markets': '마켓', 'nav.dashboard': '계정', 'nav.assets': '자산', 'nav.positions': '포지션', 'nav.rewards': '리워드', 'nav.vault': '금고', 'nav.insurance': '보험', 'nav.project': '프로젝트',
+      'nav.markets': '마켓', 'nav.dashboard': '계정', 'nav.assets': '자산', 'nav.positions': '포지션', 'nav.rewards': '리워드', 'nav.vault': '금고', 'nav.insurance': '보험', 'nav.admin': '관리 콘솔', 'nav.project': '프로젝트',
       'nav.trending': '인기', 'nav.sports': '스포츠', 'nav.soccer': '축구', 'nav.crypto': '암호화폐', 'nav.esports': 'e스포츠', 'nav.tech': '기술', 'nav.culture': '문화', 'nav.economy': '경제', 'nav.weather': '날씨',
       'auth.loginSignup': '로그인 / 가입', 'auth.title': 'infomarket.ai 로그인', 'auth.subtitle': '이메일로 거래 계정을 만들거나 지갑을 연결해 USDT 입출금과 INF Token 수령을 진행하세요.',
       'auth.gateTitle': '로그인이 필요합니다', 'auth.gateBody': '계속하려면 로그인하세요.', 'auth.adminGateTitle': '관리자 권한 필요', 'auth.adminGateBody': '운영 계정으로 로그인하세요.',
@@ -174,7 +174,7 @@
       'market.matchResult': '경기 결과', 'market.correctScore': '정확한 스코어', 'market.correctScoreSub': '모바일에서는 3개를 먼저 표시하고, 펼치면 25개 고정 스코어 배당을 모두 볼 수 있습니다', 'market.all': '전체', 'market.result': '결과', 'market.volume': '거래량', 'market.bestPrice': '최우선 가격', 'market.timeLeft': '남은 시간', 'market.activity': '시장 활동', 'market.activitySub': '최근 체결 및 호가 변경', 'market.activityEmpty': '체결, 호가 업데이트, 정산 이벤트가 여기에 표시됩니다.', 'market.liveQuotes': '실시간 풀 호가', 'market.direction': '방향 거래', 'market.outcome': '마켓 결과', 'market.fixedQuotes': '고정 배당 호가', 'market.upDownQuotes': '상승 / 하락 고정 배당'
     },
     vi: { ...en,
-      'nav.markets': 'Thị trường', 'nav.dashboard': 'Tài khoản', 'nav.assets': 'Tài sản', 'nav.positions': 'Vị thế', 'nav.rewards': 'Thưởng', 'nav.vault': 'Kho lợi suất', 'nav.insurance': 'Bảo hiểm', 'nav.project': 'Dự án',
+      'nav.markets': 'Thị trường', 'nav.dashboard': 'Tài khoản', 'nav.assets': 'Tài sản', 'nav.positions': 'Vị thế', 'nav.rewards': 'Thưởng', 'nav.vault': 'Kho lợi suất', 'nav.insurance': 'Bảo hiểm', 'nav.admin': 'Quản trị', 'nav.project': 'Dự án',
       'nav.trending': 'Thịnh hành', 'nav.sports': 'Thể thao', 'nav.soccer': 'Bóng đá', 'nav.crypto': 'Crypto', 'nav.esports': 'Esports', 'nav.tech': 'Công nghệ', 'nav.culture': 'Văn hóa', 'nav.economy': 'Kinh tế', 'nav.weather': 'Thời tiết',
       'auth.loginSignup': 'Đăng nhập / Đăng ký', 'auth.title': 'Đăng nhập infomarket.ai', 'auth.subtitle': 'Dùng email để tạo tài khoản giao dịch hoặc kết nối ví để nạp, rút USDT và nhận INF Token.',
       'auth.gateTitle': 'Cần đăng nhập', 'auth.gateBody': 'Vui lòng đăng nhập để tiếp tục.', 'auth.adminGateTitle': 'Cần quyền quản trị', 'auth.adminGateBody': 'Vui lòng đăng nhập bằng tài khoản vận hành.',
@@ -183,7 +183,7 @@
       'market.matchResult': 'Kết quả trận đấu', 'market.correctScore': 'Tỷ số chính xác', 'market.correctScoreSub': 'Trên di động hiển thị trước 3 tỷ số; mở rộng để xem đủ 25 tỷ số cố định', 'market.all': 'Tất cả', 'market.result': 'Kết quả', 'market.volume': 'Khối lượng', 'market.bestPrice': 'Giá tốt nhất', 'market.timeLeft': 'Thời gian còn lại', 'market.activity': 'Hoạt động thị trường', 'market.activitySub': 'Giao dịch và cập nhật báo giá gần đây', 'market.activityEmpty': 'Giao dịch, cập nhật báo giá và sự kiện quyết toán sẽ hiển thị tại đây.', 'market.liveQuotes': 'Báo giá pool trực tiếp', 'market.direction': 'Giao dịch hướng', 'market.outcome': 'Kết quả thị trường', 'market.fixedQuotes': 'Tỷ lệ cố định', 'market.upDownQuotes': 'Tỷ lệ cố định Tăng / Giảm'
     },
     id: { ...en,
-      'nav.markets': 'Pasar', 'nav.dashboard': 'Akun', 'nav.assets': 'Aset', 'nav.positions': 'Posisi', 'nav.rewards': 'Reward', 'nav.vault': 'Vault', 'nav.insurance': 'Asuransi', 'nav.project': 'Proyek',
+      'nav.markets': 'Pasar', 'nav.dashboard': 'Akun', 'nav.assets': 'Aset', 'nav.positions': 'Posisi', 'nav.rewards': 'Reward', 'nav.vault': 'Vault', 'nav.insurance': 'Asuransi', 'nav.admin': 'Admin', 'nav.project': 'Proyek',
       'nav.trending': 'Populer', 'nav.sports': 'Olahraga', 'nav.soccer': 'Sepak bola', 'nav.crypto': 'Kripto', 'nav.esports': 'Esports', 'nav.tech': 'Teknologi', 'nav.culture': 'Budaya', 'nav.economy': 'Ekonomi', 'nav.weather': 'Cuaca',
       'auth.loginSignup': 'Masuk / Daftar', 'auth.title': 'Masuk ke infomarket.ai', 'auth.subtitle': 'Gunakan email untuk membuat akun trading atau hubungkan wallet untuk deposit, penarikan USDT, dan klaim INF Token.',
       'auth.gateTitle': 'Masuk diperlukan', 'auth.gateBody': 'Silakan masuk untuk melanjutkan.', 'auth.adminGateTitle': 'Akses admin diperlukan', 'auth.adminGateBody': 'Silakan masuk dengan akun operator.',

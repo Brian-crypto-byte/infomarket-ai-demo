@@ -8,7 +8,8 @@ function appHeader(active) {
     ['Positions', 'nav.positions', 'positions.html'],
     ['Rewards', 'nav.rewards', 'rewards.html'],
     ['Vault', 'nav.vault', 'vault.html'],
-    ['Insurance', 'nav.insurance', 'insurance.html']
+    ['Insurance', 'nav.insurance', 'insurance.html'],
+    ['Admin', 'nav.admin', 'admin.html']
   ];
 
   return `
