@@ -1,6 +1,7 @@
 (function () {
   const userKey = 'infomarket.user';
   const protectedPages = new Set(['dashboard.html', 'assets.html', 'positions.html', 'rewards.html', 'vault.html', 'insurance.html', 'admin.html']);
+  const adminEmailWhitelist = new Set(['admin@infomarket.ai', 'ops@infomarket.ai', 'demo@infomarket.ai']);
 
   const style = document.createElement('style');
   style.textContent = `
@@ -64,6 +65,14 @@
     localStorage.setItem(userKey, JSON.stringify(user));
   }
 
+  function isAdminPage() {
+    return (location.pathname.split('/').pop() || 'index.html') === 'admin.html';
+  }
+
+  function isWhitelistedAdmin(user) {
+    return user?.authMethod === 'email' && adminEmailWhitelist.has(String(user.email || '').trim().toLowerCase());
+  }
+
   function shortAddress(address) {
     return address ? `${address.slice(0, 4)}...${address.slice(-4)}` : 'Account';
   }
@@ -82,7 +91,9 @@
     'auth.gateTitle': 'Sign in required',
     'auth.gateBody': 'Sign in to access your account.',
     'auth.adminGateTitle': 'Admin access required',
-    'auth.adminGateBody': 'Please sign in with an operator account.',
+    'auth.adminGateBody': 'Please sign in with an operator email.',
+    'auth.adminDeniedTitle': 'Operator email required',
+    'auth.adminDeniedBody': 'This account is not on the admin whitelist. Please switch to an approved operator email.',
     'auth.gateLogin': 'Log in / Sign up',
     'auth.backMarkets': 'Back to markets',
     'auth.termsPrefix': 'I have read and agree to the',
@@ -173,13 +184,13 @@
   }
 
   function createGate() {
-    const isAdmin = (location.pathname.split('/').pop() || 'index.html') === 'admin.html';
+    const isAdmin = isAdminPage();
     const gate = document.createElement('div');
     gate.className = 'auth-gate';
     gate.innerHTML = `
       <div class="auth-gate-card">
-        <h2>${isAdmin ? t('auth.adminGateTitle') : t('auth.gateTitle')}</h2>
-        <p>${isAdmin ? t('auth.adminGateBody') : t('auth.gateBody')}</p>
+        <h2 data-gate-title>${isAdmin ? t('auth.adminGateTitle') : t('auth.gateTitle')}</h2>
+        <p data-gate-body>${isAdmin ? t('auth.adminGateBody') : t('auth.gateBody')}</p>
         <div class="auth-gate-actions">
           <button class="btn primary" type="button" data-gate-login>${isAdmin ? t('auth.login') : t('auth.gateLogin')}</button>
           <button class="btn" type="button" data-gate-markets>${t('auth.backMarkets')}</button>
@@ -194,6 +205,13 @@
 
   const modal = createModal();
   const gate = createGate();
+
+  function setGateCopy(titleKey, bodyKey) {
+    const title = gate.querySelector('[data-gate-title]');
+    const body = gate.querySelector('[data-gate-body]');
+    if (title) title.textContent = t(titleKey);
+    if (body) body.textContent = t(bodyKey);
+  }
 
   function openAuth() {
     modal.classList.add('open');
@@ -408,8 +426,26 @@
   function protectCurrentPage() {
     const page = location.pathname.split('/').pop() || 'index.html';
     const user = getUser();
-    if (protectedPages.has(page) && !user) gate.classList.add('open');
-    else gate.classList.remove('open');
+    if (isAdminPage()) {
+      if (!user) {
+        setGateCopy('auth.adminGateTitle', 'auth.adminGateBody');
+        gate.classList.add('open');
+        return;
+      }
+      if (!isWhitelistedAdmin(user)) {
+        setGateCopy('auth.adminDeniedTitle', 'auth.adminDeniedBody');
+        gate.classList.add('open');
+        return;
+      }
+      gate.classList.remove('open');
+      return;
+    }
+    if (protectedPages.has(page) && !user) {
+      setGateCopy('auth.gateTitle', 'auth.gateBody');
+      gate.classList.add('open');
+    } else {
+      gate.classList.remove('open');
+    }
   }
 
   modal.addEventListener('click', (event) => {
@@ -443,7 +479,8 @@
     loginWallet,
     loginEmail,
     logout,
-    openAuth
+    openAuth,
+    isWhitelistedAdmin
   };
 
   renderAuthState();
