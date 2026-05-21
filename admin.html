@@ -51,43 +51,44 @@
 <body>
   <div class="admin-app">
     <aside class="admin-side">
-      <div class="admin-brand"><img src="assets/logo.svg" alt="infomarket.ai"><span>Admin</span></div>
-      <div class="nav-title">Operations</div>
-      <button class="admin-nav active" data-admin-tab="dashboard">Dashboard</button>
-      <button class="admin-nav" data-admin-tab="football">Football import</button>
-      <button class="admin-nav" data-admin-tab="markets">Markets</button>
-      <button class="admin-nav" data-admin-tab="odds">Odds</button>
-      <button class="admin-nav" data-admin-tab="settlement">Settlement</button>
-      <button class="admin-nav" data-admin-tab="withdrawals">Withdrawals</button>
-      <div class="nav-title">Risk</div>
-      <button class="admin-nav" data-admin-tab="exposure">Exposure</button>
-      <button class="admin-nav" data-admin-tab="ledger">Ledger Audit</button>
-      <button class="admin-nav" data-admin-tab="insurance">Insurance Pool</button>
+      <div class="admin-brand"><img src="assets/logo.svg" alt="infomarket.ai"><span data-i18n="admin.brand">Admin</span></div>
+      <div class="nav-title" data-i18n="admin.nav.operations">Operations</div>
+      <button class="admin-nav active" data-admin-tab="dashboard" data-i18n="admin.nav.dashboard">Dashboard</button>
+      <button class="admin-nav" data-admin-tab="football" data-i18n="admin.nav.football">Football import</button>
+      <button class="admin-nav" data-admin-tab="markets" data-i18n="admin.nav.markets">Markets</button>
+      <button class="admin-nav" data-admin-tab="odds" data-i18n="admin.nav.odds">Odds</button>
+      <button class="admin-nav" data-admin-tab="settlement" data-i18n="admin.nav.settlement">Settlement</button>
+      <button class="admin-nav" data-admin-tab="withdrawals" data-i18n="admin.nav.withdrawals">Withdrawals</button>
+      <div class="nav-title" data-i18n="admin.nav.risk">Risk</div>
+      <button class="admin-nav" data-admin-tab="exposure" data-i18n="admin.nav.exposure">Exposure</button>
+      <button class="admin-nav" data-admin-tab="ledger" data-i18n="admin.nav.ledger">Ledger Audit</button>
+      <button class="admin-nav" data-admin-tab="insurance" data-i18n="admin.nav.insurance">Insurance Pool</button>
     </aside>
 
     <main class="admin-main">
       <header class="admin-top">
-        <div class="admin-search"><svg viewBox="0 0 20 20" aria-hidden="true" width="18" height="18"><path d="M8.8 15.2a6.4 6.4 0 1 1 0-12.8 6.4 6.4 0 0 1 0 12.8Zm4.5-1.5 4.1 4.1" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" /></svg><input placeholder="Search users, markets, tx ids"></div>
-        <button class="btn" onclick="location.href='index.html'">Open site</button>
-        <div class="operator">Operator console</div>
+        <div class="admin-search"><svg viewBox="0 0 20 20" aria-hidden="true" width="18" height="18"><path d="M8.8 15.2a6.4 6.4 0 1 1 0-12.8 6.4 6.4 0 0 1 0 12.8Zm4.5-1.5 4.1 4.1" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" /></svg><input data-i18n-placeholder="admin.search" placeholder="Search users, markets, tx ids"></div>
+        <button class="btn" onclick="location.href='index.html'" data-i18n="admin.openSite">Open site</button>
+        <div data-admin-language></div>
+        <div class="operator" data-i18n="admin.operator">Operator console</div>
       </header>
 
       <section class="admin-page">
         <div class="page-head">
           <div>
-            <p class="eyebrow">Central operations</p>
-            <h1>Operations Dashboard</h1>
-            <div class="sub">Market creation, fixed pool odds, correct-score lines, settlement, ledger audit, withdrawals, and risk controls.</div>
+            <p class="eyebrow" data-i18n="admin.eyebrow">Central operations</p>
+            <h1 data-i18n="admin.title">Operations Dashboard</h1>
+            <div class="sub" data-i18n="admin.subtitle">Market creation, fixed pool odds, correct-score lines, settlement, ledger audit, withdrawals, and risk controls.</div>
           </div>
-          <button class="btn primary" data-create-market>Create market</button>
+          <button class="btn primary" data-create-market data-i18n="admin.createMarket">Create market</button>
         </div>
 
         <section class="admin-cards">
-          <div class="card"><span>24h Volume</span><strong data-admin-metric="volume">0</strong></div>
-          <div class="card"><span>Open Exposure</span><strong class="red" data-admin-metric="exposure">0</strong></div>
-          <div class="card"><span>Vault TVL</span><strong data-admin-metric="vault">0</strong></div>
-          <div class="card"><span>Insurance Pool</span><strong data-admin-metric="pool">426K</strong></div>
-          <div class="card"><span>Pending Withdrawals</span><strong class="amber" data-admin-metric="withdrawals">0</strong></div>
+          <div class="card"><span data-i18n="admin.metric.volume">24h Volume</span><strong data-admin-metric="volume">0</strong></div>
+          <div class="card"><span data-i18n="admin.metric.exposure">Open Exposure</span><strong class="red" data-admin-metric="exposure">0</strong></div>
+          <div class="card"><span data-i18n="admin.metric.vault">Vault TVL</span><strong data-admin-metric="vault">0</strong></div>
+          <div class="card"><span data-i18n="admin.metric.pool">Insurance Pool</span><strong data-admin-metric="pool">426K</strong></div>
+          <div class="card"><span data-i18n="admin.metric.withdrawals">Pending Withdrawals</span><strong class="amber" data-admin-metric="withdrawals">0</strong></div>
         </section>
 
         <div class="admin-grid">
@@ -95,50 +96,50 @@
             <div class="panel" data-section="football-import">
               <div class="panel-title-row">
                 <div>
-                  <h2>Football collection</h2>
-                  <div class="sub">Automatically collects Polymarket, Kalshi, and API-Football soccer games, removes duplicates, and publishes match markets to the football channel.</div>
+                  <h2 data-i18n="admin.football.title">Football collection</h2>
+                  <div class="sub" data-i18n="admin.football.subtitle">Automatically collects Polymarket, Kalshi, and API-Football soccer games, removes duplicates, and publishes match markets to the football channel.</div>
                 </div>
                 <div>
-                  <button class="btn" data-football-preview>Preview</button>
-                  <button class="btn" data-football-run>Run now</button>
-                  <button class="btn primary" data-football-publish>Publish selected</button>
+                  <button class="btn" data-football-preview data-i18n="admin.preview">Preview</button>
+                  <button class="btn" data-football-run data-i18n="admin.runNow">Run now</button>
+                  <button class="btn primary" data-football-publish data-i18n="admin.publishSelected">Publish selected</button>
                 </div>
               </div>
-              <div class="row"><span>Sources</span><strong>Polymarket soccer games / Kalshi soccer / API-Football</strong></div>
-              <div class="row"><span>Auto collection</span><strong data-football-status>Waiting for first run</strong></div>
-              <div class="row"><span>Auto odds</span><strong>Poisson + Dixon-Coles model, 25 score lines, YES/NO repricing</strong></div>
-              <div class="row"><span>Auto settlement</span><strong>Pull result 30 minutes after match window, then settle open positions</strong></div>
+              <div class="row"><span data-i18n="admin.sources">Sources</span><strong data-i18n="admin.sourcesValue">Polymarket soccer games / Kalshi soccer / API-Football</strong></div>
+              <div class="row"><span data-i18n="admin.autoCollection">Auto collection</span><strong data-football-status data-i18n="admin.waitingRun">Waiting for first run</strong></div>
+              <div class="row"><span data-i18n="admin.autoOdds">Auto odds</span><strong data-i18n="admin.autoOddsValue">Poisson + Dixon-Coles model, 25 score lines, YES/NO repricing</strong></div>
+              <div class="row"><span data-i18n="admin.autoSettlement">Auto settlement</span><strong data-i18n="admin.autoSettlementValue">Pull result 30 minutes after match window, then settle open positions</strong></div>
               <div class="football-import-list" data-football-import-list></div>
             </div>
 
             <div class="panel" data-section="markets">
-              <div class="panel-title-row"><h2>Markets</h2><button class="btn" data-export-markets>Export</button></div>
+              <div class="panel-title-row"><h2 data-i18n="admin.markets.title">Markets</h2><button class="btn" data-export-markets data-i18n="admin.export">Export</button></div>
               <table class="table" data-admin-markets>
-                <thead><tr><th>Market</th><th>Type</th><th>Volume</th><th>Exposure</th><th>Status</th><th></th></tr></thead>
+                <thead><tr><th data-i18n="admin.table.market">Market</th><th data-i18n="admin.table.type">Type</th><th data-i18n="admin.table.volume">Volume</th><th data-i18n="admin.table.exposure">Exposure</th><th data-i18n="admin.table.status">Status</th><th></th></tr></thead>
                 <tbody></tbody>
               </table>
             </div>
 
             <div class="panel" data-section="settlement">
-              <div class="panel-title-row"><h2>Settlement queue</h2><button class="btn" data-settle-selected>Run oracle</button></div>
+              <div class="panel-title-row"><h2 data-i18n="admin.settlement.title">Settlement queue</h2><button class="btn" data-settle-selected data-i18n="admin.runOracle">Run oracle</button></div>
               <table class="table" data-settlement-table>
-                <thead><tr><th>Market</th><th>Result</th><th>Source</th><th>Status</th><th></th></tr></thead>
+                <thead><tr><th data-i18n="admin.table.market">Market</th><th data-i18n="admin.table.result">Result</th><th data-i18n="admin.table.source">Source</th><th data-i18n="admin.table.status">Status</th><th></th></tr></thead>
                 <tbody></tbody>
               </table>
             </div>
 
             <div class="panel" data-section="withdrawals">
-              <div class="panel-title-row"><h2>Withdrawal review</h2><button class="btn" data-refresh-withdrawals>Refresh</button></div>
+              <div class="panel-title-row"><h2 data-i18n="admin.withdrawals.title">Withdrawal review</h2><button class="btn" data-refresh-withdrawals data-i18n="admin.refresh">Refresh</button></div>
               <table class="table" data-withdrawal-table>
-                <thead><tr><th>User / Address</th><th>Amount</th><th>Risk</th><th>Status</th><th></th></tr></thead>
+                <thead><tr><th data-i18n="admin.table.userAddress">User / Address</th><th data-i18n="admin.table.amount">Amount</th><th data-i18n="admin.table.risk">Risk</th><th data-i18n="admin.table.status">Status</th><th></th></tr></thead>
                 <tbody></tbody>
               </table>
             </div>
 
             <div class="panel" data-section="risk">
-              <div class="panel-title-row"><h2>Risk exposure</h2><button class="btn" data-refresh-risk>Refresh</button></div>
+              <div class="panel-title-row"><h2 data-i18n="admin.exposure.title">Risk exposure</h2><button class="btn" data-refresh-risk data-i18n="admin.refresh">Refresh</button></div>
               <table class="table" data-risk-table>
-                <thead><tr><th>Market</th><th>Stake</th><th>Potential payout</th><th>Status</th></tr></thead>
+                <thead><tr><th data-i18n="admin.table.market">Market</th><th data-i18n="admin.table.stake">Stake</th><th data-i18n="admin.table.potentialPayout">Potential payout</th><th data-i18n="admin.table.status">Status</th></tr></thead>
                 <tbody></tbody>
               </table>
             </div>
@@ -146,62 +147,62 @@
 
           <aside>
             <div class="panel" data-section="create">
-              <h2>Create market</h2>
+              <h2 data-i18n="admin.create.title">Create market</h2>
               <div class="admin-form">
-                <div class="field"><label>Market title</label><div class="input"><input data-new-title value="Arsenal vs Chelsea"></div></div>
+                <div class="field"><label data-i18n="admin.field.marketTitle">Market title</label><div class="input"><input data-new-title value="Arsenal vs Chelsea"></div></div>
                 <div class="two-col">
-                  <div class="field"><label>League</label><div class="input"><input data-new-league value="EPL"></div></div>
-                  <div class="field"><label>Type</label><div class="input"><select data-new-type><option value="football">Football</option><option value="crypto">Crypto</option></select></div></div>
+                  <div class="field"><label data-i18n="admin.field.league">League</label><div class="input"><input data-new-league value="EPL"></div></div>
+                  <div class="field"><label data-i18n="admin.field.type">Type</label><div class="input"><select data-new-type><option value="football" data-i18n="admin.type.football">Football</option><option value="crypto" data-i18n="admin.type.crypto">Crypto</option></select></div></div>
                 </div>
                 <div class="two-col">
-                  <div class="field"><label>Home / Up</label><div class="input"><input data-new-home value="Arsenal"></div></div>
-                  <div class="field"><label>Away / Down</label><div class="input"><input data-new-away value="Chelsea"></div></div>
+                  <div class="field"><label data-i18n="admin.field.homeUp">Home / Up</label><div class="input"><input data-new-home value="Arsenal"></div></div>
+                  <div class="field"><label data-i18n="admin.field.awayDown">Away / Down</label><div class="input"><input data-new-away value="Chelsea"></div></div>
                 </div>
                 <div class="three-col">
-                  <div class="field"><label>Home YES</label><div class="input"><input data-new-home-odds value="2.120"></div></div>
-                  <div class="field"><label>Draw YES</label><div class="input"><input data-new-draw-odds value="3.400"></div></div>
-                  <div class="field"><label>Away YES</label><div class="input"><input data-new-away-odds value="2.980"></div></div>
+                  <div class="field"><label data-i18n="admin.field.homeYes">Home YES</label><div class="input"><input data-new-home-odds value="2.120"></div></div>
+                  <div class="field"><label data-i18n="admin.field.drawYes">Draw YES</label><div class="input"><input data-new-draw-odds value="3.400"></div></div>
+                  <div class="field"><label data-i18n="admin.field.awayYes">Away YES</label><div class="input"><input data-new-away-odds value="2.980"></div></div>
                 </div>
-                <button class="btn primary" data-save-market>Save draft market</button>
+                <button class="btn primary" data-save-market data-i18n="admin.saveDraft">Save draft market</button>
               </div>
             </div>
 
             <div class="panel" data-section="odds">
-              <div class="panel-title-row"><h2>Odds editor</h2><button class="btn" data-reprice-football>Auto reprice football</button></div>
+              <div class="panel-title-row"><h2 data-i18n="admin.odds.title">Odds editor</h2><button class="btn" data-reprice-football data-i18n="admin.autoReprice">Auto reprice football</button></div>
               <div class="admin-form">
-                <div class="field"><label>Market</label><div class="input"><select data-odds-market></select></div></div>
+                <div class="field"><label data-i18n="admin.table.market">Market</label><div class="input"><select data-odds-market></select></div></div>
                 <div class="three-col" data-result-odds></div>
-                <button class="btn primary" data-publish-odds>Publish result odds</button>
+                <button class="btn primary" data-publish-odds data-i18n="admin.publishResultOdds">Publish result odds</button>
               </div>
             </div>
 
             <div class="panel" data-section="scores">
-              <div class="panel-title-row"><h2>Correct score odds</h2><span class="badge amber">25 lines</span></div>
+              <div class="panel-title-row"><h2 data-i18n="admin.score.title">Correct score odds</h2><span class="badge amber" data-i18n="admin.score.lines">25 lines</span></div>
               <div class="score-admin-grid" data-score-admin></div>
-              <button class="btn primary" style="width:100%;margin-top:12px" data-publish-scores>Publish score odds</button>
+              <button class="btn primary" style="width:100%;margin-top:12px" data-publish-scores data-i18n="admin.publishScoreOdds">Publish score odds</button>
             </div>
 
             <div class="panel" data-section="audit">
-              <h2>Ledger audit</h2>
-              <div class="row"><span>Internal balance</span><strong data-audit="internal">0 USDT</strong></div>
-              <div class="row"><span>On-chain custody</span><strong data-audit="custody">0 USDT</strong></div>
-              <div class="row"><span>Diff</span><strong class="green" data-audit="diff">0 USDT</strong></div>
-              <div class="row"><span>Last reconcile</span><strong data-audit="time">-</strong></div>
+              <h2 data-i18n="admin.audit.title">Ledger audit</h2>
+              <div class="row"><span data-i18n="admin.audit.internal">Internal balance</span><strong data-audit="internal">0 USDT</strong></div>
+              <div class="row"><span data-i18n="admin.audit.custody">On-chain custody</span><strong data-audit="custody">0 USDT</strong></div>
+              <div class="row"><span data-i18n="admin.audit.diff">Diff</span><strong class="green" data-audit="diff">0 USDT</strong></div>
+              <div class="row"><span data-i18n="admin.audit.last">Last reconcile</span><strong data-audit="time">-</strong></div>
             </div>
 
             <div class="panel" data-section="risk-settings">
-              <div class="panel-title-row"><h2>Risk limits</h2><span class="badge amber">Pre-trade</span></div>
+              <div class="panel-title-row"><h2 data-i18n="admin.riskLimits.title">Risk limits</h2><span class="badge amber" data-i18n="admin.riskLimits.pretrade">Pre-trade</span></div>
               <div class="admin-form">
-                <div class="field"><label>Max order</label><div class="input"><input data-risk-setting="maxOrderUsdt" inputmode="decimal"><span>USDT</span></div></div>
-                <div class="field"><label>User open payout</label><div class="input"><input data-risk-setting="maxUserOpenExposureUsdt" inputmode="decimal"><span>USDT</span></div></div>
-                <div class="field"><label>Market payout</label><div class="input"><input data-risk-setting="maxMarketExposureUsdt" inputmode="decimal"><span>USDT</span></div></div>
-                <div class="field"><label>Correct score payout</label><div class="input"><input data-risk-setting="maxScoreExposureUsdt" inputmode="decimal"><span>USDT</span></div></div>
-                <button class="btn primary" data-save-risk>Save risk limits</button>
+                <div class="field"><label data-i18n="admin.riskLimits.maxOrder">Max order</label><div class="input"><input data-risk-setting="maxOrderUsdt" inputmode="decimal"><span>USDT</span></div></div>
+                <div class="field"><label data-i18n="admin.riskLimits.userOpenPayout">User open payout</label><div class="input"><input data-risk-setting="maxUserOpenExposureUsdt" inputmode="decimal"><span>USDT</span></div></div>
+                <div class="field"><label data-i18n="admin.riskLimits.marketPayout">Market payout</label><div class="input"><input data-risk-setting="maxMarketExposureUsdt" inputmode="decimal"><span>USDT</span></div></div>
+                <div class="field"><label data-i18n="admin.riskLimits.scorePayout">Correct score payout</label><div class="input"><input data-risk-setting="maxScoreExposureUsdt" inputmode="decimal"><span>USDT</span></div></div>
+                <button class="btn primary" data-save-risk data-i18n="admin.riskLimits.save">Save risk limits</button>
               </div>
             </div>
 
             <div class="panel">
-              <h2>Operator log</h2>
+              <h2 data-i18n="admin.log.title">Operator log</h2>
               <div class="admin-log" data-admin-log></div>
             </div>
           </aside>
@@ -211,6 +212,13 @@
   </div>
 
   <script src="assets/i18n.js"></script>
+  <script>
+    const adminLanguage = document.querySelector('[data-admin-language]');
+    if (adminLanguage && window.InfoMarketI18n) {
+      adminLanguage.innerHTML = window.InfoMarketI18n.selector();
+      window.InfoMarketI18n.apply(document);
+    }
+  </script>
   <script src="assets/web-data.js"></script>
   <script src="assets/api-client.js?v=odds-engine-2"></script>
   <script src="assets/market-normalizer.js"></script>
