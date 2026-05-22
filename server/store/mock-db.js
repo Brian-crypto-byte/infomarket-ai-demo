@@ -40,6 +40,7 @@ function seedDb() {
 function ensureDb() {
   if (!fs.existsSync(dataDir)) fs.mkdirSync(dataDir, { recursive: true });
   if (!fs.existsSync(dbPath)) fs.writeFileSync(dbPath, JSON.stringify(seedDb(), null, 2));
+  if (process.env.INFOMARKET_REPRICE_ON_READ !== '1') return;
   const db = JSON.parse(fs.readFileSync(dbPath, 'utf8'));
   const pricedMarkets = priceFootballMarkets(db.markets || []);
   if (JSON.stringify(pricedMarkets) !== JSON.stringify(db.markets || [])) {

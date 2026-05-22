@@ -531,9 +531,10 @@ async function handleMarkets(req, res, pathname, url, db, writeDb) {
     const type = url.searchParams.get('type');
     const status = url.searchParams.get('status');
     const category = url.searchParams.get('category');
-    const shouldLoadFootball = (!category || category === 'sports' || category === 'soccer' || category === 'trending' || type === 'football');
+    const includeExternal = url.searchParams.get('includeExternal') === '1';
+    const shouldLoadFootball = includeExternal && (!category || category === 'soccer' || category === 'trending' || type === 'football');
     const [kalshiItems, soccerItems, apiSportsItems] = await Promise.all([
-      type === 'football' ? [] : fetchKalshiMarkets(),
+      includeExternal && type !== 'football' ? fetchKalshiMarkets() : [],
       shouldLoadFootball ? fetchKalshiSoccerMarkets() : [],
       shouldLoadFootball ? fetchApiSportsFootballMarkets() : []
     ]);
@@ -553,7 +554,11 @@ async function handleMarkets(req, res, pathname, url, db, writeDb) {
       return (
       (!type || market.type === type) &&
       (!status || market.status === status) &&
-      (!category || (category === 'trending' && (market.type === 'football' || market.sport === 'soccer')) || market.category === category || (category === 'soccer' && (market.sport === 'soccer' || market.type === 'football')))
+      (!category ||
+        (category === 'trending' && (market.type === 'football' || market.sport === 'soccer')) ||
+        (category === 'soccer' && (market.sport === 'soccer' || market.type === 'football')) ||
+        (category === 'sports' && market.category === 'sports' && market.type !== 'football' && market.sport !== 'soccer') ||
+        (category !== 'sports' && market.category === category))
       );
     }).sort((a, b) => {
       const at = Date.parse(a.startsAt || '') || Number.MAX_SAFE_INTEGER;

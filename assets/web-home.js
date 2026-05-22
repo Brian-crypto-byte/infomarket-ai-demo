@@ -109,7 +109,7 @@ function marketMatchesSearch(market) {
 
 function marketMatchesCategory(market) {
   if (activeCategory === 'trending') return market.type === 'football' || market.sport === 'soccer';
-  if (activeCategory === 'sports') return market.category === 'sports' || market.type === 'football';
+  if (activeCategory === 'sports') return market.category === 'sports' && market.type !== 'football' && market.sport !== 'soccer';
   if (activeCategory === 'soccer') return market.sport === 'soccer' || market.type === 'football';
   if (activeCategory === 'crypto') return market.category === 'crypto' || market.type === 'crypto';
   return market.category === activeCategory;
@@ -125,6 +125,7 @@ function isClosedMarketStatus(status) {
 
 function marketOpenForListing(market) {
   if (isClosedMarketStatus(market.status)) return false;
+  if (!(market.type === 'football' || market.sport === 'soccer')) return true;
   if (String(market.status || '').toLowerCase() === 'live') return true;
   const startTime = marketStartTime(market);
   return startTime === Number.MAX_SAFE_INTEGER || startTime >= Date.now();

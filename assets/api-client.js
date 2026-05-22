@@ -1,4 +1,4 @@
-const STATIC_DB_KEY = 'infomarket.static.db.v2';
+const STATIC_DB_KEY = 'infomarket.static.db.v4';
 
 function nowIso() {
   return new Date().toISOString();
@@ -25,6 +25,7 @@ function marketVisibleForCategory(market, category) {
   if (!category) return true;
   if (category === 'trending') return market.type === 'football' || market.sport === 'soccer';
   if (category === 'soccer') return market.type === 'football' || market.sport === 'soccer';
+  if (category === 'sports') return market.category === 'sports' && market.type !== 'football' && market.sport !== 'soccer';
   return market.category === normalizeCategoryParam(category);
 }
 
@@ -38,6 +39,7 @@ function isClosedMarketStatus(status) {
 
 function marketOpenForListing(market) {
   if (isClosedMarketStatus(market.status)) return false;
+  if (!(market.type === 'football' || market.sport === 'soccer')) return true;
   if (String(market.status || '').toLowerCase() === 'live') return true;
   const startTime = marketStartTime(market);
   return startTime === Number.MAX_SAFE_INTEGER || startTime >= Date.now();

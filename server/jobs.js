@@ -2,6 +2,8 @@ const { readDb, writeDb } = require('./store/mock-db');
 const { runFootballCollection, runFootballSettlement } = require('./football-ops');
 
 function startJobs() {
+  if (process.env.INFOMARKET_AUTO_JOBS !== '1') return;
+
   const runSettlement = async () => {
     try {
       const db = readDb();
