@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="assets/app.css" />
 </head>
 <body>
-  <script src="assets/i18n.js"></script>
+  <script src="assets/i18n.js?v=greenx1"></script>
   <script src="assets/page-shell.js"></script>
   <script>document.write(appHeader('Dashboard'));</script>
 
@@ -16,23 +16,37 @@
       <div class="page-head" style="margin-bottom:0">
         <div>
           <h1 data-i18n="account.title">Account overview</h1>
-          <div class="sub">Manage USDT balances, prediction positions, INFO Vault, Alpha Insurance, and INF Credits unlock progress.</div>
+          <div class="sub" data-i18n="account.subtitle">Manage USDT balances, GreenX lobster level, Lobster Token consumption, vault deposits, Alpha Insurance, and prediction positions.</div>
         </div>
-        <button class="btn primary" onclick="location.href='assets.html'">Deposit / Withdraw</button>
+        <button class="btn primary" onclick="location.href='assets.html'" data-i18n="account.depositWithdraw">Deposit / Withdraw</button>
       </div>
     </section>
 
     <section class="cards" data-account-cards>
-      <div class="card"><span>Available balance</span><strong data-account="available">12,480.00</strong></div>
-      <div class="card"><span>Frozen in orders</span><strong data-account="frozen">3,250.00</strong></div>
-      <div class="card"><span>Vault balance</span><strong data-account="vault">24,000.00</strong></div>
-      <div class="card"><span>INF Credits</span><strong class="green" data-account="credits">8,416.2</strong></div>
+      <div class="card"><span data-i18n="account.available">Available USDT</span><strong data-account="available">12,480.00</strong></div>
+      <div class="card"><span data-i18n="account.greenxLevel">GreenX lobster level</span><strong class="amber" data-account="lobsterLevel">Big Lobster</strong></div>
+      <div class="card"><span data-i18n="account.lobsterToken">Lobster Token</span><strong class="green" data-account="lobsterToken">8,416.20</strong></div>
+      <div class="card"><span data-i18n="account.vaultBalance">Vault balance</span><strong data-account="vault">24,000.00</strong></div>
     </section>
 
     <div class="layout">
       <section>
         <div class="panel">
-          <div class="panel-title-row"><h2>Current positions</h2><button class="btn" onclick="location.href='positions.html'">View all</button></div>
+          <div class="panel-title-row"><h2 data-i18n="account.greenxTitle">GreenX wallet sync</h2><span class="badge green" data-i18n="account.synced">Synced</span></div>
+          <div class="row"><span data-i18n="account.wallet">Wallet</span><strong>Phantom · 7Nf8...T9q</strong></div>
+          <div class="row"><span data-i18n="account.airdrop">Lobster airdrop</span><strong class="green" data-i18n="account.claimReady">Ready to claim</strong></div>
+          <div class="row"><span data-i18n="account.nextLevel">Next level</span><strong data-i18n="account.nextLevelValue">50,000 USDT · Royal Lobster</strong></div>
+          <button class="btn primary" data-i18n="account.claimLobster">Claim Lobster Token</button>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title-row"><h2 data-i18n="account.aiTitle">AI prediction assistant</h2><span class="badge amber" data-i18n="account.referenceOnly">Reference only</span></div>
+          <div class="row"><span data-i18n="account.aiMarket">Market signal</span><strong data-i18n="account.aiMarketValue">Football volatility is moderate; prefer smaller stake sizes.</strong></div>
+          <div class="row"><span data-i18n="account.aiVault">Vault signal</span><strong data-i18n="account.aiVaultValue">30-day lock has the best liquidity-adjusted return today.</strong></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title-row"><h2 data-i18n="account.currentPositions">Current positions</h2><button class="btn" onclick="location.href='positions.html'" data-i18n="home.viewAll">View all</button></div>
           <table class="table" data-dashboard-positions>
             <thead><tr><th>Market</th><th>Pick</th><th>Amount</th><th>Potential return</th><th>Status</th></tr></thead>
             <tbody></tbody>
@@ -40,32 +54,31 @@
         </div>
 
         <div class="panel">
-          <h2>INF Credits unlock</h2>
-          <div class="row"><span>Cumulative volume</span><strong data-volume-unlock>0 / 250,000 USDT</strong></div>
-          <div class="row"><span>Active days</span><strong>18 / 30 days</strong></div>
-          <div class="row"><span>Vault lock</span><strong>24,000 USDT ? 18 days</strong></div>
-          <div class="row"><span>Unlockable amount</span><strong class="green" data-unlockable>0 INF</strong></div>
+          <h2 data-i18n="account.lobsterConsumption">Lobster Token usage</h2>
+          <div class="row"><span data-i18n="account.feeDiscount">Trading fee discount</span><strong data-i18n="account.enabled">Enabled</strong></div>
+          <div class="row"><span data-i18n="account.insurancePremium">Insurance premium</span><strong data-i18n="account.lobsterPreferred">Lobster preferred</strong></div>
+          <div class="row"><span data-i18n="account.vaultAcceleration">Vault acceleration</span><strong>1.35x</strong></div>
+          <div class="row"><span data-i18n="account.consumedToday">Consumed today</span><strong class="red">128.40 LOB</strong></div>
         </div>
       </section>
 
       <aside>
         <div class="panel">
-          <h2>Quick actions</h2>
+          <h2 data-i18n="account.quickActions">Quick actions</h2>
           <div class="quick-grid">
-            <a class="quick-link" href="assets.html"><strong>Assets</strong><span>Deposit, withdraw, and internal balances</span></a>
-            <a class="quick-link" href="positions.html"><strong>Positions</strong><span>Orders, PnL, and settlement status</span></a>
-            <a class="quick-link" href="rewards.html"><strong>Rewards</strong><span>Mining, tasks, and referrals</span></a>
-            <a class="quick-link" href="vault.html"><strong>INFO Vault</strong><span>USDT yield with INF Credits boost</span></a>
-            <a class="quick-link" href="insurance.html"><strong>INFO Insurance</strong><span>Claim nodes and insurance cover</span></a>
+            <a class="quick-link" href="assets.html"><strong data-i18n="nav.assets">Assets</strong><span data-i18n="account.assetsHint">Deposit, withdraw, and USDT balances</span></a>
+            <a class="quick-link" href="positions.html"><strong data-i18n="nav.positions">Positions</strong><span data-i18n="account.positionsHint">Orders, PnL, and settlement status</span></a>
+            <a class="quick-link" href="vault.html"><strong data-i18n="vault.title">GreenX Vault</strong><span data-i18n="account.vaultHint">Upgrade lobster level with USDT deposits</span></a>
+            <a class="quick-link" href="insurance.html"><strong data-i18n="insurance.title">INFO Alpha Insurance</strong><span data-i18n="account.insuranceHint">Use Lobster Token for cover</span></a>
           </div>
         </div>
 
         <div class="panel">
-          <h2>Alpha Insurance</h2>
-          <div class="row"><span>Active cover</span><strong data-cover-total>0 USDT</strong></div>
-          <div class="row"><span>Claimable</span><strong class="green">180 USDT</strong></div>
-          <div class="row"><span>Pool health</span><strong>Healthy</strong></div>
-          <button class="btn" style="width:100%" onclick="location.href='insurance.html'">Open insurance nodes</button>
+          <h2 data-i18n="insurance.title">INFO Alpha Insurance</h2>
+          <div class="row"><span data-i18n="insurance.activeCover">Active cover</span><strong data-cover-total>0 USDT</strong></div>
+          <div class="row"><span data-i18n="insurance.claimable">Claimable</span><strong class="green">180 USDT</strong></div>
+          <div class="row"><span data-i18n="insurance.poolHealth">Pool health</span><strong data-i18n="account.healthy">Healthy</strong></div>
+          <button class="btn" style="width:100%" onclick="location.href='insurance.html'" data-i18n="account.openInsurance">Open insurance nodes</button>
         </div>
       </aside>
     </div>
@@ -73,7 +86,7 @@
 
   <script src="assets/api-client.js?v=football-refresh1"></script>
   <script src="assets/web-store.js"></script>
-  <script src="assets/web-dashboard.js"></script>
+  <script src="assets/web-dashboard.js?v=greenx1"></script>
   <script src="assets/brand-ui.js"></script>
   <script src="assets/web-shell.js"></script>
 </body>

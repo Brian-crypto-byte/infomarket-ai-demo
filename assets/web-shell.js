@@ -87,7 +87,7 @@
     'auth.walletTab': 'Wallet',
     'auth.emailButton': 'Continue with email',
     'auth.emailNote': 'Email login creates an internal account for trading, rewards, vault, and insurance.',
-    'auth.walletNote': 'Connect a wallet for deposits, withdrawals, and INF token claims.',
+    'auth.walletNote': 'Connect a wallet for deposits, withdrawals, GreenX sync, and Lobster Token claims.',
     'auth.gateTitle': 'Sign in required',
     'auth.gateBody': 'Sign in to access your account.',
     'auth.adminGateTitle': 'Admin access required',

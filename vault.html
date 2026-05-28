@@ -3,31 +3,31 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>INFO Vault - infomarket.ai</title>
+  <title>GreenX Vault - infomarket.ai</title>
   <link rel="stylesheet" href="assets/app.css" />
 </head>
 <body>
-  <script src="assets/i18n.js?v=i18n3"></script>
+  <script src="assets/i18n.js?v=greenx1"></script>
   <script src="assets/page-shell.js"></script>
-  <script>document.write(appHeader('INFO Vault'));</script>
+  <script>document.write(appHeader('GreenX Vault'));</script>
 
   <main class="app-shell">
     <a class="back-link" href="dashboard.html" data-i18n="common.backDashboard">Back to dashboard</a>
     <section class="hero-panel">
       <div class="page-head" style="margin-bottom:0">
         <div>
-          <h1 data-i18n="vault.title">INFO Vault</h1>
-          <div class="sub" data-i18n="vault.subtitle">Deposit idle USDT into fixed-term vault plans and unlock after 7, 15, 30, 60, or 180 days.</div>
+          <h1 data-i18n="vault.title">GreenX Vault</h1>
+          <div class="sub" data-i18n="vault.subtitle">Deposit USDT to upgrade your GreenX lobster level, choose a fixed lock term, and use AI recommendations to balance yield and liquidity.</div>
         </div>
-        <div><span class="badge green" data-i18n="vault.estimatedApr">Estimated APR 12.4%</span></div>
+        <div><span class="badge green" data-i18n="vault.aiOptimized">AI optimized</span></div>
       </div>
     </section>
 
     <section class="cards">
       <div class="card"><span data-i18n="vault.myVault">My vault</span><strong data-vault="balance">0</strong></div>
-      <div class="card"><span data-i18n="vault.accruedYield">Accrued yield</span><strong class="green" data-vault="yield">0</strong></div>
-      <div class="card"><span data-i18n="vault.infBoost">INF boost</span><strong class="amber" data-vault="boost">1.35x</strong></div>
-      <div class="card"><span data-i18n="vault.tvl">Vault TVL</span><strong>1.37M</strong></div>
+      <div class="card"><span data-i18n="vault.greenxLevel">Lobster level</span><strong class="amber" data-vault="level">Big Lobster</strong></div>
+      <div class="card"><span data-i18n="vault.dailyYield">Daily yield</span><strong class="green" data-vault="dailyYield">0</strong></div>
+      <div class="card"><span data-i18n="vault.lobsterStake">Staked Lobster</span><strong class="green" data-vault="lobsterStake">6,800 LOB</strong></div>
     </section>
 
     <div class="layout">
@@ -43,10 +43,11 @@
         </div>
         <div class="panel">
           <h2 data-i18n="vault.rules">Vault rules</h2>
-          <div class="row"><span data-i18n="vault.terms">Vault terms</span><strong>7 / 15 / 30 / 60 / 180 days</strong></div>
-          <div class="row"><span data-i18n="vault.yieldSettlement">Yield settlement</span><strong data-i18n="vault.dailySettlement">Daily</strong></div>
-          <div class="row"><span data-i18n="vault.withdraw">Withdraw</span><strong data-i18n="vault.afterLock">After lock expires</strong></div>
-          <div class="row"><span data-i18n="vault.creditsBoost">Credits boost</span><strong data-i18n="vault.longerBoost">Longer term, higher boost</strong></div>
+          <div class="row"><span data-i18n="vault.terms">Vault terms</span><strong data-i18n="vault.termsValue">7 / 30 / 90 / 180 / 360 days</strong></div>
+          <div class="row"><span data-i18n="vault.yieldSettlement">Yield settlement</span><strong data-i18n="vault.dailySettlement">Daily settlement</strong></div>
+          <div class="row"><span data-i18n="vault.levelRule">Level rule</span><strong data-i18n="vault.levelRuleValue">Cumulative valid USDT deposits upgrade lobster level</strong></div>
+          <div class="row"><span data-i18n="vault.marketSeparate">Prediction market</span><strong data-i18n="vault.marketSeparateValue">USDT trading stays independent from vault level</strong></div>
+          <div class="row"><span data-i18n="vault.lobsterBoost">Lobster Token stake</span><strong data-i18n="vault.lobsterBoostValue">Accelerates level validity or extends duration</strong></div>
         </div>
         <div class="panel">
           <div class="panel-title-row"><h2 data-i18n="vault.ledger">Vault ledger</h2><button class="btn" onclick="location.href='assets.html'" data-i18n="common.openAssets">Open assets</button></div>
@@ -61,10 +62,21 @@
         <div class="panel">
           <h2 data-i18n="vault.manage">Manage vault</h2>
           <div class="segmented two"><button class="tab active" data-vault-action="deposit" data-i18n="vault.deposit">Deposit</button><button class="tab" data-vault-action="withdraw" data-i18n="vault.withdrawAction">Withdraw</button></div>
-          <div class="field" data-vault-term-wrap><label data-i18n="vault.lockTerm">Lock term</label><div class="segmented" style="grid-template-columns:repeat(5,minmax(0,1fr))"><button class="tab active" data-vault-term="7">7D</button><button class="tab" data-vault-term="15">15D</button><button class="tab" data-vault-term="30">30D</button><button class="tab" data-vault-term="60">60D</button><button class="tab" data-vault-term="180">180D</button></div></div>
+          <div class="field" data-vault-term-wrap><label data-i18n="vault.lockTerm">Lock term</label><div class="segmented" style="grid-template-columns:repeat(5,minmax(0,1fr))"><button class="tab active" data-vault-term="7">7D</button><button class="tab" data-vault-term="30">30D</button><button class="tab" data-vault-term="90">90D</button><button class="tab" data-vault-term="180">180D</button><button class="tab" data-vault-term="360">360D</button></div></div>
           <div class="field"><label data-i18n="vault.amount">Amount</label><div class="input"><input class="big" data-vault-amount value="1000" inputmode="decimal"><span>USDT</span></div></div>
+          <div class="ai-callout">
+            <strong data-i18n="vault.aiRecommendation">AI recommendation</strong>
+            <span data-vault-ai>30D balances fixed daily yield with better liquidity.</span>
+          </div>
           <button class="btn primary" style="width:100%" data-vault-submit data-i18n="vault.confirmDeposit">Confirm deposit</button>
           <div class="muted-note" style="margin-top:10px;" data-vault-note>Moves USDT from available balance into INFO Vault.</div>
+        </div>
+        <div class="panel">
+          <h2 data-i18n="vault.levelMap">Lobster level map</h2>
+          <div class="row"><span>5,000+ USDT</span><strong data-i18n="vault.midLobster">Mid Lobster · +25%</strong></div>
+          <div class="row"><span>20,000+ USDT</span><strong data-i18n="vault.bigLobster">Big Lobster · +50%</strong></div>
+          <div class="row"><span>50,000+ USDT</span><strong data-i18n="vault.royalLobster">Royal Lobster · +80%</strong></div>
+          <div class="row"><span>100,000+ USDT</span><strong data-i18n="vault.kingLobster">King Lobster · +130%</strong></div>
         </div>
         <div class="panel">
           <h2 data-i18n="vault.account">My vault account</h2>
@@ -81,7 +93,7 @@
 
   <script src="assets/api-client.js?v=football-refresh1"></script>
   <script src="assets/web-store.js"></script>
-  <script src="assets/web-vault.js?v=i18n2"></script>
+  <script src="assets/web-vault.js?v=greenx1"></script>
   <script src="assets/brand-ui.js"></script>
   <script src="assets/web-shell.js"></script>
 </body>

@@ -17,12 +17,36 @@ function t(key, params = {}) {
 }
 
 function aprForTerm(days) {
-  const rates = { 7: 0.068, 15: 0.088, 30: 0.124, 60: 0.158, 180: 0.226 };
+  const rates = { 7: 1.825, 30: 2.555, 90: 3.285, 180: 4.38, 360: 5.475 };
+  return rates[Number(days)] || rates[30];
+}
+
+function dailyRateForTerm(days) {
+  const rates = { 7: 0.005, 30: 0.007, 90: 0.009, 180: 0.012, 360: 0.015 };
   return rates[Number(days)] || rates[30];
 }
 
 function vaultYield(vaultBalance, days = activeLockDays) {
   return vaultBalance * aprForTerm(days) * (Number(days) / 365);
+}
+
+function levelForDeposit(amount) {
+  const value = Number(amount || 0);
+  if (value >= 100000) return t('vault.kingLobsterShort');
+  if (value >= 50000) return t('vault.royalLobsterShort');
+  if (value >= 20000) return t('vault.bigLobsterShort');
+  if (value >= 5000) return t('vault.midLobsterShort');
+  return t('vault.smallLobsterShort');
+}
+
+function ledgerTypeLabel(type) {
+  const key = {
+    'Vault deposit': 'vault.ledgerDeposit',
+    'vault_deposit': 'vault.ledgerDeposit',
+    'Vault withdraw': 'vault.ledgerWithdraw',
+    'vault_withdraw': 'vault.ledgerWithdraw'
+  }[type];
+  return key ? t(key) : type;
 }
 
 function setText(selector, value) {
@@ -67,15 +91,18 @@ function renderVault() {
   const principal = Number(latestVault?.principalUsdt ?? account.vault ?? 0);
   const lockDays = Number(latestVault?.lockDays || activeLockDays);
   const y = Number(latestVault?.accruedYieldUsdt ?? vaultYield(principal, lockDays));
+  const dailyYield = principal * dailyRateForTerm(lockDays);
   setText('[data-vault="balance"]', `${money(principal)} USDT`);
-  setText('[data-vault="yield"]', `${money(y)} USDT`);
-  setText('[data-vault="boost"]', `${(1 + lockDays / 180).toFixed(2)}x`);
+  setText('[data-vault="level"]', levelForDeposit(principal));
+  setText('[data-vault="dailyYield"]', `${money(dailyYield)} USDT`);
+  setText('[data-vault="lobsterStake"]', `${money(6800 + Math.floor(principal / 10))} LOB`);
   setText('[data-vault-account="available"]', `${money(account.available)} USDT`);
   setText('[data-vault-account="principal"]', `${money(principal)} USDT`);
   setText('[data-vault-account="yield"]', `${money(y)} USDT`);
   setText('[data-vault-account="claimable"]', `${money(Math.min(y, 42.2))} USDT`);
   setText('[data-vault-account="term"]', `${lockDays} ${document.documentElement.lang === 'zh-CN' ? '天' : 'days'}`);
   setText('[data-vault-account="unlock"]', principal > 0 ? `T + ${lockDays} ${document.documentElement.lang === 'zh-CN' ? '天' : 'days'}` : t('vault.afterDeposit'));
+  setText('[data-vault-ai]', t(`vault.aiTerm${lockDays}`));
 
   const body = document.querySelector('[data-vault-ledger] tbody');
   const entries = latestLedger.filter((entry) => ['Vault deposit', 'Vault withdraw', 'vault_deposit', 'vault_withdraw'].includes(entry.type));
@@ -85,7 +112,7 @@ function renderVault() {
   }
   body.innerHTML = entries.map((entry) => `
     <tr>
-      <td>${entry.type}</td>
+      <td>${ledgerTypeLabel(entry.type)}</td>
       <td class="${Number(entry.amount) >= 0 ? 'green' : 'red'}">${Number(entry.amount) >= 0 ? '+' : ''}${money(entry.amount)} USDT</td>
       <td><span class="badge green">${entry.status || 'booked'}</span></td>
       <td>${entry.createdAt || '-'}</td>
@@ -101,6 +128,7 @@ function setAction(action) {
   document.querySelector('[data-vault-note]').textContent = action === 'deposit'
     ? t('vault.depositNote', { days: activeLockDays })
     : t('vault.withdrawNote');
+  setText('[data-vault-ai]', t(`vault.aiTerm${activeLockDays}`));
 }
 
 document.querySelectorAll('[data-vault-action]').forEach((button) => {

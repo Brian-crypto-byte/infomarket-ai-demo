@@ -22,12 +22,13 @@ function tr(text) {
 }
 
 function normalizePosition(position) {
+  const statusMap = { open: 'status.open', settled: 'status.settled', won: 'status.won', lost: 'status.lost' };
   return {
     marketTitle: position.marketTitle,
     pick: `${window.InfoMarketI18n?.outcome(position.optionLabel) || position.optionLabel} ${window.InfoMarketI18n?.outcome(position.side) || position.side}`,
     amount: Number(position.amountUsdt || 0),
     potentialReturn: Number(position.potentialReturnUsdt || 0),
-    status: position.status === 'open' ? 'Open' : position.status,
+    status: statusMap[position.status] ? t(statusMap[position.status]) : position.status,
     rule: position.sellable ? 'Open market' : 'no sell before settlement'
   };
 }
@@ -66,6 +67,14 @@ function renderAccount() {
   setText('[data-account="frozen"]', money(b.frozen ?? b.frozenUsdt ?? 0));
   setText('[data-account="vault"]', money(b.vault ?? b.vaultUsdt ?? 0));
   setText('[data-account="credits"]', money(b.lockedInf ?? b.locked ?? 0));
+  setText('[data-account="lobsterToken"]', money((b.lockedInf ?? b.locked ?? 8416.2) * 1.18));
+  const vault = Number(b.vault ?? b.vaultUsdt ?? 0);
+  const level = vault >= 100000 ? t('vault.kingLobsterShort', 'King Lobster')
+    : vault >= 50000 ? t('vault.royalLobsterShort', 'Royal Lobster')
+      : vault >= 20000 ? t('vault.bigLobsterShort', 'Big Lobster')
+        : vault >= 5000 ? t('vault.midLobsterShort', 'Mid Lobster')
+          : t('vault.smallLobsterShort', 'Small Lobster');
+  setText('[data-account="lobsterLevel"]', level);
 }
 
 function renderPositions() {
