@@ -146,13 +146,13 @@ function renderAgentLogs(principal, lockDays) {
   }
   if (records) {
     records.innerHTML = [
-      `[INFO] Operation ID: ${Math.floor(190000 + lockDays * 17)}-${Math.floor(principal || 1000)}`,
-      `[INFO] Market scan: football 198, crypto 7, esports 7`,
-      `[INFO] Portfolio mode: event prediction / fixed-odds`,
-      `[INFO] Gross profit: ${money(Math.max(18, principal * 0.006))}`,
-      `[INFO] Fees paid with Lobster Token: ${money(Math.max(0.8, principal * 0.00012))} LOB`,
-      `[INFO] Net profit: ${money(Math.max(12.8, principal * 0.0048))}`,
-      `[INFO] Next rebalance: T+30min`
+      `[Agent] Operation ID: ${Math.floor(190000 + lockDays * 17)}-${Math.floor(principal || 1000)}`,
+      `[Agent] Market scan: football 198, crypto 7, esports 7`,
+      `[Agent] Portfolio mode: event prediction / fixed-odds`,
+      `[Agent] Gross profit: ${money(Math.max(18, principal * 0.006))}`,
+      `[Agent] Fees paid with Lobster Token: ${money(Math.max(0.8, principal * 0.00012))} LOB`,
+      `[Agent] Net profit: ${money(Math.max(12.8, principal * 0.0048))}`,
+      `[Agent] Next rebalance: T+30min`
     ].map((line) => `<div>${line}</div>`).join('');
   }
 }

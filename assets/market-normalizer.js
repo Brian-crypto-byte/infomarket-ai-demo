@@ -21,7 +21,7 @@ window.InfoMarketNormalize = {
     return {
       id: apiMarket.id,
       type: apiMarket.type,
-      logo: apiMarket.leagueLogo || apiMarket.league?.slice(0, 3).toUpperCase() || apiMarket.type?.slice(0, 3).toUpperCase() || 'INF',
+      logo: apiMarket.leagueLogo || apiMarket.league?.slice(0, 3).toUpperCase() || apiMarket.type?.slice(0, 3).toUpperCase() || 'IM',
       league: apiMarket.league || apiMarket.category || 'Market',
       title: apiMarket.title,
       startsAt: apiMarket.startsAt ? new Date(apiMarket.startsAt).toLocaleString() : 'Pending',
@@ -56,7 +56,7 @@ window.InfoMarketNormalize = {
         bestPick: isCrypto ? (firstOption.label || 'Up') : `${firstOption.label || 'Home'} YES`,
         bestPrice: Number(firstOption.yesOdds || firstOption.upOdds || firstOption.downOdds || 1),
         timeLeft: apiMarket.status === 'live' ? 'Live' : 'Pending',
-        infCredits: 0,
+        lobsterReward: 0,
         insuranceCover: isCrypto ? '30% cover' : '40% cover'
       }
     };

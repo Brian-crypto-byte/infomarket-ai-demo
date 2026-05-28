@@ -22,9 +22,9 @@ window.InfoMarketStore = {
       note: `${order.marketTitle} / ${order.pick}`
     });
     this.addLedger({
-      type: 'INF Credits',
+      type: 'Lobster Token',
       amount: Number(order.credits || 0),
-      asset: 'INF',
+      asset: 'LOB',
       status: 'Locked',
       note: order.rule || 'Trading reward'
     });
@@ -76,7 +76,7 @@ window.InfoMarketStore = {
       amount: Number(amount || 0),
       asset: 'USDT',
       status: 'Booked',
-      note: 'Moved from available to INFO Vault'
+      note: 'Moved from available to GreenX Vault'
     });
   },
   vaultWithdraw(amount) {
@@ -85,7 +85,7 @@ window.InfoMarketStore = {
       amount: -Number(amount || 0),
       asset: 'USDT',
       status: 'Booked',
-      note: 'Moved from INFO Vault to available'
+      note: 'Moved from GreenX Vault to available'
     });
   },
   listInsuranceNodes() {

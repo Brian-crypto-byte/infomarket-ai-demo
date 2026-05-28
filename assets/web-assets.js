@@ -27,7 +27,7 @@ function normalizeAccount(account) {
     trading: account.trading ?? account.tradingUsdt ?? 0,
     vault: account.vault ?? account.vaultUsdt ?? 0,
     claimable: account.claimable ?? account.claimableUsdt ?? 0,
-    locked: account.locked ?? account.lockedInf ?? 0
+    locked: account.locked ?? account.lockedLobster ?? 0
   };
 }
 
@@ -74,7 +74,7 @@ function renderBalances() {
     if (node) node.textContent = `${money(account[key])} USDT`;
   });
   const locked = document.querySelector('[data-bucket="locked"]');
-  if (locked) locked.textContent = `${money(account.locked)} INF`;
+  if (locked) locked.textContent = `${money(account.locked)} LOB`;
 }
 
 function renderLedger() {

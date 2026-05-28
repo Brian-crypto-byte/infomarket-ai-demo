@@ -35,7 +35,7 @@ window.INFOMARKET_DATA = {
         { id: 'away', label: 'NFO', cents: '0.2c', yes: 500, no: 1.002, tone: 'red' }
       ],
       scores: FOOTBALL_SCORES,
-      detail: { bestPick: 'MUN YES', bestPrice: 1.09, timeLeft: '00:00', infCredits: 84.5, insuranceCover: '40% cover' }
+      detail: { bestPick: 'MUN YES', bestPrice: 1.09, timeLeft: '00:00', lobsterReward: 84.5, insuranceCover: '40% cover' }
     },
     {
       id: 'inter-verona',
@@ -56,7 +56,7 @@ window.INFOMARKET_DATA = {
         { id: 'away', label: 'VER', cents: '11c', yes: 9.09, no: 1.13, tone: 'navy' }
       ],
       scores: FOOTBALL_SCORES,
-      detail: { bestPick: 'INT YES', bestPrice: 1.45, timeLeft: '68:40', infCredits: 42.5, insuranceCover: '35% cover' }
+      detail: { bestPick: 'INT YES', bestPrice: 1.45, timeLeft: '68:40', lobsterReward: 42.5, insuranceCover: '35% cover' }
     },
     {
       id: 'wolves-fulham',
@@ -76,7 +76,7 @@ window.INFOMARKET_DATA = {
         { id: 'away', label: 'FUL', cents: '53c', yes: 1.89, no: 2.13, tone: 'blue' }
       ],
       scores: FOOTBALL_SCORES,
-      detail: { bestPick: 'FUL YES', bestPrice: 1.89, timeLeft: '05:22', infCredits: 55.2, insuranceCover: '40% cover' }
+      detail: { bestPick: 'FUL YES', bestPrice: 1.89, timeLeft: '05:22', lobsterReward: 55.2, insuranceCover: '40% cover' }
     },
     {
       id: 'leeds-brighton',
@@ -96,7 +96,7 @@ window.INFOMARKET_DATA = {
         { id: 'away', label: 'BRI', cents: '47c', yes: 2.13, no: 1.89, tone: 'blue' }
       ],
       scores: FOOTBALL_SCORES,
-      detail: { bestPick: 'BRI YES', bestPrice: 2.13, timeLeft: '05:22', infCredits: 35.7, insuranceCover: '35% cover' }
+      detail: { bestPick: 'BRI YES', bestPrice: 2.13, timeLeft: '05:22', lobsterReward: 35.7, insuranceCover: '35% cover' }
     },
     {
       id: 'seoul-anyang',
@@ -119,7 +119,7 @@ window.INFOMARKET_DATA = {
         bestPick: 'Home YES',
         bestPrice: 1.7,
         timeLeft: '04:03',
-        infCredits: 62.5,
+        lobsterReward: 62.5,
         insuranceCover: '40% cover'
       }
     },
@@ -144,7 +144,7 @@ window.INFOMARKET_DATA = {
         bestPick: 'Home YES',
         bestPrice: 2.12,
         timeLeft: '08:21',
-        infCredits: 48.2,
+        lobsterReward: 48.2,
         insuranceCover: '35% cover'
       }
     },
@@ -162,14 +162,14 @@ window.INFOMARKET_DATA = {
       odds: [
         { id: 'up', label: 'Up', price: 1.74, sideLabel: 'UP' },
         { id: 'down', label: 'Down', price: 2.06, sideLabel: 'DOWN' },
-        { id: 'reward', label: 'INF reward', priceLabel: '1.25x' }
+        { id: 'reward', label: 'Lobster reward', priceLabel: '1.25x' }
       ],
       scores: [],
       detail: {
         bestPick: 'Up',
         bestPrice: 1.74,
         timeLeft: '02:18',
-        infCredits: 58.4,
+        lobsterReward: 58.4,
         insuranceCover: '30% cover'
       }
     }

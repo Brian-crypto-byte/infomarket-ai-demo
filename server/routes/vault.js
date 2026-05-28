@@ -27,7 +27,7 @@ async function handleVault(req, res, pathname, url, db, writeDb) {
     balance.available = Number((balance.available - amount).toFixed(6));
     balance.vault = Number((balance.vault + amount).toFixed(6));
     balance.vaultLockDays = lockDays;
-    ledgerEntry(db, { type: 'vault_deposit', asset: 'USDT', amount, note: `Locked in INFO Vault for ${lockDays} days` });
+    ledgerEntry(db, { type: 'vault_deposit', asset: 'USDT', amount, note: `Locked in GreenX Vault for ${lockDays} days` });
     writeDb(db);
     return sendJson(res, 201, { balance });
   }

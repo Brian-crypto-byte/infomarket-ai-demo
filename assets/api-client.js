@@ -48,7 +48,8 @@ function marketOpenForListing(market) {
 function staticBalance(db) {
   const userId = db.users?.[0]?.id || 'usr_demo';
   db.balances ||= {};
-  db.balances[userId] ||= { available: 25000, frozen: 0, trading: 0, vault: 0, claimable: 0, lockedInf: 0 };
+  db.balances[userId] ||= { available: 25000, frozen: 0, trading: 0, vault: 0, claimable: 0, lockedLobster: 0 };
+  db.balances[userId].lockedLobster ||= 0;
   return db.balances[userId];
 }
 
@@ -138,7 +139,7 @@ async function staticRequest(path, options = {}) {
   if (method === 'GET' && url.pathname === '/ledger') return { items: db.ledger || [] };
   if (method === 'GET' && url.pathname === '/positions') return { items: db.positions || [] };
   if (method === 'GET' && url.pathname === '/insurance/nodes') return { items: db.insuranceNodes || [] };
-  if (method === 'GET' && url.pathname === '/rewards') return { items: db.rewardEntries || [], totalLockedInf: staticBalance(db).lockedInf || 0 };
+  if (method === 'GET' && url.pathname === '/rewards') return { items: db.rewardEntries || [], totalLockedLobster: staticBalance(db).lockedLobster || 0 };
   if (method === 'GET' && url.pathname === '/vault') {
     const balance = staticBalance(db);
     const lockDays = Number(balance.vaultLockDays || 30);
@@ -211,7 +212,7 @@ async function staticRequest(path, options = {}) {
       amountUsdt,
       odds,
       potentialReturnUsdt: Number((amountUsdt * odds).toFixed(6)),
-      infCredits: Number((amountUsdt * 0.125).toFixed(6)),
+      lobsterReward: Number((amountUsdt * 0.125).toFixed(6)),
       insurancePremiumUsdt: body.insuranceEnabled ? Number((amountUsdt * 0.035).toFixed(6)) : 0,
       sellable: !scoreOption(option) && option.sellable !== false,
       risk: { mode: 'static-preview' }

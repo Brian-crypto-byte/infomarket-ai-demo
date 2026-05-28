@@ -1,4 +1,4 @@
-﻿# Backend Build Plan
+# Backend Build Plan
 
 ## Phase 1: API Foundation
 
@@ -78,5 +78,5 @@
 - `chain-watcher`: Solana deposit watcher.
 - `withdrawal-signer`: approved withdrawal broadcaster.
 - `risk-worker`: exposure and anti-abuse checks.
-- `rewards-worker`: daily INF Credits calculations.
+- `rewards-worker`: daily Lobster Token calculations.
 - `vault-worker`: daily vault yield settlement.

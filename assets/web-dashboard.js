@@ -62,12 +62,12 @@ async function loadDashboardData() {
 }
 
 function renderAccount() {
-  const b = dashboardBalance || { available: 12480, frozen: 3250, vault: 24000, lockedInf: 8416.2 };
+  const b = dashboardBalance || { available: 12480, frozen: 3250, vault: 24000, lockedLobster: 8416.2 };
   setText('[data-account="available"]', money(b.available ?? b.availableUsdt ?? 0));
   setText('[data-account="frozen"]', money(b.frozen ?? b.frozenUsdt ?? 0));
   setText('[data-account="vault"]', money(b.vault ?? b.vaultUsdt ?? 0));
-  setText('[data-account="credits"]', money(b.lockedInf ?? b.locked ?? 0));
-  setText('[data-account="lobsterToken"]', money((b.lockedInf ?? b.locked ?? 8416.2) * 1.18));
+  setText('[data-account="credits"]', money(b.lockedLobster ?? b.locked ?? 0));
+  setText('[data-account="lobsterToken"]', money((b.lockedLobster ?? b.locked ?? 8416.2) * 1.18));
   const vault = Number(b.vault ?? b.vaultUsdt ?? 0);
   const level = vault >= 100000 ? t('vault.kingLobsterShort', 'King Lobster')
     : vault >= 50000 ? t('vault.royalLobsterShort', 'Royal Lobster')
@@ -100,7 +100,7 @@ function renderUnlock() {
   const credits = dashboardRewards.reduce((sum, row) => sum + Number(row.credits || 0), 0);
   const insured = dashboardInsurance.reduce((sum, node) => sum + Number(node.maxCoverUsdt || node.maxCover || 0), 0);
   setText('[data-volume-unlock]', `${money(volume)} / 250,000 USDT`);
-  setText('[data-unlockable]', `${money(credits * 0.26)} INF`);
+  setText('[data-unlockable]', `${money(credits * 0.26)} LOB`);
   setText('[data-cover-total]', `${money(insured)} USDT`);
 }
 

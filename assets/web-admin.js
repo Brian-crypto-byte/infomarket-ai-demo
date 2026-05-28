@@ -1,7 +1,7 @@
 ﻿const adminDraftKey = 'infomarket.admin.drafts';
 let markets = [];
 let positions = [];
-let balance = { available: 0, frozen: 0, trading: 0, vault: 0, claimable: 0, lockedInf: 0 };
+let balance = { available: 0, frozen: 0, trading: 0, vault: 0, claimable: 0, lockedLobster: 0 };
 let withdrawals = [];
 let audit = null;
 let risk = { settings: {}, markets: [] };

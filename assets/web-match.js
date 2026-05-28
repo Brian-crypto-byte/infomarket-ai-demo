@@ -1,4 +1,4 @@
-﻿const amount = document.getElementById('amount');
+const amount = document.getElementById('amount');
 const returnValue = document.getElementById('returnValue');
 const oddsGrid = document.querySelector('[data-odds-grid]');
 const scoreGrid = document.querySelector('[data-score-grid]');
@@ -423,7 +423,7 @@ function createOrderModal() {
         <div class="row"><span>${t('order.potentialReturn')}</span><strong data-order-return></strong></div>
         <div class="row"><span>${t('order.tradeRule')}</span><strong data-order-rule></strong></div>
         <div class="row"><span>${t('order.insurance')}</span><strong data-order-insurance></strong></div>
-        <div class="row"><span>${t('order.infCredits')}</span><strong data-order-credits></strong></div>
+        <div class="row"><span>${t('order.lobsterReward')}</span><strong data-order-credits></strong></div>
         <button class="submit" type="button" data-confirm-order>${t('order.confirmPlace')}</button>
         <div class="order-note" style="margin-top:12px;">${t('order.note')}</div>
       </div>
@@ -444,7 +444,7 @@ function createOrderModal() {
       amount: Number(amount.value || 0),
       potentialReturn: Number(returnValue.textContent || 0),
       insurance: market.detail.insuranceCover,
-      credits: market.detail.infCredits,
+      credits: market.detail.lobsterReward,
       status: t('order.open'),
       rule: tradeRuleText()
     };
@@ -460,7 +460,7 @@ function createOrderModal() {
         order.apiOrderId = result.order.id;
         order.apiPositionId = result.position.id;
         order.potentialReturn = result.order.potentialReturnUsdt;
-        order.credits = result.credits;
+        order.credits = result.lobsterReward ?? result.credits ?? 0;
       } else if (window.InfoMarketStore) {
         window.InfoMarketStore.addOrder(order);
       }
@@ -511,7 +511,7 @@ document.querySelector('.submit').addEventListener('click', () => {
   orderModal.querySelector('[data-order-return]').textContent = `${returnValue.textContent} USDT`;
   orderModal.querySelector('[data-order-rule]').textContent = tradeRuleText();
   orderModal.querySelector('[data-order-insurance]').textContent = market.detail.insuranceCover;
-  orderModal.querySelector('[data-order-credits]').textContent = `+${market.detail.infCredits}`;
+  orderModal.querySelector('[data-order-credits]').textContent = `+${market.detail.lobsterReward}`;
   orderModal.classList.add('open');
 });
 
@@ -541,7 +541,7 @@ function initMarket() {
   setText('bestPrice', `${localizedPick(market.detail.bestPick)} @${formatPrice(market.detail.bestPrice)}`);
   setText('timeLeft', market.detail.timeLeft);
   setText('selectedLabel', localizedPick(market.detail.bestPick));
-  setText('infCredits', `+${market.detail.infCredits}`);
+  setText('lobsterReward', `+${market.detail.lobsterReward}`);
   setText('insuranceCover', market.detail.insuranceCover);
   selectedOptionId = market.odds[0]?.id || market.scores[0]?.id || null;
   if (window.InfoMarketBrand) window.InfoMarketBrand.hydrateLogos(document);

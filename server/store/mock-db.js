@@ -8,7 +8,7 @@ function seedDb() {
     users: [
       { id: 'usr_demo', walletAddress: '7Nf8mZkB2q84xV1T9q', walletType: 'Phantom', status: 'active', kycStatus: 'not_submitted', riskTier: 'standard', createdAt: now() }
     ],
-    balances: { usr_demo: { available: 12480, frozen: 3250, trading: 0, vault: 24000, claimable: 180, lockedInf: 8416.2 } },
+    balances: { usr_demo: { available: 12480, frozen: 3250, trading: 0, vault: 24000, claimable: 180, lockedLobster: 8416.2 } },
     markets: [
       {
         id: 'manutd-forest', type: 'football', category: 'sports', title: 'Man Utd vs Forest', league: 'EPL', status: 'live', startsAt: '2026-05-18T14:00:00Z', volumeUsdt: 6450000, score: { home: 3, away: 2 },

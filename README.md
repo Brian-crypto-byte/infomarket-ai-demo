@@ -1,11 +1,11 @@
-﻿# infomarket.ai
+# infomarket.ai
 
 infomarket.ai is a centralized off-chain information prediction trading platform for real-world events. The current repository contains the Web prototype and product specifications for the first production build.
 
 ## Product Scope
 
 - Centralized off-chain order, position, settlement, mining, vault, and insurance accounting.
-- On-chain scope is limited to USDT deposit, USDT withdrawal, and future INF token claim/withdraw.
+- On-chain scope is limited to USDT deposit, USDT withdrawal, and future Lobster Token claim/withdraw.
 - Web-first product. H5 and DApp visual prototypes exist, but current development priority is Web.
 - P2P matching and multi-chain support are intentionally removed from current scope.
 
@@ -32,8 +32,8 @@ Open:
 - Dashboard: `http://127.0.0.1:5173/dashboard.html`
 - Assets: `http://127.0.0.1:5173/assets.html`
 - Positions: `http://127.0.0.1:5173/positions.html`
-- INFO Vault: `http://127.0.0.1:5173/vault.html`
-- INFO Insurance: `http://127.0.0.1:5173/insurance.html`
+- GreenX Vault: `http://127.0.0.1:5173/vault.html`
+- Alpha Insurance: `http://127.0.0.1:5173/insurance.html`
 - Rewards: `http://127.0.0.1:5173/rewards.html`
 - Admin: `http://127.0.0.1:5173/admin.html`
 - Project status: `http://127.0.0.1:5173/project-status.html`
@@ -45,7 +45,7 @@ Open:
 - Correct-score markets are fixed odds and cannot be sold after purchase.
 - Local wallet-login simulation and protected account pages.
 - Internal account buckets: available, frozen, trading, vault, claimable, locked.
-- Local order store, positions, asset ledger, INFO Vault, INFO Insurance, INF Credits rewards, and admin console.
+- Local order store, positions, asset ledger, GreenX Vault, Alpha Insurance, Lobster Token rewards, and admin console.
 
 ## Documentation
 

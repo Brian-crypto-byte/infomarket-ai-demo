@@ -31,7 +31,7 @@ async function loadRewardsData() {
       insurance = ins.items || [];
     } else {
       const store = window.InfoMarketStore;
-      rewardItems = (store?.listLedger?.() || []).filter((entry) => entry.asset === 'INF').map((entry) => ({ sourceType: entry.type, credits: entry.amount, createdAt: entry.createdAt }));
+      rewardItems = (store?.listLedger?.() || []).filter((entry) => entry.asset === 'LOB').map((entry) => ({ sourceType: entry.type, credits: entry.amount, createdAt: entry.createdAt }));
       positions = (store?.listOrders?.() || []).map((order) => ({ amountUsdt: order.amount, marketTitle: order.marketTitle, optionLabel: order.pick, side: '' }));
       balance = store?.getAccount?.() || {};
       insurance = store?.listInsuranceNodes?.() || [];
@@ -39,7 +39,7 @@ async function loadRewardsData() {
   } catch (_) {
     rewardItems = [];
     positions = [];
-    balance = { lockedInf: 0, vault: 0 };
+    balance = { lockedLobster: 0, vault: 0 };
     insurance = [];
   }
   renderSummary();
@@ -56,19 +56,19 @@ function rewardRows() {
     time: row.createdAt || '-'
   }));
   const vaultBalance = Number(balance?.vault ?? balance?.vaultUsdt ?? 0);
-  const vaultCredits = vaultBalance * 0.0018;
-  const insuranceCredits = insurance.reduce((sum, node) => sum + Number(node.premiumUsdt || node.premium || 0) * 0.42, 0);
+  const vaultRewards = vaultBalance * 0.0018;
+  const insuranceRewards = insurance.reduce((sum, node) => sum + Number(node.premiumUsdt || node.premium || 0) * 0.42, 0);
   return [
     ...orderRows,
-    { source: t('reward.vaultBoost'), credits: vaultCredits, multiplier: '1.35x', time: t('reward.daily') },
-    { source: t('reward.insuranceBoost'), credits: insuranceCredits, multiplier: '1.10x', time: t('reward.daily') },
+    { source: t('reward.vaultBoost'), credits: vaultRewards, multiplier: '1.35x', time: t('reward.daily') },
+    { source: t('reward.insuranceBoost'), credits: insuranceRewards, multiplier: '1.10x', time: t('reward.daily') },
     { source: t('reward.referralRebate'), credits: 318.6, multiplier: '-', time: t('reward.campaign') }
   ].filter((row) => row.credits > 0);
 }
 
 function renderSummary() {
   const rows = rewardRows();
-  const total = Number(balance?.lockedInf ?? balance?.locked ?? 0) + 318.6;
+  const total = Number(balance?.lockedLobster ?? balance?.locked ?? 0) + 318.6;
   const today = rows.slice(0, 4).reduce((sum, row) => sum + Number(row.credits || 0), 0);
   const unlocked = Math.min(total * unlockProgress(), total);
   document.querySelector('[data-reward="total"]').textContent = money(total);
@@ -116,7 +116,7 @@ function renderTasks() {
   const volume = positions.reduce((sum, pos) => sum + Number(pos.amountUsdt || pos.amount || 0), 0);
   const vault = Number(balance?.vault ?? balance?.vaultUsdt ?? 0);
   const tasks = [
-    { title: t('task.firstOrder'), desc: '+50 INF Credits', done: positions.length > 0 },
+    { title: t('task.firstOrder'), desc: '+50 Lobster Token', done: positions.length > 0 },
     { title: t('task.tradeVolume'), desc: `${money(volume)} / 10,000 USDT`, done: volume >= 10000 },
     { title: t('task.depositVault'), desc: `${money(vault)} USDT ${t('task.inVault')}`, done: vault > 0 },
     { title: t('task.useInsurance'), desc: `${insurance.length} ${t('task.insuranceNodes')}`, done: insurance.length > 0 }
@@ -137,8 +137,8 @@ document.querySelector('[data-copy-referral]')?.addEventListener('click', async 
   setTimeout(() => ok.classList.remove('open'), 1500);
 });
 
-document.querySelector('[data-claim-inf]')?.addEventListener('click', () => {
-  document.querySelector('[data-claim-inf]').textContent = t('rewards.claimQueued');
+document.querySelector('[data-claim-lobster]')?.addEventListener('click', () => {
+  document.querySelector('[data-claim-lobster]').textContent = t('rewards.claimQueued');
 });
 
 loadRewardsData();

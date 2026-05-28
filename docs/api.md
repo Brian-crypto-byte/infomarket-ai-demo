@@ -1,4 +1,4 @@
-﻿# API Draft
+# API Draft
 
 Base path: `/api/v1`
 
@@ -92,7 +92,7 @@ Request:
 
 ### POST `/orders/quote`
 
-Returns estimated return, fees, INF Credits, and insurance premium.
+Returns estimated return, fees, Lobster Token, and insurance premium.
 
 ### POST `/orders`
 
@@ -136,7 +136,7 @@ Response:
   "trading": "500.00",
   "vault": "24000.00",
   "claimable": "180.00",
-  "lockedInf": "8416.20"
+  "lockedLobster": "8416.20"
 }
 ```
 
@@ -180,11 +180,11 @@ Claims current period payout.
 
 ### GET `/rewards`
 
-Returns INF Credits summary, unlock progress, tasks, and reward ledger.
+Returns Lobster Token summary, unlock progress, tasks, and reward ledger.
 
 ### POST `/rewards/claim-inf`
 
-Claims unlocked INF token allocation.
+Claims unlocked Lobster Token allocation.
 
 ## Admin
 

@@ -13,7 +13,7 @@ async function handleOrders(req, res, pathname, url, db, writeDb) {
     const potentialReturnUsdt = Number((amount * odds).toFixed(6));
     try {
       const risk = validateOrderRisk(db, found, side, amount, potentialReturnUsdt);
-      return sendJson(res, 200, { marketId: found.market.id, optionId: found.option.id, side, amountUsdt: amount, odds, potentialReturnUsdt, infCredits: Number((amount * 0.125).toFixed(6)), insurancePremiumUsdt: body.insuranceEnabled ? Number((amount * 0.035).toFixed(6)) : 0, sellable: found.option.sellable, risk: risk.exposure });
+      return sendJson(res, 200, { marketId: found.market.id, optionId: found.option.id, side, amountUsdt: amount, odds, potentialReturnUsdt, lobsterReward: Number((amount * 0.125).toFixed(6)), insurancePremiumUsdt: body.insuranceEnabled ? Number((amount * 0.035).toFixed(6)) : 0, sellable: found.option.sellable, risk: risk.exposure });
     } catch (error) {
       return sendError(res, 400, error.message);
     }

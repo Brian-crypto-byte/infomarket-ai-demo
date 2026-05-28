@@ -1,8 +1,8 @@
-﻿# Product Rules
+# Product Rules
 
 ## Platform Model
 
-infomarket.ai is a centralized off-chain prediction market. Users deposit USDT on-chain, then trade through an internal ledger. Orders, balances, settlements, INF Credits, vault positions, and insurance nodes are handled off-chain.
+infomarket.ai is a centralized off-chain prediction market. Users deposit USDT on-chain, then trade through an internal ledger. Orders, balances, settlements, Lobster Token, vault positions, and insurance nodes are handled off-chain.
 
 ## Removed Scope
 
@@ -79,7 +79,7 @@ Order lifecycle:
 3. System checks internal balance, market availability, odds version, and platform exposure.
 4. Internal ledger freezes amount.
 5. Position is created.
-6. INF Credits and insurance premium entries are recorded if applicable.
+6. Lobster Token and insurance premium entries are recorded if applicable.
 7. Settlement resolves the position and releases funds.
 
 ## Internal Balance Buckets
@@ -87,13 +87,13 @@ Order lifecycle:
 - available: spendable USDT.
 - frozen: USDT locked by open orders or withdrawal review.
 - trading: USDT currently exposed to active positions.
-- vault: USDT deposited into INFO Vault.
+- vault: USDT deposited into GreenX Vault.
 - claimable: USDT available to claim from settlement, vault yield, or insurance payout.
-- locked: locked INF Credits / locked INF allocation.
+- locked: locked Lobster Token / locked Lobster Token allocation.
 
-## INFO Vault
+## GreenX Vault
 
-Users can lock available USDT into fixed-term vault plans: 7, 15, 30, 60, or 180 days. Vault balance earns base yield and INF Credits boost. Principal can be withdrawn back to available balance after the lock expires. The first version is internal-ledger based.
+Users can lock available USDT into fixed-term vault plans: 7, 15, 30, 60, or 180 days. Vault balance earns base yield and Lobster Token boost. Principal can be withdrawn back to available balance after the lock expires. The first version is internal-ledger based.
 
 ## Alpha Insurance
 
@@ -106,9 +106,9 @@ Insurance nodes:
 - Cannot be transferred.
 - Pay out by schedule based on pool health, user risk tier, and order type.
 
-## INF Credits
+## Lobster Token
 
-INF Credits are locked INF token allocation. They cannot be transferred or withdrawn until unlocked.
+Lobster Token are locked Lobster Token allocation. They cannot be transferred or withdrawn until unlocked.
 
 Unlock factors:
 

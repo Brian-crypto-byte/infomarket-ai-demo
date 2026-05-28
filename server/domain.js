@@ -1,4 +1,4 @@
-﻿const { id, now } = require('./utils');
+const { id, now } = require('./utils');
 
 function getDemoUser(db) {
   db.users ||= [];
@@ -18,7 +18,8 @@ function getDemoUser(db) {
 
 function getBalance(db, userId) {
   db.balances ||= {};
-  db.balances[userId] ||= { available: 0, frozen: 0, trading: 0, vault: 0, claimable: 0, lockedInf: 0 };
+  db.balances[userId] ||= { available: 0, frozen: 0, trading: 0, vault: 0, claimable: 0, lockedLobster: 0 };
+  db.balances[userId].lockedLobster ||= 0;
   return db.balances[userId];
 }
 
@@ -130,9 +131,9 @@ function createOrder(db, body, extraMarkets = []) {
   balance.available = Number((balance.available - amount).toFixed(6));
   balance.frozen = Number((balance.frozen + amount).toFixed(6));
   balance.trading = Number((balance.trading + amount).toFixed(6));
-  balance.lockedInf = Number((balance.lockedInf + credits).toFixed(6));
+  balance.lockedLobster = Number((balance.lockedLobster + credits).toFixed(6));
   ledgerEntry(db, { type: 'order_frozen', asset: 'USDT', amount: -amount, refType: 'order', refId: order.id, note: `${found.market.title} / ${found.option.label} ${side}` });
-  ledgerEntry(db, { type: 'inf_credits', asset: 'INF', amount: credits, refType: 'order', refId: order.id, note: 'Trading mining reward' });
+  ledgerEntry(db, { type: 'lobster_reward', asset: 'LOB', amount: credits, refType: 'order', refId: order.id, note: 'Trading mining reward' });
   if (order.insuranceEnabled) {
     const premium = Number((amount * 0.035).toFixed(6));
     const maxCover = Number((amount * 0.4).toFixed(6));
@@ -144,7 +145,7 @@ function createOrder(db, body, extraMarkets = []) {
     balance.available = Number((balance.available - premium).toFixed(6));
     ledgerEntry(db, { type: 'insurance_premium', asset: 'USDT', amount: -premium, refType: 'order', refId: order.id, note: 'Alpha Insurance premium' });
   }
-  return { order, position, credits, risk: risk.exposure };
+  return { order, position, lobsterReward: credits, risk: risk.exposure };
 }
 
 function settleMarket(db, marketId, winningOptionId, winningSide = 'YES') {

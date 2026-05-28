@@ -4,9 +4,9 @@ const modules = [
   ['Orders', 'Local order confirmation, positions, and frozen ledger entries', true],
   ['Dashboard', 'Account summary, positions, unlock progress, quick actions', true],
   ['Assets', 'USDT deposit/withdraw prototype and internal balance buckets', true],
-  ['INFO Vault', 'Deposit/withdraw flow connected to account buckets', true],
-  ['INFO Insurance', 'Payout nodes, claim flow, premium ledger entries', true],
-  ['Rewards', 'INF Credits, unlock progress, tasks, referrals, leaderboard', true],
+  ['GreenX Vault', 'Deposit/withdraw flow connected to account buckets', true],
+  ['Alpha Insurance', 'Payout nodes, claim flow, premium ledger entries', true],
+  ['Rewards', 'Lobster Token, unlock progress, tasks, referrals, leaderboard', true],
   ['Admin', 'Market creation, odds editor, score lines, settlement, withdrawal review', true],
   ['Backend', 'API, DB, Solana watcher, risk engine', false]
 ];

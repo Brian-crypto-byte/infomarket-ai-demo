@@ -19,7 +19,7 @@
       "trading": 5,
       "vault": 0,
       "claimable": 180,
-      "lockedInf": 8417.45
+      "lockedLobster": 8417.45
     }
   },
   "markets": [
@@ -83217,8 +83217,8 @@
       "userId": "usr_demo",
       "status": "booked",
       "createdAt": "2026-05-19T04:54:41.008Z",
-      "type": "inf_credits",
-      "asset": "INF",
+      "type": "lobster_reward",
+      "asset": "LOB",
       "amount": 0.625,
       "refType": "order",
       "refId": "ord_1779166481008_4f9c6e",
@@ -83253,8 +83253,8 @@
       "userId": "usr_demo",
       "status": "booked",
       "createdAt": "2026-05-18T04:20:34.461Z",
-      "type": "inf_credits",
-      "asset": "INF",
+      "type": "lobster_reward",
+      "asset": "LOB",
       "amount": 0.625,
       "refType": "order",
       "refId": "ord_1779078034461_756017",
