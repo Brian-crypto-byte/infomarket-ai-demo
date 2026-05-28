@@ -168,7 +168,20 @@ function renderScorePreview(market) {
           <span class="no">${t('market.no')} ${formatPrice(score.no)}</span>
         </button>
       `).join('')}
+      ${renderLobsterParticipation()}
       <button class="more-score" type="button" onclick="event.stopPropagation();location.href='match.html?market=${esc(market.id)}'">${t('market.moreScores')}</button>
+    </div>
+  `;
+}
+
+function renderLobsterParticipation() {
+  return `
+    <div class="lobster-strip" aria-label="Lobster prediction participation">
+      <span class="lobster-tier king"><i>帝</i>帝王龙虾 <strong>× 7</strong></span>
+      <span class="lobster-tier royal"><i>皇</i>皇龙虾 <strong>× 19</strong></span>
+      <span class="lobster-tier big"><i>大</i>大龙虾 <strong>× 43</strong></span>
+      <span class="lobster-tier mid"><i>中</i>中龙虾 <strong class="hot">× 126</strong></span>
+      <b>正在参与预测</b>
     </div>
   `;
 }

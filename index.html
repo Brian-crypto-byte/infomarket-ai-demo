@@ -532,6 +532,60 @@
       font-size: var(--font-base);
       font-weight: 650;
     }
+    .lobster-strip {
+      grid-column: 1 / -1;
+      min-height: 38px;
+      border: 1px solid rgba(38, 103, 86, .14);
+      border-radius: 13px;
+      background: linear-gradient(180deg, rgba(250, 255, 252, .96), rgba(255, 255, 255, .98));
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 7px 10px;
+      padding: 8px 10px;
+      color: #3f4752;
+      font-size: 12px;
+      font-weight: 590;
+    }
+    .lobster-tier {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
+    }
+    .lobster-tier i {
+      width: 17px;
+      height: 17px;
+      border-radius: 6px;
+      display: inline-grid;
+      place-items: center;
+      color: #fff;
+      font-size: 10px;
+      font-style: normal;
+      font-weight: 720;
+      line-height: 1;
+    }
+    .lobster-tier strong {
+      font-size: 13px;
+      font-weight: 760;
+      letter-spacing: -0.02em;
+    }
+    .lobster-tier strong.hot { font-size: 14px; font-weight: 820; }
+    .lobster-tier.king { color: #9a7418; }
+    .lobster-tier.king i { background: linear-gradient(145deg, #f2c84c, #a97813); }
+    .lobster-tier.royal { color: #7251b6; }
+    .lobster-tier.royal i { background: linear-gradient(145deg, #9b7bf2, #5b3aa4); }
+    .lobster-tier.big { color: #2f6ebd; }
+    .lobster-tier.big i { background: linear-gradient(145deg, #67a6f4, #265ea8); }
+    .lobster-tier.mid { color: #3f8c5f; }
+    .lobster-tier.mid i { background: linear-gradient(145deg, #69bd7f, #2d824f); }
+    .lobster-strip > b {
+      margin-left: auto;
+      color: #2d9a62;
+      font-size: 13px;
+      font-weight: 760;
+      white-space: nowrap;
+    }
     .binary-card {
       min-height: 206px;
       align-content: start;
@@ -580,6 +634,11 @@
       .result-btn { min-height: 50px; font-size: var(--font-sm); border-radius: 12px; }
       .result-btn strong { min-height: 21px; font-size: 10px; padding: 0 4px; }
       .score-preview { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .lobster-strip { min-height: 34px; gap: 6px 8px; padding: 7px 9px; font-size: 11px; }
+      .lobster-tier i { width: 16px; height: 16px; border-radius: 5px; font-size: 9px; }
+      .lobster-tier strong { font-size: 12px; }
+      .lobster-tier strong.hot { font-size: 13px; }
+      .lobster-strip > b { margin-left: 0; width: 100%; }
       .match-card { border-radius: 24px; padding: 14px; }
       .match-inner { border-radius: 20px; padding: 18px 14px 14px; }
       .versus-row { grid-template-columns: minmax(0, 1fr) 108px minmax(0, 1fr); gap: 10px; }
@@ -644,7 +703,7 @@
   <script src="assets/brand-ui.js?v=teamfix2"></script>
   <script src="assets/web-data.js"></script>
   <script src="assets/market-normalizer.js"></script>
-  <script src="assets/web-home.js?v=polyfill1"></script>
+  <script src="assets/web-home.js?v=lobster-live1"></script>
   <script src="assets/web-shell.js"></script>
 </body>
 </html>
