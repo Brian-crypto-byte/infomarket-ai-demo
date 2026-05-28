@@ -95,7 +95,9 @@ function renderVault() {
   setText('[data-vault="balance"]', `${money(principal)} USDT`);
   setText('[data-vault="level"]', levelForDeposit(principal));
   setText('[data-vault="dailyYield"]', `${money(dailyYield)} USDT`);
-  setText('[data-vault="lobsterStake"]', `${money(6800 + Math.floor(principal / 10))} LOB`);
+  setText('[data-vault="confidence"]', `${Math.min(92, 76 + Math.floor(lockDays / 30))}%`);
+  setText('[data-vault-agent-capital]', `${money(principal)} USDT`);
+  setText('[data-vault-agent-pnl]', `+${money(Math.max(12.8, dailyYield * 0.18))}`);
   setText('[data-vault-account="available"]', `${money(account.available)} USDT`);
   setText('[data-vault-account="principal"]', `${money(principal)} USDT`);
   setText('[data-vault-account="yield"]', `${money(y)} USDT`);
@@ -103,6 +105,7 @@ function renderVault() {
   setText('[data-vault-account="term"]', `${lockDays} ${document.documentElement.lang === 'zh-CN' ? '天' : 'days'}`);
   setText('[data-vault-account="unlock"]', principal > 0 ? `T + ${lockDays} ${document.documentElement.lang === 'zh-CN' ? '天' : 'days'}` : t('vault.afterDeposit'));
   setText('[data-vault-ai]', t(`vault.aiTerm${lockDays}`));
+  renderAgentLogs(principal, lockDays);
 
   const body = document.querySelector('[data-vault-ledger] tbody');
   const entries = latestLedger.filter((entry) => ['Vault deposit', 'Vault withdraw', 'vault_deposit', 'vault_withdraw'].includes(entry.type));
@@ -120,6 +123,40 @@ function renderVault() {
   `).join('');
 }
 
+function renderAgentLogs(principal, lockDays) {
+  const terminal = document.querySelector('[data-agent-terminal]');
+  const records = document.querySelector('[data-agent-records]');
+  const period = new Date().toISOString().replace('T', ' ').slice(0, 19);
+  const exposure = Math.max(50, principal * 0.08);
+  const prediction = (0.00031 + lockDays / 1000000).toFixed(12);
+  if (terminal) {
+    terminal.innerHTML = [
+      'OneAgentBot Event Prediction Monitoring Platform',
+      '------------------------------------------------------------',
+      `[PERIOD]      ${period} +UTC`,
+      `[STRATEGY]    A3 Flexible Prediction Strategy T7`,
+      `[PRODUCTION]  ${prediction}`,
+      `[CAPITAL]     ${money(principal)} USDT`,
+      `[STATUS]      Bot initialization complete`,
+      `[SIGNAL]      Seoul FC match result edge detected`,
+      `[ACTION]      Buy YES / correct-score hedge basket`,
+      `[EXPOSURE]    ${money(exposure)} USDT max per market`,
+      `[PNL]         +${money(Math.max(12.8, principal * dailyRateForTerm(lockDays) * 0.18))} USDT realized`
+    ].map((line) => `<div>${line}</div>`).join('');
+  }
+  if (records) {
+    records.innerHTML = [
+      `[INFO] Operation ID: ${Math.floor(190000 + lockDays * 17)}-${Math.floor(principal || 1000)}`,
+      `[INFO] Market scan: football 198, crypto 7, esports 7`,
+      `[INFO] Portfolio mode: event prediction / fixed-odds`,
+      `[INFO] Gross profit: ${money(Math.max(18, principal * 0.006))}`,
+      `[INFO] Fees paid with Lobster Token: ${money(Math.max(0.8, principal * 0.00012))} LOB`,
+      `[INFO] Net profit: ${money(Math.max(12.8, principal * 0.0048))}`,
+      `[INFO] Next rebalance: T+30min`
+    ].map((line) => `<div>${line}</div>`).join('');
+  }
+}
+
 function setAction(action) {
   activeAction = action;
   document.querySelectorAll('[data-vault-action]').forEach((button) => button.classList.toggle('active', button.dataset.vaultAction === action));
@@ -130,6 +167,17 @@ function setAction(action) {
     : t('vault.withdrawNote');
   setText('[data-vault-ai]', t(`vault.aiTerm${activeLockDays}`));
 }
+
+document.querySelectorAll('[data-agent-tab]').forEach((button) => {
+  button.addEventListener('click', () => {
+    document.querySelectorAll('[data-agent-tab]').forEach((item) => item.classList.toggle('active', item === button));
+    document.querySelectorAll('[data-agent-pane]').forEach((pane) => pane.classList.toggle('active', pane.dataset.agentPane === button.dataset.agentTab));
+  });
+});
+
+document.querySelector('[data-scroll-deploy]')?.addEventListener('click', () => {
+  document.querySelector('[data-vault-amount]')?.focus();
+});
 
 document.querySelectorAll('[data-vault-action]').forEach((button) => {
   button.addEventListener('click', () => setAction(button.dataset.vaultAction));

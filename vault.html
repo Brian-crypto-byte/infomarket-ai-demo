@@ -3,51 +3,77 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>GreenX Vault - infomarket.ai</title>
+  <title>AI Agent Vault - infomarket.ai</title>
   <link rel="stylesheet" href="assets/app.css" />
 </head>
 <body>
-  <script src="assets/i18n.js?v=greenx1"></script>
+  <script src="assets/i18n.js?v=agent-vault1"></script>
   <script src="assets/page-shell.js"></script>
-  <script>document.write(appHeader('GreenX Vault'));</script>
+  <script>document.write(appHeader('AI Agent Vault'));</script>
 
   <main class="app-shell">
     <a class="back-link" href="dashboard.html" data-i18n="common.backDashboard">Back to dashboard</a>
     <section class="hero-panel">
       <div class="page-head" style="margin-bottom:0">
         <div>
-          <h1 data-i18n="vault.title">GreenX Vault</h1>
-          <div class="sub" data-i18n="vault.subtitle">Deposit USDT to upgrade your GreenX lobster level, choose a fixed lock term, and use AI recommendations to balance yield and liquidity.</div>
+          <h1 data-i18n="vault.title">AI Agent Vault</h1>
+          <div class="sub" data-i18n="vault.subtitle">Deploy USDT to an AI prediction agent. The agent evaluates event markets, places risk-controlled prediction orders, and returns realized yield to the vault.</div>
         </div>
-        <div><span class="badge green" data-i18n="vault.aiOptimized">AI optimized</span></div>
+        <div><span class="badge green" data-i18n="vault.aiOptimized">AI event strategy</span></div>
       </div>
     </section>
 
     <section class="cards">
-      <div class="card"><span data-i18n="vault.myVault">My vault</span><strong data-vault="balance">0</strong></div>
+      <div class="card"><span data-i18n="vault.myVault">Deployed capital</span><strong data-vault="balance">0</strong></div>
       <div class="card"><span data-i18n="vault.greenxLevel">Lobster level</span><strong class="amber" data-vault="level">Big Lobster</strong></div>
-      <div class="card"><span data-i18n="vault.dailyYield">Daily yield</span><strong class="green" data-vault="dailyYield">0</strong></div>
-      <div class="card"><span data-i18n="vault.lobsterStake">Staked Lobster</span><strong class="green" data-vault="lobsterStake">6,800 LOB</strong></div>
+      <div class="card"><span data-i18n="vault.dailyYield">Agent yield today</span><strong class="green" data-vault="dailyYield">0</strong></div>
+      <div class="card"><span data-i18n="vault.lobsterStake">Strategy confidence</span><strong class="green" data-vault="confidence">82%</strong></div>
     </section>
 
     <div class="layout">
       <section>
+        <div class="agent-card">
+          <div class="agent-title">
+            <div>
+              <strong data-i18n="vault.agentName">A3 Flexible Prediction Strategy T7</strong>
+              <span data-i18n="vault.agentDesc">Multi-market AI strategy for football, crypto, esports, and news event prediction.</span>
+            </div>
+            <span class="badge green" data-i18n="vault.running">Running</span>
+          </div>
+          <div class="agent-metrics">
+            <div><strong>15~30%</strong><span data-i18n="vault.guardApr">Guarded APR</span></div>
+            <div><strong>7D</strong><span data-i18n="vault.cycle">Cycle</span></div>
+            <div><strong data-vault-agent-pnl>+42.18</strong><span>USDT PnL</span></div>
+          </div>
+          <button class="btn primary agent-deploy" data-scroll-deploy data-i18n="vault.addDeployment">Add deployment</button>
+        </div>
+
         <div class="panel">
-          <div class="panel-title-row"><h2 data-i18n="vault.yieldCurve">Yield curve</h2><span class="badge green" data-i18n="vault.dailySettlement">Daily settlement</span></div>
-          <div class="chart">
-            <svg viewBox="0 0 900 220" preserveAspectRatio="none">
-              <path d="M0 160 C120 140,180 150,280 116 S430 102,520 84 S690 70,900 48" fill="none" stroke="#55a873" stroke-width="4"/>
-              <path d="M0 160 C120 140,180 150,280 116 S430 102,520 84 S690 70,900 48 L900 220 L0 220 Z" fill="rgba(85,168,115,.10)"/>
-            </svg>
+          <div class="agent-tabs">
+            <button class="agent-tab active" data-agent-tab="deployed" data-i18n="vault.deployed">Deployed</button>
+            <button class="agent-tab" data-agent-tab="monitor" data-i18n="vault.monitor">Live monitor</button>
+            <button class="agent-tab" data-agent-tab="records" data-i18n="vault.records">Run records</button>
+          </div>
+          <div class="agent-pane active" data-agent-pane="deployed">
+            <div class="row"><span data-i18n="vault.agentCapital">Agent capital</span><strong data-vault-agent-capital>0 USDT</strong></div>
+            <div class="row"><span data-i18n="vault.marketScope">Market scope</span><strong data-i18n="vault.marketScopeValue">Football / Crypto / Esports / News</strong></div>
+            <div class="row"><span data-i18n="vault.riskControl">Risk control</span><strong data-i18n="vault.riskControlValue">Single market exposure capped at 8%</strong></div>
+            <div class="row"><span data-i18n="vault.settlementRule">Settlement</span><strong data-i18n="vault.settlementRuleValue">Realized PnL settles to vault daily</strong></div>
+          </div>
+          <div class="agent-pane" data-agent-pane="monitor">
+            <div class="terminal" data-agent-terminal></div>
+          </div>
+          <div class="agent-pane" data-agent-pane="records">
+            <div class="terminal compact" data-agent-records></div>
           </div>
         </div>
         <div class="panel">
-          <h2 data-i18n="vault.rules">Vault rules</h2>
+          <h2 data-i18n="vault.rules">AI vault rules</h2>
           <div class="row"><span data-i18n="vault.terms">Vault terms</span><strong data-i18n="vault.termsValue">7 / 30 / 90 / 180 / 360 days</strong></div>
-          <div class="row"><span data-i18n="vault.yieldSettlement">Yield settlement</span><strong data-i18n="vault.dailySettlement">Daily settlement</strong></div>
+          <div class="row"><span data-i18n="vault.yieldSettlement">Yield settlement</span><strong data-i18n="vault.dailySettlement">Daily realized PnL</strong></div>
           <div class="row"><span data-i18n="vault.levelRule">Level rule</span><strong data-i18n="vault.levelRuleValue">Cumulative valid USDT deposits upgrade lobster level</strong></div>
-          <div class="row"><span data-i18n="vault.marketSeparate">Prediction market</span><strong data-i18n="vault.marketSeparateValue">USDT trading stays independent from vault level</strong></div>
-          <div class="row"><span data-i18n="vault.lobsterBoost">Lobster Token stake</span><strong data-i18n="vault.lobsterBoostValue">Accelerates level validity or extends duration</strong></div>
+          <div class="row"><span data-i18n="vault.marketSeparate">Prediction market</span><strong data-i18n="vault.marketSeparateValue">AI strategy participates with vault capital, user manual trading stays independent</strong></div>
+          <div class="row"><span data-i18n="vault.lobsterBoost">Lobster Token stake</span><strong data-i18n="vault.lobsterBoostValue">Improves agent priority and fee discount</strong></div>
         </div>
         <div class="panel">
           <div class="panel-title-row"><h2 data-i18n="vault.ledger">Vault ledger</h2><button class="btn" onclick="location.href='assets.html'" data-i18n="common.openAssets">Open assets</button></div>
@@ -60,16 +86,16 @@
 
       <aside>
         <div class="panel">
-          <h2 data-i18n="vault.manage">Manage vault</h2>
+          <h2 data-i18n="vault.manage">Deploy AI agent</h2>
           <div class="segmented two"><button class="tab active" data-vault-action="deposit" data-i18n="vault.deposit">Deposit</button><button class="tab" data-vault-action="withdraw" data-i18n="vault.withdrawAction">Withdraw</button></div>
           <div class="field" data-vault-term-wrap><label data-i18n="vault.lockTerm">Lock term</label><div class="segmented" style="grid-template-columns:repeat(5,minmax(0,1fr))"><button class="tab active" data-vault-term="7">7D</button><button class="tab" data-vault-term="30">30D</button><button class="tab" data-vault-term="90">90D</button><button class="tab" data-vault-term="180">180D</button><button class="tab" data-vault-term="360">360D</button></div></div>
           <div class="field"><label data-i18n="vault.amount">Amount</label><div class="input"><input class="big" data-vault-amount value="1000" inputmode="decimal"><span>USDT</span></div></div>
           <div class="ai-callout">
             <strong data-i18n="vault.aiRecommendation">AI recommendation</strong>
-            <span data-vault-ai>30D balances fixed daily yield with better liquidity.</span>
+            <span data-vault-ai>30D cycle lets the agent run across sports, crypto, and news event windows with balanced liquidity.</span>
           </div>
-          <button class="btn primary" style="width:100%" data-vault-submit data-i18n="vault.confirmDeposit">Confirm deposit</button>
-          <div class="muted-note" style="margin-top:10px;" data-vault-note>Moves USDT from available balance into INFO Vault.</div>
+          <button class="btn primary" style="width:100%" data-vault-submit data-i18n="vault.confirmDeposit">Deploy to AI agent</button>
+          <div class="muted-note" style="margin-top:10px;" data-vault-note>Deploys USDT from available balance into the AI prediction agent.</div>
         </div>
         <div class="panel">
           <h2 data-i18n="vault.levelMap">Lobster level map</h2>
@@ -93,7 +119,7 @@
 
   <script src="assets/api-client.js?v=football-refresh1"></script>
   <script src="assets/web-store.js"></script>
-  <script src="assets/web-vault.js?v=greenx1"></script>
+  <script src="assets/web-vault.js?v=agent-vault1"></script>
   <script src="assets/brand-ui.js"></script>
   <script src="assets/web-shell.js"></script>
 </body>
