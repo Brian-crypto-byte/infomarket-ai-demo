@@ -168,19 +168,48 @@ function renderScorePreview(market) {
           <span class="no">${t('market.no')} ${formatPrice(score.no)}</span>
         </button>
       `).join('')}
-      ${renderLobsterParticipation()}
+      ${renderLobsterParticipation(market)}
       <button class="more-score" type="button" onclick="event.stopPropagation();location.href='match.html?market=${esc(market.id)}'">${t('market.moreScores')}</button>
     </div>
   `;
 }
 
-function renderLobsterParticipation() {
+function seededRandom(seed) {
+  let hash = 2166136261;
+  String(seed || '').split('').forEach((char) => {
+    hash ^= char.charCodeAt(0);
+    hash = Math.imul(hash, 16777619);
+  });
+  return () => {
+    hash += 0x6D2B79F5;
+    let value = hash;
+    value = Math.imul(value ^ (value >>> 15), value | 1);
+    value ^= value + Math.imul(value ^ (value >>> 7), value | 61);
+    return ((value ^ (value >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+function lobsterParticipationCounts(market) {
+  const rand = seededRandom(`${market.id}:${market.title}:${market.startsAt}`);
+  const volumeNumber = Number(String(market.volume || '').replace(/[^\d.]/g, ''));
+  const heat = Number.isFinite(volumeNumber) && volumeNumber > 0 ? Math.min(1.8, Math.max(0.75, volumeNumber / 180000)) : 1;
+  const range = (min, max) => Math.round((min + rand() * (max - min)) * heat);
+  return {
+    king: Math.max(1, range(2, 12)),
+    royal: Math.max(4, range(8, 32)),
+    big: Math.max(12, range(24, 78)),
+    mid: Math.max(36, range(72, 220))
+  };
+}
+
+function renderLobsterParticipation(market) {
+  const counts = lobsterParticipationCounts(market);
   return `
     <div class="lobster-strip" aria-label="龙虾正在参与预测">
       <div class="lobster-marquee" aria-hidden="true">
         <div class="lobster-track">
-          ${renderLobsterTickerItems()}
-          ${renderLobsterTickerItems()}
+          ${renderLobsterTickerItems(counts)}
+          ${renderLobsterTickerItems(counts)}
         </div>
       </div>
       <b>正在参与预测</b>
@@ -188,12 +217,12 @@ function renderLobsterParticipation() {
   `;
 }
 
-function renderLobsterTickerItems() {
+function renderLobsterTickerItems(counts) {
   return `
-    <span class="lobster-tier king"><i>帝</i>帝王龙虾 <strong>× 7</strong></span>
-    <span class="lobster-tier royal"><i>皇</i>皇龙虾 <strong>× 19</strong></span>
-    <span class="lobster-tier big"><i>大</i>大龙虾 <strong>× 43</strong></span>
-    <span class="lobster-tier mid"><i>中</i>中龙虾 <strong class="hot">× 126</strong></span>
+    <span class="lobster-tier king"><i>帝</i>帝王龙虾 <strong>× ${counts.king}</strong></span>
+    <span class="lobster-tier royal"><i>皇</i>皇龙虾 <strong>× ${counts.royal}</strong></span>
+    <span class="lobster-tier big"><i>大</i>大龙虾 <strong>× ${counts.big}</strong></span>
+    <span class="lobster-tier mid"><i>中</i>中龙虾 <strong class="hot">× ${counts.mid}</strong></span>
   `;
 }
 
